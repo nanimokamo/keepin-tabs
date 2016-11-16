@@ -1,0 +1,56 @@
+@import 'assets/styles/_fonts';
+@import 'assets/styles/_reset';
+@import 'assets/styles/_mixins';
+@import 'assets/styles/_variables';
+
+html, body {
+	height: 100%;
+}
+
+body {
+	background-color: $white;
+	color: $black;
+	font-family: "Roboto Regular";
+	font-size: 100%;
+	overflow: auto;
+	-webkit-font-smoothing: antialiased;
+}
+
+.button {
+	border: 0;
+	background: linear-gradient(to bottom, #8375ff, #8b48ff);
+	color: $white;
+	padding: 0.5em 1em;
+	display: block;
+	width: 100%;
+	border-radius: 3px;
+}
+
+.text-input {
+	border: 0;
+	background-color: transparent;
+	padding: 0;
+	line-height: normal;
+	width: 100%;
+	display: inline-block;
+	font-size: 18px;
+	font-family: inherit;
+	color: inherit;
+
+	&::-webkit-input-placeholder {
+		font: inherit;
+		color: rgba($white, 0.7);
+	}
+
+	&.text-input--theme-dark::-webkit-input-placeholder {
+		color: rgba($white, 0.7);
+	}
+	&.text-input--theme-light::-webkit-input-placeholder {
+		color: rgba($medium-grey, 0.7);
+	}
+}
+
+@import 'components/App/style.scss';
+@import 'components/Icon/style.scss';
+@import 'components/TabsList/style.scss';
+@import 'components/TextInput/style.scss';

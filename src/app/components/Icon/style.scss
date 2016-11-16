@@ -1,0 +1,34 @@
+@import '../../assets/styles/_mixins';
+
+.icon-button {
+	border: 0;
+	background-color: transparent;
+	outline: none;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+
+	&[disabled] {
+		opacity: 0.5;
+		pointer-events: none;
+	}
+}
+
+.icon {
+	display: block;
+	height: em(24px);
+	width: em(24px);
+
+	&[data-name="pin"] {
+		svg {
+			@include size(100%);
+		}
+	}
+
+	svg {
+		transition: fill 0.15s ease;
+		display: inline-block;
+	    @include size(100%);
+	}
+}

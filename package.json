@@ -1,0 +1,49 @@
+{
+  "name": "keepin-tabs-v2",
+  "description": "Manage your tabs.",
+  "scripts": {
+    "start": "npm run gulp",
+    "gulp": "./node_modules/.bin/gulp --gulpfile ./build/gulpfile.js --env development",
+    "build": "./node_modules/.bin/gulp build --gulpfile ./build/gulpfile.js --env production"
+  },
+  "version": "0.0.1",
+  "devDependencies": {
+    "babel": "6.5.2",
+    "babel-plugin-transform-react-jsx": "6.8.0",
+    "babel-preset-es2015": "6.18.0",
+    "babel-preset-stage-0": "6.16.0",
+    "babelify": "7.3.0",
+    "browser-sync": "^2.11.0",
+    "browserify": "13.1.1",
+    "del": "^1.2.0",
+    "envify": "^3.4.1",
+    "event-stream": "^3.3.2",
+    "form-serialize": "^0.7.0",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-cssnano": "^2.1.0",
+    "gulp-if": "^1.2.5",
+    "gulp-inject": "^1.3.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-rev": "^5.0.1",
+    "gulp-sass": "^2.1.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-streamify": "0.0.5",
+    "gulp-uglify": "^1.2.0",
+    "moment": "^2.11.0",
+    "moment-duration-format": "^1.3.0",
+    "require-dir": "^0.3.1",
+    "resolve": "^1.1.6",
+    "stream-series": "^0.1.1",
+    "url-parse": "^1.0.5",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "yargs": "^3.15.0"
+  },
+  "dependencies": {
+    "lodash.groupby": "^4.6.0",
+    "preact": "^6.4.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
+  }
+}

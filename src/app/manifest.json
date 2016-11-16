@@ -1,0 +1,31 @@
+{
+	"manifest_version": 2,
+	"name": "Keepin' Tabs",
+	"version": "3.1",
+
+	"description": "Manage your tabs in an easy-to-read list.",
+	// "icons": {
+	// 	"16": "public/images/16.png",
+	// 	"48": "public/images/48.png",
+	// 	"128": "public/images/128.png"
+	// },
+
+	"commands": {
+		"_execute_browser_action": {
+			"suggested_key": {
+				"windows": "Ctrl+Shift+K",
+				"mac": "Command+Shift+K",
+				"chromeos": "Ctrl+Shift+K",
+				"linux": "Ctrl+Shift+K"
+			}
+		}
+	},
+
+	"browser_action": {
+		"default_popup": "app.html"
+	},
+
+	"permissions": [
+		"activeTab", "tabs"
+	]
+}

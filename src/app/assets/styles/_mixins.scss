@@ -1,0 +1,42 @@
+@mixin circle-crop($width) {
+	width: $width;
+	height: $width;
+	border-radius: $width/2;
+	overflow: hidden;
+	position: relative;
+	// border: 1px solid rgba(50,50,50,0.5);
+
+	img {
+		width: 100%;
+		-webkit-filter: brightness(1.25)
+	}
+}
+
+@function ls($val) {
+	@return $val/1000 * 1em;
+}
+
+@function lh($line-height, $font-size) {
+	@return ($line-height / $font-size);
+}
+
+@function em($px, $base: 16px) {
+	@return ($px / $base) * 1em;
+}
+
+@mixin size($width, $height: $width) {
+	width: $width;
+	height: $height;
+}
+
+@function rem($px, $base: 16px) {
+	@return ($px / $base) * 1rem;
+}
+
+@mixin ellipsis($width: 100%) {
+	display: inline-block;
+	max-width: $width;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
