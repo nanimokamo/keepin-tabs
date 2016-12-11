@@ -39,6 +39,6 @@ export const closeTab = (id) => {
     chrome.tabs.remove(id);
 };
 
-export const moveTab = () => {
-    chrome.tabs.move(tab.id, {index: i})
+export const moveTab = (id, index) => {
+    chrome.tabs.move(id, { index })
 };

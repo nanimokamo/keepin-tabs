@@ -10,18 +10,16 @@
 }
 
 .TabsListItem {
+	list-style: none;
 	cursor: pointer;
 	position: relative;
 	height: map-get($tabListItemHeight, 'default');
 	padding: 0 16px;
 	overflow: hidden;
+	background-color: $white;
 	transition: background-color $transitionSpeed ease;
 
-	&.is-dragged-over {
-		background: rgba(#FCD209, 0.2);
-	}
-
-	.TabsList--view-compact & {
+	[data-view="compact"] & {
 		height: map-get($tabListItemHeight, 'compact');
 	}
 
@@ -29,7 +27,7 @@
 		background-color: rgba($tertiary, 0.15);
 	}
 
-	&[data-active="true"] {
+	&[data-pinned="true"] {
 		&:before {
 			content: "";
 			width: 2px;
@@ -51,7 +49,7 @@
 		left: 0;
 	}
 
-	&:hover:not([data-selected="true"]) {
+	&:hover:not([data-selected="true"]), &[data-highlighted="true"] {
 		background-color: #eee;
 	}
 }
@@ -87,7 +85,7 @@
 	justify-content: center;
 	position: relative;
 
-	.TabsList--view-compact & {
+	[data-view="compact"] & {
 		@include size(map-get($tabListItemFaviconSize, 'compact'));
 	}
 }
@@ -173,7 +171,7 @@ $tabListIconTransitionSpeed: 0.2s;
     overflow: hidden;
     width: 100%;
 
-    .TabsList--view-compact & {
+    [data-view="compact"] & {
     	display: flex;
 		flex-direction: row;
     }
@@ -183,7 +181,7 @@ $tabListIconTransitionSpeed: 0.2s;
 	overflow: hidden;
 	text-overflow: ellipsis;
 
-	.TabsList--view-compact & {
+	[data-view="compact"] & {
 		flex-shrink: 0;
 		margin-right: 5px;
 	}

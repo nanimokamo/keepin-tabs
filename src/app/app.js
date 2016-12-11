@@ -16,7 +16,7 @@ chrome.tabs.onRemoved.addListener((tabId) => {
 	store.dispatch(fetchTabs());
 });
 
-chrome.storage.sync.get('listView', (listView) => {
+chrome.storage.sync.get('listView', ({ listView }) => {
 	if (typeof listView === 'string') store.dispatch(setListViewSuccess(listView));
 });
 

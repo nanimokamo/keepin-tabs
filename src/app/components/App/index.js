@@ -1,33 +1,44 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { SortableContainer, SortableElement } from 'react-sortable-hoc';
+import { createStructuredSelector } from 'reselect';
 
 import Header from '../Header';
 import TabsList from '../TabsList';
 import TabsListItem from '../TabsListItem';
-import { goToTab } from '../../utils.js';
-import { createStructuredSelector } from 'reselect';
+import { goToTab, moveTab } from '../../utils.js';
 import { getVisibleTabs, getHighlightedTabId, getMode, getQuery, getListView, getSelectedTabIds } from '../../selectors.js'
 import { setMode, setHighlightedTabId, selectTab, deselectTab } from '../../actions.js';
+
+const SortableTabsListItem = SortableElement(TabsListItem);
+const SortableTabsList = SortableContainer(TabsList);
+const IGNORE_EVENTS = [
+	'ArrowLeft',
+	'ArrowRight',
+	'ShiftRight',
+	'OSLeft',
+	'ShiftLeft',
+	'ControLeft',
+	'AltLeft',
+	'OSRight',
+	'ControlRight',
+];
 
 class App extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			flushDrop: new Date(),
-		};
-
 		this.handleKeyDown = this.handleKeyDown.bind(this);
-		this.handleDragEnd = this.handleDragEnd.bind(this);
+		this.onSort = this.onSort.bind(this);
 	}
 
 	componentDidMount() {
 		window.addEventListener('keydown', this.handleKeyDown);
+		document.body.dataset.view = this.props.listView;
 	}
 
-	handleDragEnd({ id, newIndex }) {
-		chrome.tabs.move(id, { index: parseInt(newIndex) });
-		this.setState({ flushDrop: new Date() });
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.listView !== this.props.listView) document.body.dataset.view = nextProps.listView;
 	}
 
 	handleKeyDown(e) {
@@ -40,6 +51,8 @@ class App extends Component {
 			setModeSearch,
 			query,
 		} = this.props;
+
+		if (IGNORE_EVENTS.includes(e.code)) return false;
 
 		switch (e.code) {
 			case 'ArrowUp':
@@ -77,32 +90,64 @@ class App extends Component {
 		}
 	}
 
+	onSort({ oldIndex, newIndex }) {
+		const tab = this.props.tabs[oldIndex];
+		if (tab) moveTab(tab.id, newIndex);
+	}
+
 	render() {
-		const { tabs, listView, highlightedTabId, selectedTabIds, selectTab, deselectTab } = this.props;
+		const { tabs, highlightedTabId, selectedTabIds, selectTab, deselectTab } = this.props;
+		const pinnedTabs = tabs.filter(tab => tab.pinned);
+		const unpinnedTabs = tabs.filter(tab => !tab.pinned);
 
 		return (
 			<main className="App">
 				<Header />
 
 				<div className="App-content">
-					{tabs.length ?
-					<TabsList view={listView}>
-						{tabs.map(tab => {
+					{pinnedTabs.length ?
+					<SortableTabsList
+						distance={10}
+						onSort={this.onSort}
+						onSortEnd={this.onSort}
+					>
+						{pinnedTabs.map(tab => {
 							return (
-								<TabsListItem
+								<SortableTabsListItem
 									key={tab.id}
 									{...tab}
-									flushDrop={this.state.flushDrop}
+									collection="pinned"
 									highlighted={highlightedTabId === tab.id}
 									selected={selectedTabIds.includes(tab.id)}
-									onDragEnd={this.handleDragEnd}
 									selectTab={selectTab}
 									deselectTab={deselectTab}
 								/>
 							);
 						})}
-					</TabsList>
-					: 'Loading...'}
+					</SortableTabsList>
+					: null}
+
+					{unpinnedTabs.length ?
+					<SortableTabsList
+						distance={10}
+						onSort={this.onSort}
+						onSortEnd={this.onSort}
+					>
+						{unpinnedTabs.map(tab => {
+							return (
+								<SortableTabsListItem
+									key={tab.id}
+									{...tab}
+									collection="unpinned"
+									highlighted={highlightedTabId === tab.id}
+									selected={selectedTabIds.includes(tab.id)}
+									selectTab={selectTab}
+									deselectTab={deselectTab}
+								/>
+							);
+						})}
+					</SortableTabsList>
+					: null}
 				</div>
 			</main>
 		)
@@ -137,13 +182,3 @@ const mapStateToProps = (state) => createStructuredSelector({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-
-// IS THIS NEEDED !?
-		// if (e.code === 'OSLeft' ||
-		// 	e.code === 'ShiftLeft' ||
-		// 	e.code === 'ControLeft' ||
-		// 	e.code === 'AltLeft' ||
-		// 	e.code === 'OSRight' ||
-		// 	e.code === 'ControlRight' ||
-		// 	e.code === 'ShiftRight') return false;
