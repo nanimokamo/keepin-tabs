@@ -2,10 +2,17 @@ import { createSelector } from 'reselect';
 import { sortBy } from './utils.js';
 
 export const getTabs = (state) => state.tabs;
-export const getMode = (state) => state.mode;
 export const getQuery = (state) => state.query.toLowerCase();
 export const getHighlightedTabId = (state) => state.highlightedTabId;
 export const getListView = (state) => state.listView;
+export const getSelectedTabIds = (state) => state.selectedTabIds;
+
+export const getMode = (state) => state.selectedTabIds.length ? 'select' : state.mode;
+
+export const getNumSelectedTabs = createSelector(
+	getSelectedTabIds,
+	(tabIds) => tabIds.length,
+);
 
 export const getSortedTabs = createSelector(
 	getTabs,

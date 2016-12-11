@@ -17,7 +17,7 @@
 		width: 100%;
 	}
 
-	&[data-state="default"] {
+	&[data-mode="default"] {
 		background-color: $tertiary;
 		color: $white;
 
@@ -26,7 +26,7 @@
 		}
 	}
 
-	&[data-state="search"] {
+	&[data-mode="search"] {
 		background-color: $white;
 		color: $dark-grey;
 
@@ -35,8 +35,13 @@
 		}
 	}
 
-	&[data-state="select"] {
-		// background-color: 
+	&[data-mode="select"] {
+		background-color: rgba($tertiary, 0.05);
+		color: $tertiary;
+
+		.icon svg {
+			fill: $medium-grey;
+		}
 	}
 
 	&:after {

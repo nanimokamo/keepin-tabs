@@ -14,11 +14,11 @@
 		height: map-get($tabListItemHeight, 'compact');
 	}
 
-	&.is-selected {
+	&[data-selected="true"] {
 		background-color: rgba($tertiary, 0.15);
 	}
 
-	&.is-active {
+	&[data-active="true"] {
 		&:before {
 			content: "";
 			width: 2px;
@@ -40,7 +40,7 @@
 		left: 0;
 	}
 
-	&:hover:not(.is-selected) {
+	&:hover:not([data-selected="true"]) {
 		background-color: #eee;
 	}
 }
@@ -95,6 +95,41 @@ $tabListIconTransitionSpeed: 0.2s;
 
 	.icon {
 		@include size(100%);
+	}
+
+	.TabsListItem-status:hover &, .TabsListItem[data-selected="true"] & {
+		display: none;
+	}
+}
+
+.TabsListItem-select {
+	display: none;
+	transform: scale(1);
+
+	.TabsListItem-status:hover &, .TabsListItem[data-selected="true"] & {
+		display: block;
+	}
+
+	.icon {
+		&:nth-child(1) {
+			display: block;
+
+			.TabsListItem[data-selected="true"] & {
+				display: none;
+			}
+		}
+
+		&:nth-child(2) {
+			display: none;
+
+			.TabsListItem[data-selected="true"] & {
+				display: block;
+			}
+		}
+
+		svg {
+			fill: #666;
+		}
 	}
 }
 
@@ -175,7 +210,7 @@ $tabListIconTransitionSpeed: 0.2s;
 			position: absolute
 		}
 
-		&.is-active {
+		&[data-selected="true"] {
 			display: block;
 
 			.TabsListItem:not(:hover) & {

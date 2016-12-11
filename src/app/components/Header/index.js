@@ -3,10 +3,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
-import { getNumTabs, getMode, getQuery, getListView } from '../../selectors.js'
-import { setQuery, setMode, sortTabs, setListView } from '../../actions.js'
+import { getNumTabs, getMode, getQuery, getListView, getNumSelectedTabs } from '../../selectors.js'
+import { setQuery, setMode, sortTabs, setListView, deselectAllTabs, closeTabs } from '../../actions.js'
 
-const Header = ({ mode, numTabs, query, setModeSearch, setModeDefault, setListView, sortTabs, setQuery, clearQuery, listView }) => {
+const Header = ({ mode, numTabs, numSelectedTabs, query, closeTabs, setModeSearch, deselectAllTabs, setModeDefault, setListView, sortTabs, setQuery, clearQuery, listView }) => {
 	return (
 		<header className="Header" data-mode={mode}>
 			{mode === 'default' ?
@@ -41,7 +41,10 @@ const Header = ({ mode, numTabs, query, setModeSearch, setModeDefault, setListVi
 				<section className={`Header--${mode}`}>
 					<button
 						className="icon-button main-action"
-						onClick={setModeDefault}
+						onClick={() => {
+							setModeDefault();
+							clearQuery();
+						}}
 					>
 						<Icon name="back" />
 					</button>
@@ -62,6 +65,34 @@ const Header = ({ mode, numTabs, query, setModeSearch, setModeDefault, setListVi
 					>
 						<Icon name="close" />
 					</button>
+				</section>
+			: null}
+			{mode === 'select' ?
+				<section className={`Header--${mode}`}>
+					<button
+						className="icon-button main-action"
+						onClick={deselectAllTabs}
+					>
+						<Icon name="back" />
+					</button>
+					<h1>{numSelectedTabs} selected</h1>
+
+					<div className="Header-actions">
+						<button
+							className="icon-button"
+							onClick={sortTabs}
+							title="Sort"
+						>
+							<Icon name="sort" />
+						</button>
+						<button
+							className="icon-button"
+							onClick={closeTabs}
+							title="Close"
+						>
+							<Icon name="close" />
+						</button>
+					</div>
 				</section>
 			: null}
 		</header>
@@ -87,6 +118,12 @@ const mapDispatchToProps = (dispatch) => ({
 	clearQuery() {
 		dispatch(setQuery(''));
 	},
+	deselectAllTabs() {
+		dispatch(deselectAllTabs());
+	},
+	closeTabs() {
+		dispatch(closeTabs());
+	}
 });
 
 const mapStateToProps = (state) => createStructuredSelector({
@@ -94,6 +131,7 @@ const mapStateToProps = (state) => createStructuredSelector({
 	mode: getMode,
 	query: getQuery,
 	listView: getListView,
+	numSelectedTabs: getNumSelectedTabs,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

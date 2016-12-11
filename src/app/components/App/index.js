@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import TabsList from '../TabsList';
 import Header from '../Header';
-import TabsListItem from '../TabsList/TabsListItem';
+import TabsList from '../TabsList';
+import TabsListItem from '../TabsListItem';
 import { goToTab } from '../../utils.js';
 import { createStructuredSelector } from 'reselect';
-import { getVisibleTabs, getHighlightedTabId, getMode, getQuery, getListView } from '../../selectors.js'
-import { setMode, setHighlightedTabId } from '../../actions.js';
+import { getVisibleTabs, getHighlightedTabId, getMode, getQuery, getListView, getSelectedTabIds } from '../../selectors.js'
+import { setMode, setHighlightedTabId, selectTab, deselectTab } from '../../actions.js';
 
 class App extends Component {
 	constructor(props) {
@@ -78,7 +78,7 @@ class App extends Component {
 	}
 
 	render() {
-		const { tabs, listView, highlightedTabId } = this.props;
+		const { tabs, listView, highlightedTabId, selectedTabIds, selectTab, deselectTab } = this.props;
 
 		return (
 			<main className="App">
@@ -91,10 +91,13 @@ class App extends Component {
 							return (
 								<TabsListItem
 									key={tab.id}
-									data={tab}
+									{...tab}
 									flushDrop={this.state.flushDrop}
-									selected={highlightedTabId === tab.id}
+									highlighted={highlightedTabId === tab.id}
+									selected={selectedTabIds.includes(tab.id)}
 									onDragEnd={this.handleDragEnd}
+									selectTab={selectTab}
+									deselectTab={deselectTab}
 								/>
 							);
 						})}
@@ -115,7 +118,13 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	setHighlightedTabId(id) {
 		dispatch(setHighlightedTabId(id));
-	}
+	},
+	selectTab(id) {
+		dispatch(selectTab(id));
+	},
+	deselectTab(id) {
+		dispatch(deselectTab(id));
+	},
 });
 
 const mapStateToProps = (state) => createStructuredSelector({
@@ -124,6 +133,7 @@ const mapStateToProps = (state) => createStructuredSelector({
 	mode: getMode,
 	query: getQuery,
 	listView: getListView,
+	selectedTabIds: getSelectedTabIds,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

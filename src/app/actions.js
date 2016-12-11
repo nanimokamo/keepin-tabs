@@ -1,5 +1,6 @@
 import groupBy from 'lodash.groupby';
-import { sortBy, moveTab } from './utils.js';
+import { sortBy, moveTab, closeTab } from './utils.js';
+import { getSelectedTabIds, getVisibleTabs } from './selectors.js';
 
 import {
 	FETCH_TABS_SUCCESS,
@@ -7,7 +8,30 @@ import {
 	SET_MODE,
 	SET_HIGHLIGHTED_TAB_ID,
 	SET_LIST_VIEW_SUCCESS,
+	SELECT_TAB,
+	DESELECT_TAB,
+	DESELECT_ALL_TABS,
 } from './constants.js';
+
+export const closeTabs = () => (dispatch, getState) => {
+	const selectedTabIds = getSelectedTabIds(getState());
+	if (selectedTabIds.length) selectedTabIds.forEach(closeTab);
+	return false;
+};
+
+export const deselectAllTabs = () => ({
+	type: DESELECT_ALL_TABS,
+});
+
+export const selectTab = (tabId) => ({
+	type: SELECT_TAB,
+	tabId,
+});
+
+export const deselectTab = (tabId) => ({
+	type: DESELECT_TAB,
+	tabId,
+});
 
 export const setQuery = (query = '') => ({
 	type: SET_QUERY,
@@ -41,7 +65,7 @@ export const fetchTabsSuccess = (tabs) => ({
 });
 
 export const sortTabs = () => (dispatch, getState) => {
-	const { tabs } = getState();
+	const tabs = getVisibleTabs(getState());
 	if (!tabs.length) return;
 
 	const groupedPinnedTabs = groupBy(tabs, 'pinned');
@@ -49,7 +73,8 @@ export const sortTabs = () => (dispatch, getState) => {
 	const unpinnedTabs = groupedPinnedTabs[false];
 	const groupedUnpinnedTabs = sortBy(unpinnedTabs, 'url');
 
-	pinnedTabs.concat(groupedUnpinnedTabs).forEach((tab) => moveTab(id, i));
+	pinnedTabs.concat(groupedUnpinnedTabs).forEach((tab, i) => moveTab(tab.id, i));
+	return false;
 }
 
 export const fetchTabs = () => (dispatch) => {

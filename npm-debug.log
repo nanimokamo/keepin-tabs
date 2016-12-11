@@ -9,8 +9,8 @@
 6 silly lifecycle keepin-tabs-v2@0.0.1~prestart: no script for prestart, continuing
 7 info lifecycle keepin-tabs-v2@0.0.1~start: keepin-tabs-v2@0.0.1
 8 verbose lifecycle keepin-tabs-v2@0.0.1~start: unsafe-perm in lifecycle true
-9 verbose lifecycle keepin-tabs-v2@0.0.1~start: PATH: /Users/chrislawrence/.nvm/versions/node/v6.8.0/lib/node_modules/npm/bin/node-gyp-bin:/Users/chrislawrence/Projects/Nanimokamo/keepin-tabs-v2/node_modules/.bin:/Users/chrislawrence/.nvm/versions/node/v6.8.0/bin:/Users/chrislawrence/.rvm/gems/ruby-2.2.0/bin:/Users/chrislawrence/.rvm/gems/ruby-2.2.0@global/bin:/Users/chrislawrence/.rvm/rubies/ruby-2.2.0/bin:/Applications/MAMP/bin/php/php5.6.10/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Users/chrislawrence/.rvm/bin
-10 verbose lifecycle keepin-tabs-v2@0.0.1~start: CWD: /Users/chrislawrence/Projects/Nanimokamo/keepin-tabs-v2
+9 verbose lifecycle keepin-tabs-v2@0.0.1~start: PATH: /Users/chrislawrence/.nvm/versions/node/v6.8.0/lib/node_modules/npm/bin/node-gyp-bin:/Users/chrislawrence/Projects/Nanimokamo/keepin-tabs/node_modules/.bin:/Users/chrislawrence/.nvm/versions/node/v6.8.0/bin:/Users/chrislawrence/.rvm/gems/ruby-2.2.0/bin:/Users/chrislawrence/.rvm/gems/ruby-2.2.0@global/bin:/Users/chrislawrence/.rvm/rubies/ruby-2.2.0/bin:/Applications/MAMP/bin/php/php5.6.10/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Users/chrislawrence/.rvm/bin
+10 verbose lifecycle keepin-tabs-v2@0.0.1~start: CWD: /Users/chrislawrence/Projects/Nanimokamo/keepin-tabs
 11 silly lifecycle keepin-tabs-v2@0.0.1~start: Args: [ '-c', 'npm run gulp' ]
 12 silly lifecycle keepin-tabs-v2@0.0.1~start: Returned: code: 1  signal: null
 13 info lifecycle keepin-tabs-v2@0.0.1~start: Failed to exec start script
@@ -25,7 +25,7 @@
 14 verbose stack     at maybeClose (internal/child_process.js:877:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid keepin-tabs-v2@0.0.1
-16 verbose cwd /Users/chrislawrence/Projects/Nanimokamo/keepin-tabs-v2
+16 verbose cwd /Users/chrislawrence/Projects/Nanimokamo/keepin-tabs
 17 error Darwin 16.0.0
 18 error argv "/Users/chrislawrence/.nvm/versions/node/v6.8.0/bin/node" "/Users/chrislawrence/.nvm/versions/node/v6.8.0/bin/npm" "start"
 19 error node v6.8.0
