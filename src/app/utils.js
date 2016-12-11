@@ -22,3 +22,23 @@ export const sortBy = (array, key) => {
         }
     });
 };
+
+export const goToTab = (id) => {
+    chrome.tabs.update(id, {active: true});
+};
+
+export const pinTab = (id, pinned) => {
+    chrome.tabs.update(id, { pinned });
+};
+
+export const refreshTab = (id) => {
+    chrome.tabs.reload(id);
+};
+
+export const closeTab = (id) => {
+    chrome.tabs.remove(id);
+};
+
+export const moveTab = () => {
+    chrome.tabs.move(tab.id, {index: i})
+};

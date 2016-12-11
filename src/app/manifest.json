@@ -26,6 +26,6 @@
 	},
 
 	"permissions": [
-		"activeTab", "tabs"
+		"activeTab", "tabs", "storage", "chrome://favicon/*"
 	]
 }

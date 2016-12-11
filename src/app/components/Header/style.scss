@@ -1,0 +1,82 @@
+.Header {
+	padding: 0 $padding-normal;
+	height: $header-height;
+	top: 0;
+	width: 100%;
+	position: fixed;
+	z-index: $z-index-top;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: $tertiary;
+	color: $white;
+	transition: background-color $transitionSpeed ease;
+
+	h1 {
+		font-size: 18px;
+		width: 100%;
+	}
+
+	&[data-state="default"] {
+		background-color: $tertiary;
+		color: $white;
+
+		.icon svg {
+			fill: $white;
+		}
+	}
+
+	&[data-state="search"] {
+		background-color: $white;
+		color: $dark-grey;
+
+		.icon svg {
+			fill: $medium-grey;
+		}
+	}
+
+	&[data-state="select"] {
+		// background-color: 
+	}
+
+	&:after {
+		content: "";
+		display: block;
+		position: absolute;
+		top: 100%;
+		background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAAYCAQAAAB68uRSAAAAKElEQVR4AWNhcGdgYGH4CyL+wVkI4g8W4jcuiT9YDPgHJ/7DiP9AAgBhORhg+gPD+AAAAABJRU5ErkJggg==');
+		background-repeat: repeat-x;
+		background-size: 1px 12px;
+		opacity: 0.5;
+		width: 100%;
+		left: 0;
+		z-index: 100;
+		height: 12px;
+	}
+
+	> section {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		width: 100%;
+
+		.main-action {
+			margin-right: $padding-normal;
+		}
+
+		.icon {
+			@include size(26px);
+		}
+	}
+}
+
+.Header-actions {
+	display: flex;
+	flex-direction: row;
+	
+	button {
+		&:not(:last-child) {
+			margin-right: $padding-normal;
+		}
+	}
+}

@@ -8,6 +8,7 @@
 	margin: 0;
 	padding: 0;
 	cursor: pointer;
+	color: currentColor;
 
 	&[disabled] {
 		opacity: 0.5;
@@ -16,7 +17,9 @@
 }
 
 .icon {
-	display: block;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	height: em(24px);
 	width: em(24px);
 
@@ -26,9 +29,16 @@
 		}
 	}
 
+	&[data-name="search"] {
+		svg {
+			@include size(95%);
+		}
+	}
+
 	svg {
-		transition: fill 0.15s ease;
+		transition: fill $transitionSpeed ease;
 		display: inline-block;
+		fill: currentColor;
 	    @include size(100%);
 	}
 }

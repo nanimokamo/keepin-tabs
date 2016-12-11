@@ -1,7 +1,7 @@
-// import Preact, { render, h, Component } from 'preact';
 import React, { Component } from 'react';
 
 import Icon from '../../Icon';
+import { sortBy, throttle, goToTab, pinTab, closeTab, refreshTab, moveTab } from '../../../utils.js';
 
 let newIndex = null;
 
@@ -12,11 +12,6 @@ export class TabsListItem extends Component {
 		this.state = {
 			draggedOver: false,
 		};
-
-		this.handleClick = this.handleClick.bind(this);
-		this.handleClickClose = this.handleClickClose.bind(this);
-		this.handleClickRefresh = this.handleClickRefresh.bind(this);
-		this.handleClickPin = this.handleClickPin.bind(this);
 
 		this.handleDragEnd = this.handleDragEnd.bind(this);
 		this.handleDragEnter = this.handleDragEnter.bind(this);
@@ -65,10 +60,6 @@ export class TabsListItem extends Component {
 		}
 	}
 
-	handleClick() {
-		this.props.onClick(this.props.data.id);
-	}
-
 	handleClickClose(e) {
 		e.persist();
 		e.stopPropagation();
@@ -81,54 +72,89 @@ export class TabsListItem extends Component {
 		this.props.onClickRefresh(this.props.data.id);
 	}
 
-	handleClickPin(e) {
-		e.persist();
-		e.stopPropagation();
-		this.props.onClickPin(this.props.data.id, this.props.data.pinned);
-	}
-
 	shouldComponentUpdate(nextProps, nextState) {
 		return nextProps !== this.props || nextState !== this.state;
 	}
 
 	render() {
-		const data = this.props.data;
-		const selectedClass = this.props.selected ? 'is-selected' : null;
-		const activeClass = data.active ? 'is-active' : null;
-		const pinnedClass = data.pinned ? 'is-active' : null;
-		const pinnedTitle = data.pinned ? 'Unpin' : 'Pin';
-		const status = data.status;
-		const title = status === 'loading' ? 'Loading...' : data.title;
-		const url = data.url;
-		const noFavIcon = !data.favIconUrl || data.favIconUrl === 'undefined' ? <Icon name="missing" /> : null;
+		const { data, selected } = this.props;
+		const { id, title, status, url, pinned, active, favIconUrl } = data;
+
+		const formattedTitle = status === 'loading' ? 'Loading...' : title;
+		const selectedClass = selected ? 'is-selected' : '';
+		const activeClass = active ? 'is-active' : '';
+		const pinnedClass = pinned ? 'is-active' : '';
+		const noFavIcon = !favIconUrl || favIconUrl === 'undefined' ? <Icon name="missing" /> : null;
 		const draggedOver = this.state.draggedOver ? 'is-dragged-over' : '';
 
 		return (
 			<li
-			ref="container"
-			className={`tabs-list-item ${selectedClass} ${activeClass} ${draggedOver}`}
-			onClick={this.handleClick}
-			draggable={!this.props.data.pinned}
-            onDragEnd={this.handleDragEnd}
-            onDragEnter={this.handleDragEnter}
-            onDragLeave={this.handleDragLeave}
-            onDrop={this.handleDrop}
-            onMouseUp={this.handleDrop}
-            data-status={status}>
-            	<div className="tabs-list-item__inner">
-				<div className="tabs-list-item__status">
-					<div className="favIcon" style={{backgroundImage: `url('${data.favIconUrl}')`}}>{noFavIcon}</div>
-					<div className="loading"><Icon name="refresh" /></div>
-				</div>
-				<div className="tabs-list-item__details">
-					<div className="title" title={title}>{title}</div>
-					<div className="url" title={url}>{url}</div>
-				</div>
-				<div className="tabs-list-item__options">
-					<button className={`icon-button ${pinnedClass}`} onClick={this.handleClickPin} title={pinnedTitle}><Icon name="pin" /></button>
-					<button className="icon-button" onClick={this.handleClickRefresh} title="Refresh"><Icon name="refresh" /></button>
-					<button className="icon-button" onClick={this.handleClickClose} title="Close"><Icon name="close" /></button>
-				</div>
+				ref="container"
+				className={`TabsListItem ${selectedClass} ${activeClass} ${draggedOver}`}
+				onClick={() => goToTab(id)}
+				draggable={!pinned}
+	            onDragEnd={this.handleDragEnd}
+	            onDragEnter={this.handleDragEnter}
+	            onDragLeave={this.handleDragLeave}
+	            onDrop={this.handleDrop}
+	            onMouseUp={this.handleDrop}
+	            data-status={status}
+			>
+            	<div className="TabsListItem-inner">
+					<div className="TabsListItem-status">
+						<div
+							className="TabsListItem-icon TabsListItem-favicon"
+							style={{backgroundImage: `url('${favIconUrl}')`}}
+						>
+							{noFavIcon}
+						</div>
+						<div
+							className="TabsListItem-icon TabsListItem-loading"
+						>
+							<Icon name="refresh" />
+						</div>
+					</div>
+					<div className="TabsListItem-details">
+						<div
+							className="TabsListItem-title"
+							title={formattedTitle}
+						>
+							{formattedTitle}
+						</div>
+						<div
+							className="TabsListItem-url"
+							title={url}
+						>
+							{url}
+						</div>
+					</div>
+					<div className="TabsListItem-options">
+						<button
+							className={`icon-button ${pinnedClass}`}
+							onClick={(e) => {
+								e.persist();
+								e.stopPropagation();
+								pinTab(id, !pinned);
+							}}
+							title={pinned ? 'Unpin' : 'Pin'}
+						>
+							<Icon name="pin" />
+						</button>
+						<button
+							className="icon-button"
+							onClick={() => refreshTab(id)}
+							title="Refresh"
+						>
+							<Icon name="refresh" />
+						</button>
+						<button
+							className="icon-button"
+							onClick={() => closeTab(id)}
+							title="Close"
+						>
+							<Icon name="close" />
+						</button>
+					</div>
 				</div>
 			</li>
 		)

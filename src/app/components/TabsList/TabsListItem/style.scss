@@ -1,0 +1,212 @@
+.TabsListItem {
+	cursor: pointer;
+	position: relative;
+	height: map-get($tabListItemHeight, 'default');
+	padding: 0 16px;
+	overflow: hidden;
+	transition: background-color $transitionSpeed ease;
+
+	&.is-dragged-over {
+		background: rgba(#FCD209, 0.2);
+	}
+
+	.TabsList--view-compact & {
+		height: map-get($tabListItemHeight, 'compact');
+	}
+
+	&.is-selected {
+		background-color: rgba($tertiary, 0.15);
+	}
+
+	&.is-active {
+		&:before {
+			content: "";
+			width: 2px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			background-color: $tertiary;
+		}
+	}
+
+	&:after {
+		content: "";
+		height: 1px;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		background-color: #eee;
+		left: 0;
+	}
+
+	&:hover:not(.is-selected) {
+		background-color: #eee;
+	}
+}
+
+.TabsListItem-inner {
+	display: flex;
+	flex-direction: row;
+	justify-content: stretch;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+
+	&:before {
+		content: '';
+		display: block;
+		padding-top: 0;
+
+		// .TabsListItem.is-dragged-over & {
+		// 	padding-top: 100%;
+		// }
+	}
+}
+
+.TabsListItem-status {
+	flex-shrink: 0;
+	@include size(map-get($tabListItemFaviconSize, 'default'));
+	background-size: cover;
+	background-position: center;
+	background-color: transparent;
+	margin-right: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+
+	.TabsList--view-compact & {
+		@include size(map-get($tabListItemFaviconSize, 'compact'));
+	}
+}
+
+$tabListIconTransitionSpeed: 0.2s;
+
+.TabsListItem-icon {
+	position: absolute;
+	top: 0;
+	left: 0;
+	@include size(100%);
+	background-size: cover;
+	background-position: center;
+	transform: scale(0);
+	transition: transform $tabListIconTransitionSpeed linear;
+
+	.icon {
+		@include size(100%);
+	}
+}
+
+.TabsListItem-favicon {
+	.TabsListItem[data-status="complete"] & {
+		transform: scale(1);
+			transition: transform $tabListIconTransitionSpeed linear $tabListIconTransitionSpeed;
+	}
+
+	svg {
+		fill: $light-grey;
+	}
+}
+
+.TabsListItem-loading {
+	.TabsListItem[data-status="loading"] & {
+		transform: scale(1);
+		transition: transform $tabListIconTransitionSpeed linear $tabListIconTransitionSpeed;
+	}
+
+	.icon {
+		.TabsListItem[data-status="loading"] & {
+			animation: spin 0.5s linear infinite;
+		}
+	}
+}
+
+.TabsListItem-details {
+	white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+
+    .TabsList--view-compact & {
+    	display: flex;
+		flex-direction: row;
+    }
+}
+.TabsListItem-title {
+	font-size: 13px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	.TabsList--view-compact & {
+		flex-shrink: 0;
+		margin-right: 5px;
+	}
+}
+
+.TabsListItem-url {
+	font-size: 13px;
+	color: #666666;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.TabsListItem-options {
+	flex-shrink: 0;
+	display: flex;
+	flex-direction: row;
+	padding-left: $padding-normal;
+
+	.TabsListItem:hover & {
+		> button {
+			display: block;
+		}
+	}
+
+	> button {
+		display: none;
+		position: relative;
+
+		&:before {
+			content: "";
+			top: -4px;
+			left: -4px;
+			bottom: -4px;
+			right: -4px;
+			position: absolute
+		}
+
+		&.is-active {
+			display: block;
+
+			.TabsListItem:not(:hover) & {
+				margin-right: 0;
+			}
+
+			&:hover svg {
+				fill: darken($tertiary, 10%);
+			}
+
+			svg {
+				fill: $tertiary;
+			}
+		}
+
+		.icon {
+			@include size(18px);
+		}
+
+		svg {
+			fill: $medium-grey;
+		}
+
+		&:hover {
+			svg {
+				fill: $dark-grey;
+			}
+		}
+
+		&:not(:last-child) {
+			margin-right: 8px;
+		}
+	}
+}

@@ -6,14 +6,14 @@ const browserify = require('browserify');
 const source = require('vinyl-source-stream');
 const util = require('gulp-util');
 const envify = require('envify');
+const sourcemaps = require('gulp-sourcemaps');
 
 const ROOT = '../../';
 
 const JS_SRC_FILE = PATH.resolve(__dirname, ROOT, 'src/app/app.js');
 const JS_SRC_FILES = [
 	JS_SRC_FILE,
-	PATH.resolve(__dirname, ROOT, 'src/app/components/') + '/**/*.js',
-	PATH.resolve(__dirname, ROOT, 'src/app/layouts/') + '/**/*.js',
+	PATH.resolve(__dirname, ROOT, 'src/app/') + '/**/*.js',
 ];
 console.log(JS_SRC_FILES);
 const JS_DEVELOPMENT_BUILD_FOLDER = PATH.resolve(__dirname, ROOT, 'dist/public/js');
@@ -41,6 +41,9 @@ gulp.task('build:js', function() {
 			.transform('babelify')
 			.bundle()
 			.pipe(source('app.js'))
+			.pipe(buffer())
+			.pipe(sourcemaps.init({loadMaps: true}))
+			.pipe(sourcemaps.write('./'))
 			.pipe(gulp.dest(JS_DEVELOPMENT_BUILD_FOLDER));
 	}
 });

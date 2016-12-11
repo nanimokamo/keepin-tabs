@@ -1,4 +1,3 @@
-// import Preact, { render, h, Component } from 'preact';
 import React, { Component } from 'react';
 
 class TabsList extends Component {
@@ -13,7 +12,7 @@ class TabsList extends Component {
 
 	render() {
 		return (
-			<ul className="tabs-list" onDragOver={this.handleDragOver}>
+			<ul className={`TabsList TabsList--view-${this.props.view}`} onDragOver={this.handleDragOver}>
 				{this.props.children}
 			</ul>
 		)	
