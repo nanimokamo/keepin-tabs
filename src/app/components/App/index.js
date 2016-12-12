@@ -16,12 +16,15 @@ const IGNORE_EVENTS = [
 	'ArrowLeft',
 	'ArrowRight',
 	'ShiftRight',
-	'OSLeft',
 	'ShiftLeft',
-	'ControLeft',
 	'AltLeft',
+	'OSLeft',
 	'OSRight',
+	'CapsLock',
 	'ControlRight',
+	'ControlLeft',
+	'MetaLeft',
+	'MetaRight',
 ];
 
 class App extends Component {
@@ -53,6 +56,8 @@ class App extends Component {
 		} = this.props;
 
 		if (IGNORE_EVENTS.includes(e.code)) return false;
+
+		console.log(e.code);
 
 		switch (e.code) {
 			case 'ArrowUp':
@@ -116,6 +121,7 @@ class App extends Component {
 								<SortableTabsListItem
 									key={tab.id}
 									{...tab}
+									helperClass="is-dragging"
 									collection="pinned"
 									highlighted={highlightedTabId === tab.id}
 									selected={selectedTabIds.includes(tab.id)}
@@ -138,6 +144,7 @@ class App extends Component {
 								<SortableTabsListItem
 									key={tab.id}
 									{...tab}
+									helperClass="is-dragging"
 									collection="unpinned"
 									highlighted={highlightedTabId === tab.id}
 									selected={selectedTabIds.includes(tab.id)}

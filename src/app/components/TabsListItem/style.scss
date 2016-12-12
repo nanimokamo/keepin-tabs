@@ -27,6 +27,11 @@
 		background-color: rgba($tertiary, 0.15);
 	}
 
+	&.is-dragging {
+		cursor: -webkit-grabbing;
+		user-select: none;
+	}
+
 	&[data-pinned="true"] {
 		&:before {
 			content: "";

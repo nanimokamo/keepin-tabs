@@ -70,14 +70,20 @@ const TabsListItem = ({ id, title, status, url, pinned, highlighted, favIconUrl,
 					</button>
 					<button
 						className="icon-button"
-						onClick={() => refreshTab(id)}
+						onClick={(e) => {
+							e.stopPropagation();
+							refreshTab(id);
+						}}
 						title="Refresh"
 					>
 						<Icon name="refresh" />
 					</button>
 					<button
 						className="icon-button"
-						onClick={() => closeTab(id)}
+						onClick={(e) => {
+							e.stopPropagation();
+							closeTab(id);
+						}}
 						title="Close"
 					>
 						<Icon name="close" />
