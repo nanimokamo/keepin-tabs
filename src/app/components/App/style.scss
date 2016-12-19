@@ -1,15 +1,8 @@
 .App {
-	width: 375px;
-	// height: 100vh;
-	// display: flex;
-	// flex-direction: column;
-	// align-items: stretch;
+	width: 425px;
 }
 
 .App-content {
 	position: relative;
 	padding-top: $header-height;
-	user-select: none;
-	// max-height: 100%;
-	// overflow: scroll;
 }

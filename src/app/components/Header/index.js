@@ -16,7 +16,7 @@ const Header = ({ mode, numTabs, numSelectedTabs, query, closeTabs, setModeSearc
 						<button
 							className="icon-button"
 							onClick={listView === 'default' ? setListView.bind(undefined, 'compact') : setListView.bind(undefined, 'default')}
-							title="Sort"
+							title={listView === 'default' ? 'Compact view' : 'Expanded view'}
 						>
 							<Icon name={`listView--${listView === 'default' ? 'compact' : 'default'}`} />
 						</button>
@@ -45,6 +45,7 @@ const Header = ({ mode, numTabs, numSelectedTabs, query, closeTabs, setModeSearc
 							setModeDefault();
 							clearQuery();
 						}}
+						title="Back"
 					>
 						<Icon name="back" />
 					</button>
@@ -62,6 +63,7 @@ const Header = ({ mode, numTabs, numSelectedTabs, query, closeTabs, setModeSearc
 						className="icon-button"
 						onClick={clearQuery}
 						disabled={query.length ? false : true}
+						title="Clear"
 					>
 						<Icon name="close" />
 					</button>
@@ -72,6 +74,7 @@ const Header = ({ mode, numTabs, numSelectedTabs, query, closeTabs, setModeSearc
 					<button
 						className="icon-button main-action"
 						onClick={deselectAllTabs}
+						title="Back"
 					>
 						<Icon name="back" />
 					</button>

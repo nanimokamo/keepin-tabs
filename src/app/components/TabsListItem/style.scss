@@ -24,7 +24,7 @@
 	}
 
 	&[data-selected="true"] {
-		background-color: rgba($tertiary, 0.15);
+		background-color: lighten($tertiary, 50%);
 	}
 
 	&.is-dragging {
@@ -189,6 +189,10 @@ $tabListIconTransitionSpeed: 0.2s;
 	[data-view="compact"] & {
 		flex-shrink: 0;
 		margin-right: 5px;
+	}
+
+	[data-view="compact"] .TabsListItem:hover & {
+		display: none;
 	}
 }
 

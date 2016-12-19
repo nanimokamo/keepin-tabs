@@ -7,6 +7,10 @@ html, body {
 	height: 100%;
 }
 
+* {
+	user-select: none;
+}
+
 body {
 	background-color: $white;
 	color: $black;
@@ -48,4 +52,5 @@ body {
 @import 'components/App/style.scss';
 @import 'components/Header/style.scss';
 @import 'components/Icon/style.scss';
+@import 'components/TabsList/style.scss';
 @import 'components/TabsListItem/style.scss';

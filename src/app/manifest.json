@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Keepin' Tabs",
-	"version": "3.1",
+	"version": "3.7",
 
 	"description": "Manage your tabs in an easy-to-read list.",
 	"icons": {
