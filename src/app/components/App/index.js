@@ -57,8 +57,6 @@ class App extends Component {
 
 		if (IGNORE_EVENTS.includes(e.code)) return false;
 
-		console.log(e.code);
-
 		switch (e.code) {
 			case 'ArrowUp':
 				e.preventDefault();

@@ -1,11 +1,11 @@
 export const throttle = (callback, limit) => {
-    var wait = false;
-    return function () {
+    let wait = false;
+    return () => {
         if (!wait) {
             callback.call();
             wait = true;
-            setTimeout(function () {
-					wait = false;
+            window.setTimeout(() => {
+				wait = false;
             }, limit);
         }
     }
@@ -24,7 +24,8 @@ export const sortBy = (array, key) => {
 };
 
 export const goToTab = (id) => {
-    chrome.tabs.update(id, {active: true});
+    chrome.tabs.update(id, { active: true });
+    window.close();
 };
 
 export const pinTab = (id, pinned) => {

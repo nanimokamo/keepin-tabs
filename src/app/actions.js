@@ -69,8 +69,8 @@ export const sortTabs = () => (dispatch, getState) => {
 	if (!tabs.length) return;
 
 	const groupedPinnedTabs = groupBy(tabs, 'pinned');
-	const pinnedTabs = groupedPinnedTabs[true];
-	const unpinnedTabs = groupedPinnedTabs[false];
+	const pinnedTabs = groupedPinnedTabs[true] || [];
+	const unpinnedTabs = groupedPinnedTabs[false] || [];
 	const groupedUnpinnedTabs = sortBy(unpinnedTabs, 'url');
 
 	pinnedTabs.concat(groupedUnpinnedTabs).forEach((tab, i) => moveTab(tab.id, i));

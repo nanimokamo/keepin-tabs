@@ -59,6 +59,15 @@
 	}
 }
 
+.TabsListItem-fake {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: 1;
+}
+
 .TabsListItem-inner {
 	display: flex;
 	flex-direction: row;
@@ -102,6 +111,7 @@ $tabListIconTransitionSpeed: 0.2s;
 	top: 0;
 	left: 0;
 	@include size(100%);
+	border-radius: 2px;
 	background-size: cover;
 	background-position: center;
 	transform: scale(0);

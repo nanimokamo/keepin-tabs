@@ -10,14 +10,21 @@ const TabsListItem = ({ id, title, status, url, pinned, highlighted, favIconUrl,
 	return (
 		<li
 			className="TabsListItem"
-			onClick={() => goToTab(id)}
+			ref={(e) => {
+				if (highlighted && e) e.scrollIntoView();
+			}}
 			data-id={id}
 			data-highlighted={highlighted}
 			data-pinned={pinned}
 			data-selected={selected}
 			data-status={status}
+			title={`${title} - ${url}`}
 		>
 			<div className="TabsListItem-inner">
+				<div
+					className="TabsListItem-fake"
+					onClick={() => goToTab(id)}
+				/>
 				<div className="TabsListItem-status">
 					<div
 						className="TabsListItem-icon TabsListItem-favicon"
@@ -33,8 +40,7 @@ const TabsListItem = ({ id, title, status, url, pinned, highlighted, favIconUrl,
 
 					<div
 						className="TabsListItem-icon TabsListItem-select"
-						onClick={(e) => {
-							e.stopPropagation();
+						onClick={() => {
 							selected ? deselectTab(id) : selectTab(id)
 						}}
 					>
@@ -60,7 +66,6 @@ const TabsListItem = ({ id, title, status, url, pinned, highlighted, favIconUrl,
 					<button
 						className="icon-button"
 						onClick={(e) => {
-							e.stopPropagation();
 							pinTab(id, !pinned);
 						}}
 						title={pinned ? 'Unpin' : 'Pin'}
@@ -71,7 +76,6 @@ const TabsListItem = ({ id, title, status, url, pinned, highlighted, favIconUrl,
 					<button
 						className="icon-button"
 						onClick={(e) => {
-							e.stopPropagation();
 							refreshTab(id);
 						}}
 						title="Refresh"
@@ -81,7 +85,6 @@ const TabsListItem = ({ id, title, status, url, pinned, highlighted, favIconUrl,
 					<button
 						className="icon-button"
 						onClick={(e) => {
-							e.stopPropagation();
 							closeTab(id);
 						}}
 						title="Close"
