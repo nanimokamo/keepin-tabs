@@ -91,8 +91,6 @@ class App extends Component {
 		const pinnedTabs = tabs.filter(tab => tab.pinned);
 		const unpinnedTabs = tabs.filter(tab => !tab.pinned);
 
-		console.log(showBookmarks);
-
 		return (
 			<main className="App">
 				<Header />

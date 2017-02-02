@@ -45,11 +45,11 @@
 	font-size: 12px;
 	padding: $padding-normal;
 	flex-shrink: 0;
-	color: $dark-grey;
+	color: $medium-grey;
 }
 
 .BottomSheet-content {
-	background-color: $lightest-grey-2;
+	background-color: white;//$lightest-grey-2;
 	height: 100%;
 	overflow: scroll;
 }

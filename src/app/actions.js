@@ -1,6 +1,6 @@
 import groupBy from 'lodash.groupby';
 import { sortBy, moveTab, closeTab } from './utils.js';
-import { getSelectedTabIds, getVisibleTabs } from './selectors.js';
+import { getSelectedTabs, getSelectedTabIds, getVisibleTabs } from './selectors.js';
 
 import {
 	FETCH_TABS_SUCCESS,
@@ -18,6 +18,18 @@ export const closeTabs = () => (dispatch, getState) => {
 	const selectedTabIds = getSelectedTabIds(getState());
 	if (selectedTabIds.length) selectedTabIds.forEach(closeTab);
 	return false;
+};
+
+export const addSelectedTabsToFolder = (id) => (dispatch, getState) => {
+	const selectedTabs = getSelectedTabs(getState());
+
+	selectedTabs.forEach(tab => {
+		chrome.bookmarks.create({
+			parentId: id,
+			title: tab.title,
+			url: tab.url,
+		});
+	});
 };
 
 export const setBookmarksVisibility = (visible) => ({

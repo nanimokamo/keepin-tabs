@@ -16,6 +16,11 @@ export const getNumSelectedTabs = createSelector(
 	(tabIds) => tabIds.length,
 );
 
+export const getSelectedTabs = createSelector(
+	[getTabs, getSelectedTabIds],
+	(tabs, selectedTabIds) => tabs.filter(tab => selectedTabIds.indexOf(tab.id) !== -1),
+);
+
 export const getSortedTabs = createSelector(
 	getTabs,
 	(tabs) => tabs.length ? sortBy(tabs, 'index') : tabs,
