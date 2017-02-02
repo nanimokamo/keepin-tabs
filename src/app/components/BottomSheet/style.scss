@@ -1,0 +1,55 @@
+.BottomSheet {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 100;
+}
+
+.BottomSheet-cover {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(black, 0.4);
+	z-index: 1;
+}
+
+@keyframes slide-up {
+	0% {
+		transform: translateY(100%);
+	}
+	100% {
+		transform: none;
+	}
+}
+
+.BottomSheet-wrapper {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 50%;
+	background-color: white;
+	z-index: 1;
+	display: flex;
+	align-items: stretch;
+	flex-direction: column;
+	transform: translateY(100%);
+	animation: slide-up 0.2s ease-in-out forwards;
+}
+
+.BottomSheet-title {
+	font-size: 12px;
+	padding: $padding-normal;
+	flex-shrink: 0;
+	color: $dark-grey;
+}
+
+.BottomSheet-content {
+	background-color: $lightest-grey-2;
+	height: 100%;
+	overflow: scroll;
+}

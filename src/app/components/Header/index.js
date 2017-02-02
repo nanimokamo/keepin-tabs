@@ -1,12 +1,40 @@
-import Icon from '../Icon';
 import React from 'react';
 import { connect } from 'react-redux';
-
 import { createStructuredSelector } from 'reselect';
-import { getNumTabs, getMode, getQuery, getListView, getNumSelectedTabs } from '../../selectors.js'
-import { setQuery, setMode, sortTabs, setListView, deselectAllTabs, closeTabs } from '../../actions.js'
+import {
+	getNumTabs,
+	getMode,
+	getQuery,
+	getListView,
+	getNumSelectedTabs
+} from '../../selectors.js'
+import {
+	setQuery,
+	setMode,
+	sortTabs,
+	setListView,
+	deselectAllTabs,
+	closeTabs,
+	setBookmarksVisibility,
+} from '../../actions.js'
+import Icon from '../Icon';
 
-const Header = ({ mode, numTabs, numSelectedTabs, query, closeTabs, setModeSearch, deselectAllTabs, setModeDefault, setListView, sortTabs, setQuery, clearQuery, listView }) => {
+const Header = ({
+	mode,
+	numTabs,
+	numSelectedTabs,
+	query,
+	closeTabs,
+	setModeSearch,
+	deselectAllTabs,
+	setModeDefault,
+	setListView,
+	sortTabs,
+	setQuery,
+	clearQuery,
+	listView,
+	showBookmarks,
+}) => {
 	return (
 		<header className="Header" data-mode={mode}>
 			{mode === 'default' ?
@@ -83,6 +111,13 @@ const Header = ({ mode, numTabs, numSelectedTabs, query, closeTabs, setModeSearc
 					<div className="Header-actions">
 						<button
 							className="icon-button"
+							onClick={showBookmarks}
+							title="Bookmark"
+						>
+							<Icon name="bookmark" />
+						</button>
+						<button
+							className="icon-button"
 							onClick={sortTabs}
 							title="Sort"
 						>
@@ -103,6 +138,9 @@ const Header = ({ mode, numTabs, numSelectedTabs, query, closeTabs, setModeSearc
 };
 
 const mapDispatchToProps = (dispatch) => ({
+	showBookmarks() {
+		dispatch(setBookmarksVisibility(true));
+	},
 	setModeSearch() {
 		dispatch(setMode('search'));
 	},

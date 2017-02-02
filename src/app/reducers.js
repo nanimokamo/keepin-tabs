@@ -9,6 +9,7 @@ import {
 	SELECT_TAB,
 	DESELECT_TAB,
 	DESELECT_ALL_TABS,
+	SET_BOOKMARKS_VISIBILITY,
 } from './constants.js';
 
 const tabs = (state = [], action) => {
@@ -56,6 +57,11 @@ const listView = (state = 'default', action) => {
 	return action.listView;
 };
 
+const showBookmarks = (state = false, action) => {
+	if (action.type !== SET_BOOKMARKS_VISIBILITY) return state;
+	return action.visible;
+};
+
 const createReducer = () => {
 	return combineReducers({
 		tabs,
@@ -64,6 +70,7 @@ const createReducer = () => {
 		highlightedTabId,
 		listView,
 		selectedTabIds,
+		showBookmarks,
 	});
 };
 

@@ -9,6 +9,8 @@ export const getSelectedTabIds = (state) => state.selectedTabIds;
 
 export const getMode = (state) => state.selectedTabIds.length ? 'select' : state.mode;
 
+export const getShowBookmarks = (state) => state.showBookmarks;
+
 export const getNumSelectedTabs = createSelector(
 	getSelectedTabIds,
 	(tabIds) => tabIds.length,

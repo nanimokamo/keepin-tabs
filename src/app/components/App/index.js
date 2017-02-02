@@ -4,28 +4,16 @@ import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import { createStructuredSelector } from 'reselect';
 
 import Header from '../Header';
+import Bookmarks from '../Bookmarks';
 import TabsList from '../TabsList';
 import TabsListItem from '../TabsListItem';
 import { goToTab, moveTab } from '../../utils.js';
-import { getVisibleTabs, getHighlightedTabId, getMode, getQuery, getListView, getSelectedTabIds } from '../../selectors.js'
+import { getVisibleTabs, getHighlightedTabId, getMode, getQuery, getListView, getSelectedTabIds, getShowBookmarks } from '../../selectors.js'
 import { setMode, setHighlightedTabId, selectTab, deselectTab } from '../../actions.js';
+import { IGNORE_EVENTS } from '../../constants.js';
 
 const SortableTabsListItem = SortableElement(TabsListItem);
 const SortableTabsList = SortableContainer(TabsList);
-const IGNORE_EVENTS = [
-	'ArrowLeft',
-	'ArrowRight',
-	'ShiftRight',
-	'ShiftLeft',
-	'AltLeft',
-	'OSLeft',
-	'OSRight',
-	'CapsLock',
-	'ControlRight',
-	'ControlLeft',
-	'MetaLeft',
-	'MetaRight',
-];
 
 class App extends Component {
 	constructor(props) {
@@ -99,15 +87,20 @@ class App extends Component {
 	}
 
 	render() {
-		const { tabs, highlightedTabId, selectedTabIds, selectTab, deselectTab } = this.props;
+		const { tabs, highlightedTabId, selectedTabIds, selectTab, deselectTab, showBookmarks } = this.props;
 		const pinnedTabs = tabs.filter(tab => tab.pinned);
 		const unpinnedTabs = tabs.filter(tab => !tab.pinned);
+
+		console.log(showBookmarks);
 
 		return (
 			<main className="App">
 				<Header />
 
 				<div className="App-content">
+					{showBookmarks ?
+						<Bookmarks />
+					: null}
 					{pinnedTabs.length ?
 					<SortableTabsList
 						distance={10}
@@ -184,6 +177,7 @@ const mapStateToProps = (state) => createStructuredSelector({
 	query: getQuery,
 	listView: getListView,
 	selectedTabIds: getSelectedTabIds,
+	showBookmarks: getShowBookmarks,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

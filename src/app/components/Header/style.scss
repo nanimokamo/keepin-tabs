@@ -36,7 +36,7 @@
 	}
 
 	&[data-mode="select"] {
-		background-color: rgba($tertiary, 0.05);
+		background-color: lighten($tertiary, 54%);
 		color: $tertiary;
 
 		.icon svg {

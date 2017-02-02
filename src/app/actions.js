@@ -11,6 +11,7 @@ import {
 	SELECT_TAB,
 	DESELECT_TAB,
 	DESELECT_ALL_TABS,
+	SET_BOOKMARKS_VISIBILITY,
 } from './constants.js';
 
 export const closeTabs = () => (dispatch, getState) => {
@@ -18,6 +19,11 @@ export const closeTabs = () => (dispatch, getState) => {
 	if (selectedTabIds.length) selectedTabIds.forEach(closeTab);
 	return false;
 };
+
+export const setBookmarksVisibility = (visible) => ({
+	type: SET_BOOKMARKS_VISIBILITY,
+	visible,
+});
 
 export const deselectAllTabs = () => ({
 	type: DESELECT_ALL_TABS,
