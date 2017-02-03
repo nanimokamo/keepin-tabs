@@ -12,6 +12,7 @@ import {
 	DESELECT_TAB,
 	DESELECT_ALL_TABS,
 	SET_BOOKMARKS_VISIBILITY,
+	NEW_FOLDER_CREATED,
 } from './constants.js';
 
 export const closeTabs = () => (dispatch, getState) => {
@@ -30,6 +31,17 @@ export const addSelectedTabsToFolder = (id) => (dispatch, getState) => {
 			url: tab.url,
 		});
 	});
+};
+
+export const createNewFolder = (parentId, title) => {
+	chrome.bookmarks.create({
+		parentId,
+		title,
+	});
+
+	return {
+		type: NEW_FOLDER_CREATED,
+	};
 };
 
 export const setBookmarksVisibility = (visible) => ({

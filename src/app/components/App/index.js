@@ -33,6 +33,8 @@ class App extends Component {
 	}
 
 	handleKeyDown(e) {
+		if (this.props.bottomSheetOpen) return;
+
 		const {
 			tabs,
 			mode,
@@ -176,6 +178,7 @@ const mapStateToProps = (state) => createStructuredSelector({
 	listView: getListView,
 	selectedTabIds: getSelectedTabIds,
 	showBookmarks: getShowBookmarks,
+	bottomSheetOpen: getShowBookmarks,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -32,18 +32,6 @@
 		user-select: none;
 	}
 
-	&[data-pinned="true"] {
-		&:before {
-			content: "";
-			width: 2px;
-			position: absolute;
-			top: 0;
-			left: 0;
-			height: 100%;
-			background-color: $tertiary;
-		}
-	}
-
 	&:after {
 		content: "";
 		height: 1px;
@@ -51,7 +39,11 @@
 		bottom: 0;
 		width: 100%;
 		background-color: #eee;
-		left: 0;
+		left: ($padding-normal * 2) + map-get($tabListItemFaviconSize, default);
+
+		[data-view="compact"] & {
+			left: ($padding-normal * 2) + map-get($tabListItemFaviconSize, compact);
+		}
 	}
 
 	&:hover:not([data-selected="true"]), &[data-highlighted="true"] {
@@ -93,7 +85,7 @@
 	background-size: cover;
 	background-position: center;
 	background-color: transparent;
-	margin-right: 16px;
+	margin-right: $padding-normal;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -127,8 +119,12 @@ $tabListIconTransitionSpeed: 0.2s;
 }
 
 .TabsListItem-select {
+	top: 50%;
+	left: 50%;
+	width: 26px;
+	height: 26px;
 	display: none;
-	transform: scale(1);
+	transform: translate(-50%,-50%) scale(1);
 
 	.TabsListItem-status:hover &, .TabsListItem[data-selected="true"] & {
 		display: block;
