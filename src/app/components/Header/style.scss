@@ -23,6 +23,10 @@
 
 		.icon svg {
 			fill: $white;
+
+			&:hover {
+				fill: rgba($white, 0.75);
+			}
 		}
 	}
 
@@ -32,6 +36,10 @@
 
 		.icon svg {
 			fill: $medium-grey;
+
+			&:hover {
+				fill: $dark-grey;
+			}
 		}
 	}
 
@@ -41,6 +49,10 @@
 
 		.icon svg {
 			fill: $medium-grey;
+
+			&:hover {
+				fill: $dark-grey;
+			}
 		}
 	}
 

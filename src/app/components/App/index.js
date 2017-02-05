@@ -98,9 +98,7 @@ class App extends Component {
 				<Header />
 
 				<div className="App-content">
-					{showBookmarks ?
-						<Bookmarks />
-					: null}
+					<Bookmarks open={showBookmarks} />
 					{pinnedTabs.length ?
 					<SortableTabsList
 						distance={10}

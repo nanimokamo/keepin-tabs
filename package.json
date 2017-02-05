@@ -1,5 +1,5 @@
 {
-  "name": "keepin-tabs-v2",
+  "name": "keepin-tabs",
   "description": "Manage your tabs.",
   "scripts": {
     "start": "npm run gulp",
@@ -43,9 +43,12 @@
     "url-parse": "^1.0.5",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.9.0",
     "yargs": "^3.15.0"
   },
   "dependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.22.0",
+    "babel-polyfill": "^6.22.0",
     "lodash.groupby": "^4.6.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",

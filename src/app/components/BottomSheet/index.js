@@ -1,21 +1,37 @@
 import React from 'react';
+import Icon from '../Icon';
 
-const BottomSheet = ({ children, title, onClickCover }) => {
-	return (
-		<div className="BottomSheet">
-			<div className="BottomSheet-cover" onClick={onClickCover} />
-			<div className="BottomSheet-wrapper">
-				{title ?
-					<div className="BottomSheet-title">
-						{title}
-					</div>
-				: null}
-				<div className="BottomSheet-content">
-					{children}
+class BottomSheet extends React.Component {
+	componentDidMount() {
+
+	}
+
+	render() {
+		const { children, title, onClickCover, onClickBack, showBack, open } = this.props;
+
+		return (
+			<div className={`BottomSheet ${open ? 'is-open' : ''}`}>
+				<div className="BottomSheet-cover" onClick={onClickCover} />
+				<div className="BottomSheet-wrapper">
+					{title ?
+						<div className="BottomSheet-title">
+							<Icon
+								className={`BottomSheet-nav ${showBack ? '' : 'is-hidden'}`}
+								name="back"
+								onClick={onClickBack}
+							/>
+							{title}
+						</div>
+					: null}
+					{open ?
+						<div className="BottomSheet-content">
+							{children}
+						</div>
+					: null}
 				</div>
 			</div>
-		</div>
-	);
-};
+		);
+	}
+}
 
 export default BottomSheet;

@@ -1,0 +1,83 @@
+.Bookmarks-item {
+	padding: $padding-normal / 2 $padding-normal;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+
+	&:not(.Bookmarks-item--newFolder):not(.Bookmarks-item--noFolders) {
+		cursor: pointer;
+	}
+
+	&--newFolder {
+		background-color: $lightest-grey-2;
+	}
+
+	&:not(.Bookmarks-item--newFolder):not(.Bookmarks-item--noFolders):active {
+		background-color: lighten($tertiary, 50%);
+	}
+
+	.icon[data-name="folder"], .icon[data-name="new-folder"] {
+		flex-shrink: 0;
+		margin-right: $padding-normal;
+		color: $medium-grey;
+	}
+
+	.icon[data-name="add"] {
+		flex-shrink: 0;
+		margin-left: $padding-normal;
+		color: $medium-grey;
+		display: none;
+
+		&:hover {
+			color: $black;
+		}
+	}
+
+	.icon[data-name="right-arrow"] {
+		position: relative;
+		color: $medium-grey;
+
+		&:hover {
+			color: $black;
+		}
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: -8px;
+			bottom: -8px;
+			left: -8px;
+			right: -8px;
+		}
+	}
+
+	&:not(.Bookmarks-item--noFolders):hover {
+		color: $tertiary;
+
+		.icon[data-name="add"] {
+			display: block;
+		}
+	}
+}
+
+.Bookmarks-itemTitle {
+	width: 100%;
+	font-size: 13px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+
+	span {
+		color: $light-grey;	
+		margin-left: $padding-normal / 2;
+	}
+}
+
+.Bookmarks-itemTitleInput {
+	border: 0;
+	padding: 0;
+	font: inherit;
+	outline: none;
+	background-color: transparent;
+	width: 100%;
+}

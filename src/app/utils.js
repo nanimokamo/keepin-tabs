@@ -43,3 +43,16 @@ export const closeTab = (id) => {
 export const moveTab = (id, index) => {
     chrome.tabs.move(id, { index })
 };
+
+export const createBookmarksFolder = (parentId, title) => new Promise((resolve) => {
+    chrome.bookmarks.create({
+        parentId,
+        title,
+    }, (bookmark) => {
+        resolve(bookmark.id);
+    });
+});
+
+export const getBookmarksById = (id) => new Promise((resolve) => {
+    chrome.bookmarks.getSubTree(`${id}`, resolve);
+});

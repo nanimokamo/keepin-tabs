@@ -38,7 +38,7 @@
 		position: absolute;
 		bottom: 0;
 		width: 100%;
-		background-color: #eee;
+		background-color: rgba(black, 0.05);
 		left: ($padding-normal * 2) + map-get($tabListItemFaviconSize, default);
 
 		[data-view="compact"] & {

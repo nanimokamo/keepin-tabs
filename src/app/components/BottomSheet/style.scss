@@ -1,20 +1,28 @@
 .BottomSheet {
+	// position: fixed;
+	// top: 0;
+	// left: 0;
+	// right: 0;
+	// bottom: 0;
+	// z-index: 100;
+}
+
+.BottomSheet-cover {
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-	z-index: 100;
-}
-
-.BottomSheet-cover {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+	opacity: 0;
 	background-color: rgba(black, 0.4);
-	z-index: 1;
+	pointer-events: none;
+	z-index: 100;
+	transition: opacity 0.15s ease;
+
+	.BottomSheet.is-open & {
+		pointer-events: auto;
+		opacity: 1;
+	}
 }
 
 @keyframes slide-up {
@@ -27,18 +35,22 @@
 }
 
 .BottomSheet-wrapper {
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	left: 0;
 	right: 0;
-	height: 50%;
+	height: 75%;
 	background-color: white;
-	z-index: 1;
+	z-index: 100;
 	display: flex;
 	align-items: stretch;
 	flex-direction: column;
 	transform: translateY(100%);
-	animation: slide-up 0.2s ease-in-out forwards;
+	transition: transform 0.15s ease;
+
+	.BottomSheet.is-open & {
+		transform: none;
+	}
 }
 
 .BottomSheet-title {
@@ -46,6 +58,27 @@
 	padding: $padding-normal;
 	flex-shrink: 0;
 	color: $medium-grey;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.BottomSheet-nav {
+	cursor: pointer;
+	margin-right: $padding-normal;
+	transform: none;
+	overflow: hidden;
+	transition: width 0.15s ease, transform 0.1s ease, margin-right 0.1s ease;
+
+	&.is-hidden {
+		margin-right: 0;
+		transform: scale(0);
+		width: 0;
+	}
+
+	&:hover {
+		color: $black;
+	}
 }
 
 .BottomSheet-content {

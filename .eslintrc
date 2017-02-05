@@ -12,4 +12,8 @@
 		"browser": true,
 		"node": true,
 	},
+	"globals": {
+		"chrome": true,
+		"Promise": true,
+	},
 }
