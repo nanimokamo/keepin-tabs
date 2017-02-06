@@ -13,6 +13,7 @@ import {
 	setMode,
 	sortTabs,
 	setListView,
+	selectAllVisibleTabs,
 	deselectAllTabs,
 	closeTabs,
 	setBookmarksVisibility,
@@ -34,6 +35,7 @@ const Header = ({
 	clearQuery,
 	listView,
 	showBookmarks,
+	selectAll,
 }) => {
 	return (
 		<header className="Header" data-mode={mode}>
@@ -87,14 +89,23 @@ const Header = ({
 						placeholder="Search..."
 						autoFocus
 					/>
-					<button
-						className="icon-button"
-						onClick={clearQuery}
-						disabled={query.length ? false : true}
-						title="Clear"
-					>
-						<Icon name="close" />
-					</button>
+					<div className="Header-actions">
+						<button
+							className="icon-button"
+							onClick={selectAll}
+							title="Select all"
+						>
+							<Icon name="select-all" />
+						</button>
+						<button
+							className="icon-button"
+							onClick={clearQuery}
+							disabled={query.length ? false : true}
+							title="Clear"
+						>
+							<Icon name="close" />
+						</button>
+					</div>
 				</section>
 			: null}
 			{mode === 'select' ?
@@ -138,6 +149,9 @@ const Header = ({
 };
 
 const mapDispatchToProps = (dispatch) => ({
+	selectAll() {
+		dispatch(selectAllVisibleTabs());
+	},
 	showBookmarks() {
 		dispatch(setBookmarksVisibility(true));
 	},

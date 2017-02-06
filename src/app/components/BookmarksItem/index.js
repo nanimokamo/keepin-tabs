@@ -13,7 +13,13 @@ const BookmarksItem = ({ id, title, goToFolder, addToFolder }) => {
 			<div className="Bookmarks-itemTitle">
 				{title}
 			</div>
-			<Icon name="right-arrow" onClick={(e) => goToFolder(id)} />
+			<Icon
+				name="right-arrow"
+				onClick={(e) => {
+					e.stopPropagation();
+					goToFolder(id);
+				}}
+			/>
 		</li>
 	);
 };

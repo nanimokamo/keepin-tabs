@@ -41,6 +41,11 @@ export const getVisibleTabs = createSelector(
 	},
 );
 
+export const getVisibleTabIds = createSelector(
+	[getVisibleTabs],
+	(visibleTabs) => visibleTabs.map(tab => tab.id),
+);
+
 export const getNumTabs = createSelector(
 	getTabs,
 	(tabs) => tabs.length,

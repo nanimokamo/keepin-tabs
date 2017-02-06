@@ -22,6 +22,7 @@ class Bookmarks extends React.Component {
 		};
 
 		this.goToFolder = this.goToFolder.bind(this);
+		this.addToFolder = this.addToFolder.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleKeypress = this.handleKeypress.bind(this);
 	}
@@ -94,7 +95,7 @@ class Bookmarks extends React.Component {
 				open={open}
 				title={parentTitle || 'Add tabs to folder'}
 				showBack={parentId !== undefined}
-				onClickBack={() => this.goToFolder(parentId)}
+				onClickBack={(e) => this.goToFolder(parentId)}
 				onClickCover={hideBookmarks}
 			>
 				<div className="Bookmarks">

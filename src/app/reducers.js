@@ -7,6 +7,7 @@ import {
 	SET_HIGHLIGHTED_TAB_ID,
 	SET_LIST_VIEW_SUCCESS,
 	SELECT_TAB,
+	SELECT_TABS,
 	DESELECT_TAB,
 	DESELECT_ALL_TABS,
 	SET_BOOKMARKS_VISIBILITY,
@@ -28,6 +29,11 @@ const selectedTabIds = (state = [], action) => {
 				...state,
 				action.tabId,
 			];
+		case SELECT_TABS:
+			return [
+				...state,
+				...action.ids,
+			].filter((id, i, arr) => arr.indexOf(id) === i);
 		case DESELECT_TAB:
 			return state.filter(tabId => tabId !== action.tabId);
 		case DESELECT_ALL_TABS:

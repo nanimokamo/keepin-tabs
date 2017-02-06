@@ -8,7 +8,7 @@
 	right: 0;
 	bottom: 0;
 	opacity: 0;
-	background-color: rgba($BLACK, 0.4);
+	background-color: rgba($BLACK, 0.25);
 	pointer-events: none;
 	z-index: 100;
 	transition: opacity 0.15s ease;
@@ -42,12 +42,26 @@
 	transform: translateY(100%);
 	transition: transform 0.15s ease;
 
+	&:after {
+		content: "";
+		display: block;
+		position: absolute;
+		bottom: 100%;
+		background-image: linear-gradient(to top, rgba(black, 0.05), transparent);
+		border-bottom: 1px solid rgba($BLACK, 0.1);
+		width: 100%;
+		left: 0;
+		z-index: 100;
+		height: 3px;
+	}
+
 	.BottomSheet.is-open & {
 		transform: none;
 	}
 }
 
 .BottomSheet-title {
+	position: relative;
 	font-size: 12px;
 	padding: $PADDING_NORMAL;
 	flex-shrink: 0;
@@ -55,6 +69,26 @@
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
+
+	&:after {
+		content: "";
+		display: block;
+		position: absolute;
+		top: 100%;
+		// background-image: linear-gradient(to bottom, rgba(black, 0.2), transparent);
+		background-image: rgba($BLACK, 0.1);
+		width: 100%;
+		left: 0;
+		z-index: 100;
+		height: 1px;
+		pointer-events: none;
+		opacity: 0;
+		transition: opacity 0.15s ease;
+		
+		.BottomSheet.is-scrolled & {
+			opacity: 1;
+		}
+	}
 }
 
 .BottomSheet-nav {

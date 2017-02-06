@@ -65,7 +65,7 @@ const TabsListItem = ({ id, title, status, url, pinned, highlighted, favIconUrl,
 				<div className="TabsListItem-options">
 					<button
 						className="icon-button"
-						onClick={(e) => {
+						onClick={() => {
 							pinTab(id, !pinned);
 						}}
 						title={pinned ? 'Unpin' : 'Pin'}
@@ -75,7 +75,7 @@ const TabsListItem = ({ id, title, status, url, pinned, highlighted, favIconUrl,
 					</button>
 					<button
 						className="icon-button"
-						onClick={(e) => {
+						onClick={() => {
 							refreshTab(id);
 						}}
 						title="Refresh"
@@ -84,7 +84,7 @@ const TabsListItem = ({ id, title, status, url, pinned, highlighted, favIconUrl,
 					</button>
 					<button
 						className="icon-button"
-						onClick={(e) => {
+						onClick={() => {
 							closeTab(id);
 						}}
 						title="Close"

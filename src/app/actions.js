@@ -1,6 +1,6 @@
 import groupBy from 'lodash.groupby';
 import { sortBy, moveTab, closeTab } from './utils.js';
-import { getSelectedTabs, getSelectedTabIds, getVisibleTabs } from './selectors.js';
+import { getSelectedTabs, getSelectedTabIds, getVisibleTabs, getVisibleTabIds } from './selectors.js';
 
 import {
 	FETCH_TABS_SUCCESS,
@@ -13,6 +13,7 @@ import {
 	DESELECT_ALL_TABS,
 	SET_BOOKMARKS_VISIBILITY,
 	NEW_FOLDER_CREATED,
+	SELECT_TABS,
 } from './constants.js';
 
 export const closeTabs = () => (dispatch, getState) => {
@@ -57,6 +58,13 @@ export const selectTab = (tabId) => ({
 	type: SELECT_TAB,
 	tabId,
 });
+
+export const selectAllVisibleTabs = () => (dispatch, getState) => {
+	dispatch({
+		type: SELECT_TABS,
+		ids: getVisibleTabIds(getState()),
+	});
+};
 
 export const deselectTab = (tabId) => ({
 	type: DESELECT_TAB,

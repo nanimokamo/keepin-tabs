@@ -87,6 +87,15 @@
 	justify-content: center;
 	position: relative;
 
+	&:before {
+		content: '';
+		position: absolute;
+		top: -#{(map-get($TAB_LIST_ITEM_HEIGHT, default) / 2) - (map-get($TAB_LIST_ITEM_FAVICON_SIZE, 'default') / 2)};
+		bottom: -#{(map-get($TAB_LIST_ITEM_HEIGHT, default) / 2) - (map-get($TAB_LIST_ITEM_FAVICON_SIZE, 'default') / 2)};
+		left: -$PADDING_NORMAL;
+		right: -$PADDING_NORMAL;
+	}
+
 	[data-view="compact"] & {
 		@include size(map-get($TAB_LIST_ITEM_FAVICON_SIZE, 'compact'));
 	}
@@ -119,6 +128,15 @@
 	height: 26px;
 	display: none;
 	transform: translate(-50%,-50%) scale(1);
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: -#{(map-get($TAB_LIST_ITEM_HEIGHT, default) / 2) - (map-get($TAB_LIST_ITEM_FAVICON_SIZE, 'default') / 2)};
+		bottom: -#{(map-get($TAB_LIST_ITEM_HEIGHT, default) / 2) - (map-get($TAB_LIST_ITEM_FAVICON_SIZE, 'default') / 2)};
+		left: -#{$PADDING_NORMAL - 2};
+		right: -#{$PADDING_NORMAL - 2};
+	}
 
 	.TabsListItem-status:hover &, .TabsListItem[data-selected="true"] & {
 		display: block;

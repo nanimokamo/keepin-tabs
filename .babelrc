@@ -1,4 +1,4 @@
 {
-	'plugins': ['transform-async-to-generator'],
+	'plugins': ['transform-async-to-generator', 'syntax-do-expressions'],
 	'presets': ['es2015', 'stage-0', 'react'],
 }
