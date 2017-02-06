@@ -1,10 +1,4 @@
 .BottomSheet {
-	// position: fixed;
-	// top: 0;
-	// left: 0;
-	// right: 0;
-	// bottom: 0;
-	// z-index: 100;
 }
 
 .BottomSheet-cover {
@@ -14,7 +8,7 @@
 	right: 0;
 	bottom: 0;
 	opacity: 0;
-	background-color: rgba(black, 0.4);
+	background-color: rgba($BLACK, 0.4);
 	pointer-events: none;
 	z-index: 100;
 	transition: opacity 0.15s ease;
@@ -40,7 +34,7 @@
 	left: 0;
 	right: 0;
 	height: 75%;
-	background-color: white;
+	background-color: $WHITE;
 	z-index: 100;
 	display: flex;
 	align-items: stretch;
@@ -55,9 +49,9 @@
 
 .BottomSheet-title {
 	font-size: 12px;
-	padding: $padding-normal;
+	padding: $PADDING_NORMAL;
 	flex-shrink: 0;
-	color: $medium-grey;
+	color: $MEDIUM_GREY;
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
@@ -65,7 +59,7 @@
 
 .BottomSheet-nav {
 	cursor: pointer;
-	margin-right: $padding-normal;
+	margin-right: $PADDING_NORMAL;
 	transform: none;
 	overflow: hidden;
 	transition: width 0.15s ease, transform 0.1s ease, margin-right 0.1s ease;
@@ -77,12 +71,12 @@
 	}
 
 	&:hover {
-		color: $black;
+		color: $BLACK;
 	}
 }
 
 .BottomSheet-content {
-	background-color: white;//$lightest-grey-2;
+	background-color: $WHITE;
 	height: 100%;
 	overflow: scroll;
 }

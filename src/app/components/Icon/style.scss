@@ -36,7 +36,7 @@
 	}
 
 	svg {
-		transition: fill $transitionSpeed ease;
+		transition: fill $TRANSITION_SPEED ease;
 		display: inline-block;
 		fill: currentColor;
 	    @include size(100%);

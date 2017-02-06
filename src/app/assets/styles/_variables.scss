@@ -1,40 +1,36 @@
-$white: #ffffff;
-$black: #000000;
-$purple: #957cff;
-$dark-grey: #212121;
-$medium-grey: #737373;
-$light-grey: #B2B2B2;
-$lightest-grey: #E9E9E9;
-$lightest-grey-2: #F9F9F9;
+$WHITE: #ffffff;
+$BLACK: #000000;
+$PURPLE: #957cff;
+$BLUE: #03A9F4;
+$DARK_GREY: #212121;
+$MEDIUM_GREY: #737373;
+$LIGHT_GREY: #B2B2B2;
+$LIGHTEST_GREY: #E9E9E9;
+$LIGHTEST_GREY_2: #F9F9F9;
 
-$chrome-blue-2: #1155cc;
-$chrome-blue: #347DC2;
-$chrome-green: #58BA47;
-$chrome-red: #E63832;
-$chrome-yellow: #FCD209;
+$CHROME_BLUE: #347DC2;
+$CHROME_BLUE_2: #1155cc;
+$CHROME_GREEN: #58BA47;
+$CHROME_RED: #E63832;
+$CHROME_YELLOW: #FCD209;
 
-$blue: #03A9F4;
+$TERTIARY: $CHROME_BLUE_2;
 
-$tertiary: $chrome-blue-2;
+$HEADER_HEIGHT: 56px;
+$SUBHEADER_HEIGHT: 48px;
+$PADDING_NORMAL: 16px;
+$Z_INDEX_TOP: 100;
 
-$header-height: 56px;
-$padding-normal: 16px;
-$z-index-top: 100;
-$subheader-height: 48px;
+$TRANSITION_SPEED: 0.1s;
 
+$TAB_LIST_ICON_TRANSITION_SPEED: 0.2s;
 
-/////////////////
-///
-
-$transitionSpeed: 0.1s;
-
-$tabListItemHeight: (
+$TAB_LIST_ITEM_HEIGHT: (
 	default: 60px,
 	compact: 42px,
 );
 
-$tabListItemFaviconSize: (
+$TAB_LIST_ITEM_FAVICON_SIZE: (
 	default: 20px,
 	compact: 20px, 
 );
-//18

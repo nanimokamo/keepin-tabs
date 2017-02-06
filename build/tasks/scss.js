@@ -14,7 +14,6 @@ const SCSS_SRC_FILES = [
 	PATH.resolve(__dirname, ROOT, 'src/app/assets/styles/') + '/**/*.scss',
 ];
 
-console.log(SCSS_SRC_FILES);
 const SCSS_DEVELOPMENT_BUILD_FOLDER = PATH.resolve(__dirname, ROOT, 'dist/public/css');
 const SCSS_PRODUCTION_BUILD_FOLDER = PATH.resolve(__dirname, ROOT, 'dist/public/css');
 
@@ -22,7 +21,7 @@ gulp.task('build:scss', function() {
 	if (util.env.env === 'production') {
 		return gulp.src(SCSS_SRC_FILE)
 			.pipe(sass(({ outputStyle: 'compressed' })).on('error', sass.logError))
-			.pipe(autoprefixer('last 3 versions', 'ie 9'))
+			.pipe(autoprefixer('last 2 Chrome versions'))
 			.pipe(gulp.dest(SCSS_PRODUCTION_BUILD_FOLDER));
 	} else {
 		return gulp.src(SCSS_SRC_FILE)

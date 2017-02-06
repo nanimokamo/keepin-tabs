@@ -13,18 +13,18 @@
 	list-style: none;
 	cursor: pointer;
 	position: relative;
-	height: map-get($tabListItemHeight, 'default');
+	height: map-get($TAB_LIST_ITEM_HEIGHT, 'default');
 	padding: 0 16px;
 	overflow: hidden;
-	background-color: $white;
-	transition: background-color $transitionSpeed ease;
+	background-color: $WHITE;
+	transition: background-color $TRANSITION_SPEED ease;
 
 	[data-view="compact"] & {
-		height: map-get($tabListItemHeight, 'compact');
+		height: map-get($TAB_LIST_ITEM_HEIGHT, 'compact');
 	}
 
 	&[data-selected="true"] {
-		background-color: lighten($tertiary, 50%);
+		background-color: lighten($TERTIARY, 50%);
 	}
 
 	&.is-dragging {
@@ -38,11 +38,11 @@
 		position: absolute;
 		bottom: 0;
 		width: 100%;
-		background-color: rgba(black, 0.05);
-		left: ($padding-normal * 2) + map-get($tabListItemFaviconSize, default);
+		background-color: rgba($BLACK, 0.05);
+		left: ($PADDING_NORMAL * 2) + map-get($TAB_LIST_ITEM_FAVICON_SIZE, default);
 
 		[data-view="compact"] & {
-			left: ($padding-normal * 2) + map-get($tabListItemFaviconSize, compact);
+			left: ($PADDING_NORMAL * 2) + map-get($TAB_LIST_ITEM_FAVICON_SIZE, compact);
 		}
 	}
 
@@ -72,31 +72,25 @@
 		content: '';
 		display: block;
 		padding-top: 0;
-
-		// .TabsListItem.is-dragged-over & {
-		// 	padding-top: 100%;
-		// }
 	}
 }
 
 .TabsListItem-status {
 	flex-shrink: 0;
-	@include size(map-get($tabListItemFaviconSize, 'default'));
+	@include size(map-get($TAB_LIST_ITEM_FAVICON_SIZE, 'default'));
 	background-size: cover;
 	background-position: center;
 	background-color: transparent;
-	margin-right: $padding-normal;
+	margin-right: $PADDING_NORMAL;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	position: relative;
 
 	[data-view="compact"] & {
-		@include size(map-get($tabListItemFaviconSize, 'compact'));
+		@include size(map-get($TAB_LIST_ITEM_FAVICON_SIZE, 'compact'));
 	}
 }
-
-$tabListIconTransitionSpeed: 0.2s;
 
 .TabsListItem-icon {
 	position: absolute;
@@ -107,7 +101,7 @@ $tabListIconTransitionSpeed: 0.2s;
 	background-size: cover;
 	background-position: center;
 	transform: scale(0);
-	transition: transform $tabListIconTransitionSpeed linear;
+	transition: transform $TAB_LIST_ICON_TRANSITION_SPEED linear;
 
 	.icon {
 		@include size(100%);
@@ -156,18 +150,18 @@ $tabListIconTransitionSpeed: 0.2s;
 .TabsListItem-favicon {
 	.TabsListItem[data-status="complete"] & {
 		transform: scale(1);
-			transition: transform $tabListIconTransitionSpeed linear $tabListIconTransitionSpeed;
+			transition: transform $TAB_LIST_ICON_TRANSITION_SPEED linear $TAB_LIST_ICON_TRANSITION_SPEED;
 	}
 
 	svg {
-		fill: $light-grey;
+		fill: $LIGHT_GREY;
 	}
 }
 
 .TabsListItem-loading {
 	.TabsListItem[data-status="loading"] & {
 		transform: scale(1);
-		transition: transform $tabListIconTransitionSpeed linear $tabListIconTransitionSpeed;
+		transition: transform $TAB_LIST_ICON_TRANSITION_SPEED linear $TAB_LIST_ICON_TRANSITION_SPEED;
 	}
 
 	.icon {
@@ -213,7 +207,7 @@ $tabListIconTransitionSpeed: 0.2s;
 	flex-shrink: 0;
 	display: flex;
 	flex-direction: row;
-	padding-left: $padding-normal;
+	padding-left: $PADDING_NORMAL;
 
 	.TabsListItem:hover & {
 		> button {
@@ -242,11 +236,11 @@ $tabListIconTransitionSpeed: 0.2s;
 			}
 
 			&:hover svg {
-				fill: darken($tertiary, 10%);
+				fill: darken($TERTIARY, 10%);
 			}
 
 			svg {
-				fill: $tertiary;
+				fill: $TERTIARY;
 			}
 		}
 
@@ -255,12 +249,12 @@ $tabListIconTransitionSpeed: 0.2s;
 		}
 
 		svg {
-			fill: $medium-grey;
+			fill: $MEDIUM_GREY;
 		}
 
 		&:hover {
 			svg {
-				fill: $dark-grey;
+				fill: $DARK_GREY;
 			}
 		}
 

@@ -1,7 +1,7 @@
-@import 'assets/styles/_fonts';
-@import 'assets/styles/_reset';
-@import 'assets/styles/_mixins';
-@import 'assets/styles/_variables';
+@import 'assets/styles/_variables.scss';
+@import 'assets/styles/_fonts.scss';
+@import 'assets/styles/_reset.scss';
+@import 'assets/styles/_mixins.scss';
 
 html, body {
 	height: 100%;
@@ -12,22 +12,12 @@ html, body {
 }
 
 body {
-	background-color: $white;
-	color: $black;
+	background-color: $WHITE;
+	color: $BLACK;
 	font-family: "Roboto";
 	font-size: 100%;
 	overflow: auto;
 	-webkit-font-smoothing: antialiased;
-}
-
-.button {
-	border: 0;
-	background: linear-gradient(to bottom, #8375ff, #8b48ff);
-	color: currentColor;
-	padding: 0.5em 1em;
-	display: block;
-	width: 100%;
-	border-radius: 3px;
 }
 
 .TextInput {
@@ -47,7 +37,6 @@ body {
 		opacity: 0.7;
 	}
 }
-
 
 @import 'components/App/style.scss';
 @import 'components/Header/style.scss';

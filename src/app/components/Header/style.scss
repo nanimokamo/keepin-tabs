@@ -1,16 +1,16 @@
 .Header {
-	padding: 0 $padding-normal;
-	height: $header-height;
+	padding: 0 $PADDING_NORMAL;
+	height: $HEADER_HEIGHT;
 	top: 0;
 	width: 100%;
 	position: fixed;
-	z-index: $z-index-top;
+	z-index: $Z_INDEX_TOP;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: $tertiary;
-	color: $white;
-	transition: background-color $transitionSpeed ease;
+	background-color: $TERTIARY;
+	color: $WHITE;
+	transition: background-color $TRANSITION_SPEED ease;
 
 	h1 {
 		font-size: 18px;
@@ -18,40 +18,40 @@
 	}
 
 	&[data-mode="default"] {
-		background-color: $tertiary;
-		color: $white;
+		background-color: $TERTIARY;
+		color: $WHITE;
 
 		.icon svg {
-			fill: $white;
+			fill: $WHITE;
 
 			&:hover {
-				fill: rgba($white, 0.75);
+				fill: rgba($WHITE, 0.75);
 			}
 		}
 	}
 
 	&[data-mode="search"] {
-		background-color: $white;
-		color: $dark-grey;
+		background-color: $WHITE;
+		color: $DARK_GREY;
 
 		.icon svg {
-			fill: $medium-grey;
+			fill: $MEDIUM_GREY;
 
 			&:hover {
-				fill: $dark-grey;
+				fill: $DARK_GREY;
 			}
 		}
 	}
 
 	&[data-mode="select"] {
-		background-color: lighten($tertiary, 54%);
-		color: $tertiary;
+		background-color: lighten($TERTIARY, 54%);
+		color: $TERTIARY;
 
 		.icon svg {
-			fill: $medium-grey;
+			fill: $MEDIUM_GREY;
 
 			&:hover {
-				fill: $dark-grey;
+				fill: $DARK_GREY;
 			}
 		}
 	}
@@ -78,7 +78,7 @@
 		width: 100%;
 
 		.main-action {
-			margin-right: $padding-normal;
+			margin-right: $PADDING_NORMAL;
 		}
 
 		.icon {
@@ -93,7 +93,7 @@
 	
 	button {
 		&:not(:last-child) {
-			margin-right: $padding-normal;
+			margin-right: $PADDING_NORMAL;
 		}
 	}
 }
