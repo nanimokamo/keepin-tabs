@@ -1,8 +1,24 @@
 .App {
 	width: 425px;
+	height: 600px;
 }
 
-.App-content {
-	position: relative;
-	padding-top: $HEADER_HEIGHT;
+.AppContent {
+	position: fixed;
+	top: $HEADER_HEIGHT;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	transform: none;
+	transition: transform 0.2s ease;
+
+	.App.sidenav-is-open & {
+		transform: translateX($WINDOWS_WIDTH);
+	}
+}
+
+.AppContent-inner {
+	height: 100%;
+	overflow: scroll;
 }

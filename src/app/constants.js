@@ -1,3 +1,4 @@
+export const SET_DRAGGING = 'keepin-tabs/SET_DRAGGING';
 export const FETCH_TABS_SUCCESS = 'keepin-tabs/FETCH_TABS_SUCCESS';
 export const SET_QUERY = 'keepin-tabs/SET_QUERY';
 export const SET_MODE = 'keepin-tabs/SET_MODE';

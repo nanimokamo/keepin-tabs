@@ -6,6 +6,7 @@ export const getQuery = (state) => state.query.toLowerCase();
 export const getHighlightedTabId = (state) => state.highlightedTabId;
 export const getListView = (state) => state.listView;
 export const getSelectedTabIds = (state) => state.selectedTabIds;
+export const getIsDragging = (state) => state.isDragging;
 
 export const getMode = (state) => state.selectedTabIds.length ? 'select' : state.mode;
 

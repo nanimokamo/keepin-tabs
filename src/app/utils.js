@@ -56,3 +56,7 @@ export const createBookmarksFolder = (parentId, title) => new Promise((resolve) 
 export const getBookmarksById = (id) => new Promise((resolve) => {
     chrome.bookmarks.getSubTree(`${id}`, resolve);
 });
+
+export const getWindows = () => new Promise((resolve) => {
+    chrome.windows.getAll({ populate: true, windowTypes: ['normal'] }, resolve);
+});

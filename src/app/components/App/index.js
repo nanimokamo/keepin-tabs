@@ -7,9 +7,25 @@ import Header from '../Header';
 import Bookmarks from '../Bookmarks';
 import TabsList from '../TabsList';
 import TabsListItem from '../TabsListItem';
+import Windows from '../Windows';
+
 import { goToTab, moveTab } from '../../utils.js';
-import { getVisibleTabs, getHighlightedTabId, getMode, getQuery, getListView, getSelectedTabIds, getShowBookmarks } from '../../selectors.js'
-import { setMode, setHighlightedTabId, selectTab, deselectTab } from '../../actions.js';
+import {
+	getVisibleTabs,
+	getHighlightedTabId,
+	getMode,
+	getQuery,
+	getListView,
+	getSelectedTabIds,
+	getIsDragging,
+} from '../../selectors.js'
+import {
+	setMode,
+	setHighlightedTabId,
+	selectTab,
+	deselectTab,
+	setDragging,
+} from '../../actions.js';
 import { IGNORE_EVENTS } from '../../constants.js';
 
 const SortableTabsListItem = SortableElement(TabsListItem);
@@ -21,6 +37,7 @@ class App extends Component {
 
 		this.handleKeyDown = this.handleKeyDown.bind(this);
 		this.onSort = this.onSort.bind(this);
+		this.onSortStart = this.onSortStart.bind(this);
 	}
 
 	componentDidMount() {
@@ -86,64 +103,77 @@ class App extends Component {
 	onSort({ oldIndex, newIndex }) {
 		const tab = this.props.tabs[oldIndex];
 		if (tab) moveTab(tab.id, newIndex);
+		this.props.setDragging(false);
+	}
+
+	onSortStart() {
+		console.log('wizzz');
+		this.props.setDragging(true);
 	}
 
 	render() {
-		const { tabs, highlightedTabId, selectedTabIds, selectTab, deselectTab, showBookmarks } = this.props;
+		const { tabs, highlightedTabId, selectedTabIds, selectTab, deselectTab, isDragging } = this.props;
 		const pinnedTabs = tabs.filter(tab => tab.pinned);
 		const unpinnedTabs = tabs.filter(tab => !tab.pinned);
 
 		return (
-			<main className="App">
+			<main className={`App ${isDragging ? 'sidenav-is-open' : ''}`}>
 				<Header />
 
-				<div className="App-content">
-					<Bookmarks open={showBookmarks} />
-					{pinnedTabs.length ?
-					<SortableTabsList
-						distance={10}
-						onSort={this.onSort}
-						onSortEnd={this.onSort}
-					>
-						{pinnedTabs.map(tab => {
-							return (
-								<SortableTabsListItem
-									key={tab.id}
-									{...tab}
-									helperClass="is-dragging"
-									collection="pinned"
-									highlighted={highlightedTabId === tab.id}
-									selected={selectedTabIds.includes(tab.id)}
-									selectTab={selectTab}
-									deselectTab={deselectTab}
-								/>
-							);
-						})}
-					</SortableTabsList>
-					: null}
+				<Windows />
 
-					{unpinnedTabs.length ?
-					<SortableTabsList
-						distance={10}
-						onSort={this.onSort}
-						onSortEnd={this.onSort}
-					>
-						{unpinnedTabs.map(tab => {
-							return (
-								<SortableTabsListItem
-									key={tab.id}
-									{...tab}
-									helperClass="is-dragging"
-									collection="unpinned"
-									highlighted={highlightedTabId === tab.id}
-									selected={selectedTabIds.includes(tab.id)}
-									selectTab={selectTab}
-									deselectTab={deselectTab}
-								/>
-							);
-						})}
-					</SortableTabsList>
-					: null}
+				<div className="AppContent">
+					<div className="AppContent-inner">
+						<Bookmarks />
+
+						{pinnedTabs.length ?
+						<SortableTabsList
+							distance={10}
+							onSortStart={this.onSortStart}
+							onSort={this.onSort}
+							onSortEnd={this.onSort}
+						>
+							{pinnedTabs.map(tab => {
+								return (
+									<SortableTabsListItem
+										key={tab.id}
+										{...tab}
+										helperClass="is-dragging"
+										collection="pinned"
+										highlighted={highlightedTabId === tab.id}
+										selected={selectedTabIds.includes(tab.id)}
+										selectTab={selectTab}
+										deselectTab={deselectTab}
+									/>
+								);
+							})}
+						</SortableTabsList>
+						: null}
+
+						{unpinnedTabs.length ?
+						<SortableTabsList
+							distance={10}
+							onSortStart={this.onSortStart}
+							onSort={this.onSort}
+							onSortEnd={this.onSort}
+						>
+							{unpinnedTabs.map(tab => {
+								return (
+									<SortableTabsListItem
+										key={tab.id}
+										{...tab}
+										helperClass="is-dragging"
+										collection="unpinned"
+										highlighted={highlightedTabId === tab.id}
+										selected={selectedTabIds.includes(tab.id)}
+										selectTab={selectTab}
+										deselectTab={deselectTab}
+									/>
+								);
+							})}
+						</SortableTabsList>
+						: null}
+					</div>
 				</div>
 			</main>
 		)
@@ -151,6 +181,10 @@ class App extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
+	setDragging(dragging) {
+		console.log(dragging);
+		dispatch(setDragging(dragging));
+	},
 	setModeSearch() {
 		dispatch(setMode('search'));
 	},
@@ -175,8 +209,7 @@ const mapStateToProps = (state) => createStructuredSelector({
 	query: getQuery,
 	listView: getListView,
 	selectedTabIds: getSelectedTabIds,
-	showBookmarks: getShowBookmarks,
-	bottomSheetOpen: getShowBookmarks,
+	isDragging: getIsDragging,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

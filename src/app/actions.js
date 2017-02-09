@@ -14,6 +14,7 @@ import {
 	SET_BOOKMARKS_VISIBILITY,
 	NEW_FOLDER_CREATED,
 	SELECT_TABS,
+	SET_DRAGGING,
 } from './constants.js';
 
 export const closeTabs = () => (dispatch, getState) => {
@@ -100,6 +101,11 @@ export const setMode = (mode = 'default') => ({
 export const fetchTabsSuccess = (tabs) => ({
 	type: FETCH_TABS_SUCCESS,
 	tabs,
+});
+
+export const setDragging = (dragging) => ({
+	type: SET_DRAGGING,
+	dragging,
 });
 
 export const sortTabs = () => (dispatch, getState) => {

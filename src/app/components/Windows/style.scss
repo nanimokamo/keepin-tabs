@@ -1,0 +1,40 @@
+.Windows {
+	position: fixed;
+	top: $HEADER_HEIGHT;
+	left: 0;
+	bottom: 0;
+	width: $WINDOWS_WIDTH;
+	overflow: scroll;
+	z-index: 10;
+	background-color: $WHITE;
+	border-right: 1px solid $LIGHTEST_GREY;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: column;
+	padding: $PADDING_NORMAL;
+	transform: translateX(-100%);
+	transition: transform 0.2s ease;
+
+	.App.sidenav-is-open & {
+		transform: none;
+	}
+}
+
+.WindowsItem {
+	width: 100%;
+	border-radius: 50%;
+	background-color: $CHROME_GREEN;
+	color: rgba($WHITE, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 600;
+	margin-bottom: $PADDING_NORMAL;
+
+	&:before {
+		content: '';
+		padding-top: 100%;
+		display: block;
+	}
+}

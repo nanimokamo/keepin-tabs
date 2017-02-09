@@ -4,7 +4,6 @@ import { createStructuredSelector } from 'reselect';
 
 import { setBookmarksVisibility, addSelectedTabsToFolder } from '../../actions.js';
 import { createBookmarksFolder, getBookmarksById } from '../../utils.js';
-import { getShowBookmarks } from '../../selectors.js'
 
 import BottomSheet from '../BottomSheet';
 import Icon from '../Icon';
@@ -140,7 +139,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => createStructuredSelector({
-	open: getShowBookmarks,
+	// numTabs: getNumTabs,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bookmarks);

@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import {
 	FETCH_TABS_SUCCESS,
 	SET_QUERY,
+	SET_DRAGGING,
 	SET_MODE,
 	SET_HIGHLIGHTED_TAB_ID,
 	SET_LIST_VIEW_SUCCESS,
@@ -68,6 +69,11 @@ const showBookmarks = (state = false, action) => {
 	return action.visible;
 };
 
+const isDragging = (state = false, action) => {
+	if (action.type !== SET_DRAGGING) return state;
+	return action.dragging;
+};
+
 const createReducer = () => {
 	return combineReducers({
 		tabs,
@@ -77,6 +83,7 @@ const createReducer = () => {
 		listView,
 		selectedTabIds,
 		showBookmarks,
+		isDragging,
 	});
 };
 
