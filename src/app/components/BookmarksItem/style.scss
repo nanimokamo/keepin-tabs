@@ -16,26 +16,21 @@
 		background-color: lighten($TERTIARY, 50%);
 	}
 
-	.icon[data-name="folder"], .icon[data-name="new-folder"] {
+	.Icon[data-name="folder"],
+	.Icon[data-name="new-folder"],
+	.Icon[data-name="right-arrow"] {
+		color: $MEDIUM_GREY;
+		width: 24px;
+		height: 24px;
+	}
+
+	.Icon[data-name="folder"], .Icon[data-name="new-folder"] {
 		flex-shrink: 0;
 		margin-right: $PADDING_NORMAL;
-		color: $MEDIUM_GREY;
 	}
 
-	.icon[data-name="add"] {
-		flex-shrink: 0;
-		margin-left: $PADDING_NORMAL;
-		color: $MEDIUM_GREY;
-		display: none;
-
-		&:hover {
-			color: $BLACK;
-		}
-	}
-
-	.icon[data-name="right-arrow"] {
+	.Icon[data-name="right-arrow"] {
 		position: relative;
-		color: $MEDIUM_GREY;
 
 		&:hover {
 			color: $BLACK;
@@ -54,7 +49,7 @@
 	&:not(.Bookmarks-item--noFolders):hover {
 		color: $TERTIARY;
 
-		.icon[data-name="add"] {
+		.Icon[data-name="add"] {
 			display: block;
 		}
 	}

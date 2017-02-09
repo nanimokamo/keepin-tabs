@@ -7,10 +7,16 @@ export const getHighlightedTabId = (state) => state.highlightedTabId;
 export const getListView = (state) => state.listView;
 export const getSelectedTabIds = (state) => state.selectedTabIds;
 export const getIsDragging = (state) => state.isDragging;
+export const getWindowsVisible = (state) => state.windowsVisible;
 
 export const getMode = (state) => state.selectedTabIds.length ? 'select' : state.mode;
 
 export const getShowBookmarks = (state) => state.showBookmarks;
+
+export const getWindowsVisibility = createSelector(
+	[getIsDragging, getWindowsVisible],
+	(isDragging, windowsVisible) => isDragging || windowsVisible,
+);
 
 export const getNumSelectedTabs = createSelector(
 	getSelectedTabIds,
@@ -30,16 +36,28 @@ export const getSortedTabs = createSelector(
 export const getVisibleTabs = createSelector(
 	[getSortedTabs, getQuery],
 	(sortedTabs, query) => {
-		if (!query.length) return sortedTabs;
-		return sortedTabs.length
-			? sortedTabs.filter(tab => {
-				if (
-					tab.title.toLowerCase().includes(query.toLowerCase()) ||
-					tab.url.toLowerCase().includes(query.toLowerCase())
-				) return true;
-			})
-			: sortedTabs;
+		if (query.length && sortedTabs.length) {
+			return sortedTabs
+				.filter(tab => {
+					if (
+						tab.title.toLowerCase().includes(query.toLowerCase()) ||
+						tab.url.toLowerCase().includes(query.toLowerCase())
+					) return true;
+				});
+		}
+
+		return sortedTabs;
 	},
+);
+
+export const getPinnedVisibleTabs = createSelector(
+	[getVisibleTabs],
+	(tabs) => tabs.filter(t => t.pinned),
+);
+
+export const getUnpinnedVisibleTabs = createSelector(
+	[getVisibleTabs],
+	(tabs) => tabs.filter(t => !t.pinned),
 );
 
 export const getVisibleTabIds = createSelector(

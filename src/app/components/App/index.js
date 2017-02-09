@@ -1,215 +1,61 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import { createStructuredSelector } from 'reselect';
 
 import Header from '../Header';
 import Bookmarks from '../Bookmarks';
-import TabsList from '../TabsList';
-import TabsListItem from '../TabsListItem';
+import Tabs from '../Tabs';
 import Windows from '../Windows';
 
-import { goToTab, moveTab } from '../../utils.js';
-import {
-	getVisibleTabs,
-	getHighlightedTabId,
-	getMode,
-	getQuery,
-	getListView,
-	getSelectedTabIds,
-	getIsDragging,
-} from '../../selectors.js'
-import {
-	setMode,
-	setHighlightedTabId,
-	selectTab,
-	deselectTab,
-	setDragging,
-} from '../../actions.js';
-import { IGNORE_EVENTS } from '../../constants.js';
-
-const SortableTabsListItem = SortableElement(TabsListItem);
-const SortableTabsList = SortableContainer(TabsList);
+import { getWindowsVisibility } from '../../selectors.js'
+import { keyPressed } from '../../actions.js';
 
 class App extends Component {
 	constructor(props) {
 		super(props);
-
 		this.handleKeyDown = this.handleKeyDown.bind(this);
-		this.onSort = this.onSort.bind(this);
-		this.onSortStart = this.onSortStart.bind(this);
 	}
 
 	componentDidMount() {
 		window.addEventListener('keydown', this.handleKeyDown);
-		document.body.dataset.view = this.props.listView;
-	}
-
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.listView !== this.props.listView) document.body.dataset.view = nextProps.listView;
 	}
 
 	handleKeyDown(e) {
-		if (this.props.bottomSheetOpen) return;
-
-		const {
-			tabs,
-			mode,
-			highlightedTabId,
-			setHighlightedTabId,
-			setModeDefault,
-			setModeSearch,
-			query,
-		} = this.props;
-
-		if (IGNORE_EVENTS.includes(e.code)) return false;
-
-		switch (e.code) {
-			case 'ArrowUp':
-				e.preventDefault();
-
-				if (highlightedTabId === undefined) {
-					setHighlightedTabId(tabs[tabs.length - 1].id);
-				} else {
-					const currentIndex = tabs.findIndex(tab => tab.id === highlightedTabId);
-					const nextHighlightedId = (currentIndex - 1) < 0 ? tabs[tabs.length - 1].id : tabs[currentIndex - 1].id;
-					setHighlightedTabId(nextHighlightedId);
-				}
-
-				break;
-			case 'ArrowDown':
-				e.preventDefault();
-
-				if (highlightedTabId === undefined) {
-					setHighlightedTabId(tabs[0].id);
-				} else {
-					const currentIndex = tabs.findIndex(tab => tab.id === highlightedTabId);
-					const nextHighlightedId = (currentIndex + 1) > (tabs.length - 1) ? tabs[0].id : tabs[currentIndex + 1].id;
-					setHighlightedTabId(nextHighlightedId);
-				}
-
-				break;
-			case 'Enter':
-				goToTab(highlightedTabId);
-				break;
-			case 'Backspace':
-				if (mode === 'search' && query.length === 0) setModeDefault();
-				break;
-			default:
-				setModeSearch();
-		}
-	}
-
-	onSort({ oldIndex, newIndex }) {
-		const tab = this.props.tabs[oldIndex];
-		if (tab) moveTab(tab.id, newIndex);
-		this.props.setDragging(false);
-	}
-
-	onSortStart() {
-		console.log('wizzz');
-		this.props.setDragging(true);
+		this.props.keyPressed(e.code);	
 	}
 
 	render() {
-		const { tabs, highlightedTabId, selectedTabIds, selectTab, deselectTab, isDragging } = this.props;
-		const pinnedTabs = tabs.filter(tab => tab.pinned);
-		const unpinnedTabs = tabs.filter(tab => !tab.pinned);
+		const { windowsVisible } = this.props;
 
 		return (
-			<main className={`App ${isDragging ? 'sidenav-is-open' : ''}`}>
+			<main className={`App ${windowsVisible ? 'sidenav-is-open' : ''}`}>
 				<Header />
-
 				<Windows />
+				<Bookmarks />
 
 				<div className="AppContent">
 					<div className="AppContent-inner">
-						<Bookmarks />
-
-						{pinnedTabs.length ?
-						<SortableTabsList
-							distance={10}
-							onSortStart={this.onSortStart}
-							onSort={this.onSort}
-							onSortEnd={this.onSort}
-						>
-							{pinnedTabs.map(tab => {
-								return (
-									<SortableTabsListItem
-										key={tab.id}
-										{...tab}
-										helperClass="is-dragging"
-										collection="pinned"
-										highlighted={highlightedTabId === tab.id}
-										selected={selectedTabIds.includes(tab.id)}
-										selectTab={selectTab}
-										deselectTab={deselectTab}
-									/>
-								);
-							})}
-						</SortableTabsList>
-						: null}
-
-						{unpinnedTabs.length ?
-						<SortableTabsList
-							distance={10}
-							onSortStart={this.onSortStart}
-							onSort={this.onSort}
-							onSortEnd={this.onSort}
-						>
-							{unpinnedTabs.map(tab => {
-								return (
-									<SortableTabsListItem
-										key={tab.id}
-										{...tab}
-										helperClass="is-dragging"
-										collection="unpinned"
-										highlighted={highlightedTabId === tab.id}
-										selected={selectedTabIds.includes(tab.id)}
-										selectTab={selectTab}
-										deselectTab={deselectTab}
-									/>
-								);
-							})}
-						</SortableTabsList>
-						: null}
+						<Tabs />
 					</div>
 				</div>
 			</main>
-		)
+		);
 	}
 }
 
+App.propTypes = {
+	keyPressed: React.PropTypes.func,
+	isDragging: React.PropTypes.bool,
+};
+
 const mapDispatchToProps = (dispatch) => ({
-	setDragging(dragging) {
-		console.log(dragging);
-		dispatch(setDragging(dragging));
-	},
-	setModeSearch() {
-		dispatch(setMode('search'));
-	},
-	setModeDefault() {
-		dispatch(setMode('default'));
-	},
-	setHighlightedTabId(id) {
-		dispatch(setHighlightedTabId(id));
-	},
-	selectTab(id) {
-		dispatch(selectTab(id));
-	},
-	deselectTab(id) {
-		dispatch(deselectTab(id));
+	keyPressed(key) {
+		dispatch(keyPressed(key));
 	},
 });
 
-const mapStateToProps = (state) => createStructuredSelector({
-	tabs: getVisibleTabs,
-	highlightedTabId: getHighlightedTabId,
-	mode: getMode,
-	query: getQuery,
-	listView: getListView,
-	selectedTabIds: getSelectedTabIds,
-	isDragging: getIsDragging,
+const mapStateToProps = createStructuredSelector({
+	windowsVisible: getWindowsVisibility,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

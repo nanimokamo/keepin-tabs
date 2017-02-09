@@ -14,46 +14,9 @@
 
 	h1 {
 		font-size: 18px;
-		width: 100%;
-	}
-
-	&[data-mode="default"] {
-		background-color: $TERTIARY;
-		color: $WHITE;
-
-		.icon svg {
-			fill: $WHITE;
-
-			&:hover {
-				fill: rgba($WHITE, 0.75);
-			}
-		}
-	}
-
-	&[data-mode="search"] {
-		background-color: $WHITE;
-		color: $DARK_GREY;
-
-		.icon svg {
-			fill: $MEDIUM_GREY;
-
-			&:hover {
-				fill: $DARK_GREY;
-			}
-		}
-	}
-
-	&[data-mode="select"] {
-		background-color: $WHITE;
-		color: $TERTIARY;
-
-		.icon svg {
-			fill: $MEDIUM_GREY;
-
-			&:hover {
-				fill: $DARK_GREY;
-			}
-		}
+		// width: 100%;
+		cursor: pointer;
+		display: inline-block;
 	}
 
 	&:after {
@@ -73,14 +36,54 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
+	    align-items: center;
 		width: 100%;
 
 		.main-action {
 			margin-right: $PADDING_NORMAL;
 		}
 
-		.icon {
+		.Icon {
 			@include size(26px);
+		}
+	}
+}
+
+.Header[data-mode="default"] {
+	background-color: $TERTIARY;
+	color: $WHITE;
+
+	.Icon svg {
+		fill: $WHITE;
+
+		&:hover {
+			fill: rgba($WHITE, 0.75);
+		}
+	}
+}
+
+.Header[data-mode="search"] {
+	background-color: $WHITE;
+	color: $DARK_GREY;
+
+	.Icon svg {
+		fill: $MEDIUM_GREY;
+
+		&:hover {
+			fill: $DARK_GREY;
+		}
+	}
+}
+
+.Header[data-mode="select"] {
+	background-color: $WHITE;
+	color: $TERTIARY;
+
+	.Icon svg {
+		fill: $MEDIUM_GREY;
+
+		&:hover {
+			fill: $DARK_GREY;
 		}
 	}
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+
 import {
 	getNumTabs,
 	getMode,
@@ -8,152 +9,81 @@ import {
 	getListView,
 	getNumSelectedTabs
 } from '../../selectors.js'
+
 import {
 	setQuery,
 	setMode,
 	sortTabs,
-	setListView,
+	toggleListView,
 	selectAllVisibleTabs,
 	deselectAllTabs,
 	closeTabs,
 	setBookmarksVisibility,
+	toggleWindowsVisibility,
 } from '../../actions.js'
-import Icon from '../Icon';
+
+import HeaderDefault from './default.js';
+import HeaderSearch from './search.js';
+import HeaderSelect from './select.js';
 
 const Header = ({
 	mode,
 	numTabs,
-	numSelectedTabs,
-	query,
-	closeTabs,
-	setModeSearch,
-	deselectAllTabs,
-	setModeDefault,
-	setListView,
-	sortTabs,
-	setQuery,
-	clearQuery,
+	toggleView,
 	listView,
-	showBookmarks,
+	query,
+	setQuery,
 	selectAll,
+	setModeSearch,
+	clearQuery,
+	sortTabs,
+	cancelSearch,
+	cancelSelect,
+	numSelectedTabs,
+	setModeDefault,
+	showBookmarks,
+	toggleWindowsVisibility,
 }) => {
 	return (
 		<header className="Header" data-mode={mode}>
 			{mode === 'default' ?
-				<section className={`Header--${mode}`}>
-					<h1>{numTabs} tabs</h1>
-					<div className="Header-actions">
-						<button
-							className="icon-button"
-							onClick={listView === 'default' ? setListView.bind(undefined, 'compact') : setListView.bind(undefined, 'default')}
-							title={listView === 'default' ? 'Compact view' : 'Expanded view'}
-						>
-							<Icon name={`listView--${listView === 'default' ? 'compact' : 'default'}`} />
-						</button>
-						<button
-							className="icon-button"
-							onClick={sortTabs}
-							title="Sort"
-						>
-							<Icon name="sort" />
-						</button>
-						<button
-							className="icon-button"
-							onClick={setModeSearch}
-							title="Search"
-						>
-							<Icon name="search" />
-						</button>
-					</div>
-				</section>
+				<HeaderDefault
+					numTabs={numTabs}
+					toggleView={toggleView}
+					listView={listView}
+					sortTabs={sortTabs}
+					toggleWindowsVisibility={toggleWindowsVisibility}
+					setModeSearch={setModeSearch}
+				/>
 			: null}
 			{mode === 'search' ?
-				<section className={`Header--${mode}`}>
-					<button
-						className="icon-button main-action"
-						onClick={() => {
-							setModeDefault();
-							clearQuery();
-						}}
-						title="Back"
-					>
-						<Icon name="back" />
-					</button>
-					<input
-						autoComplete="off"
-						className="TextInput"
-						type="text"
-						name="search"
-						value={query}
-						onChange={setQuery}
-						placeholder="Search..."
-						autoFocus
-					/>
-					<div className="Header-actions">
-						<button
-							className="icon-button"
-							onClick={selectAll}
-							title="Select all"
-						>
-							<Icon name="select-all" />
-						</button>
-						<button
-							className="icon-button"
-							onClick={clearQuery}
-							disabled={query.length ? false : true}
-							title="Clear"
-						>
-							<Icon name="close" />
-						</button>
-					</div>
-				</section>
+				<HeaderSearch
+					query={query}
+					setQuery={setQuery}
+					selectAll={selectAll}
+					clearQuery={clearQuery}
+					cancelSearch={cancelSearch}
+				/>
 			: null}
 			{mode === 'select' ?
-				<section className={`Header--${mode}`}>
-					<button
-						className="icon-button main-action"
-						onClick={deselectAllTabs}
-						title="Back"
-					>
-						<Icon name="back" />
-					</button>
-					<h1>{numSelectedTabs} selected</h1>
-
-					<div className="Header-actions">
-						<button
-							className="icon-button"
-							onClick={showBookmarks}
-							title="Bookmark"
-						>
-							<Icon name="bookmark" />
-						</button>
-						<button
-							className="icon-button"
-							onClick={sortTabs}
-							title="Sort"
-						>
-							<Icon name="sort" />
-						</button>
-						<button
-							className="icon-button"
-							onClick={closeTabs}
-							title="Close"
-						>
-							<Icon name="close" />
-						</button>
-					</div>
-				</section>
+				<HeaderSelect
+					cancelSelect={cancelSelect}
+					numSelectedTabs={numSelectedTabs}
+					showBookmarks={showBookmarks}
+					sortTabs={sortTabs}
+					closeTabs={closeTabs}
+				/>
 			: null}
 		</header>
 	);
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	selectAll() {
-		dispatch(selectAllVisibleTabs());
+	setQuery(e) {
+		dispatch(setQuery(e.target.value));
 	},
-	showBookmarks() {
-		dispatch(setBookmarksVisibility(true));
+	sortTabs() {
+		dispatch(sortTabs());
 	},
 	setModeSearch() {
 		dispatch(setMode('search'));
@@ -161,27 +91,31 @@ const mapDispatchToProps = (dispatch) => ({
 	setModeDefault() {
 		dispatch(setMode('default'));
 	},
-	sortTabs() {
-		dispatch(sortTabs());
-	},
-	setQuery(e) {
-		dispatch(setQuery(e.target.value));
-	},
-	setListView(view) {
-		dispatch(setListView(view));
+	selectAll() {
+		dispatch(selectAllVisibleTabs());
 	},
 	clearQuery() {
 		dispatch(setQuery(''));
 	},
-	deselectAllTabs() {
+	cancelSearch() {
+		dispatch(setMode('default'));
+		dispatch(setQuery(''));
+	},
+	toggleView() {
+		dispatch(toggleListView());
+	},
+	toggleWindowsVisibility() {
+		dispatch(toggleWindowsVisibility());
+	},
+	showBookmarks() {
+		dispatch(setBookmarksVisibility(true));
+	},
+	cancelSelect() {
 		dispatch(deselectAllTabs());
 	},
-	closeTabs() {
-		dispatch(closeTabs());
-	}
 });
 
-const mapStateToProps = (state) => createStructuredSelector({
+const mapStateToProps = createStructuredSelector({
 	numTabs: getNumTabs,
 	mode: getMode,
 	query: getQuery,

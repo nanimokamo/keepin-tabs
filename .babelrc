@@ -1,4 +1,12 @@
 {
-	'plugins': ['transform-async-to-generator', 'syntax-do-expressions'],
-	'presets': ['es2015', 'stage-0', 'react'],
+	'plugins': [
+		'transform-async-to-generator',
+		'syntax-do-expressions',
+		'transform-function-bind',
+	],
+	'presets': [
+		'es2015',
+		'stage-0',
+		'react'
+	],
 }

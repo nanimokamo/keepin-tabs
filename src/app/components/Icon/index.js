@@ -168,7 +168,7 @@ const Icon = (props) => {
 	return (
 		<i
 			{...props}
-			className={`icon ${props.className}`}
+			className={`Icon ${props.className || ''}`}
 			data-name={name}
 		>
 			{svg}

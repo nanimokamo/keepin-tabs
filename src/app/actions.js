@@ -1,6 +1,17 @@
 import groupBy from 'lodash.groupby';
-import { sortBy, moveTab, closeTab } from './utils.js';
-import { getSelectedTabs, getSelectedTabIds, getVisibleTabs, getVisibleTabIds } from './selectors.js';
+import { createStructuredSelector } from 'reselect';
+
+import { sortBy, moveTab, closeTab, goToTab } from './utils.js';
+import {
+	getSelectedTabs,
+	getSelectedTabIds,
+	getVisibleTabs,
+	getVisibleTabIds,
+	getHighlightedTabId,
+	getMode,
+	getQuery,
+	getIsDragging,
+} from './selectors.js';
 
 import {
 	FETCH_TABS_SUCCESS,
@@ -15,6 +26,8 @@ import {
 	NEW_FOLDER_CREATED,
 	SELECT_TABS,
 	SET_DRAGGING,
+	IGNORE_EVENTS,
+	SET_WINDOWS_VISIBILITY,
 } from './constants.js';
 
 export const closeTabs = () => (dispatch, getState) => {
@@ -88,6 +101,10 @@ export const setListView = (listView) => (dispatch) => {
 	});
 };
 
+export const toggleListView = () => (dispatch, getState) => {
+	dispatch(setListView(getState().listView === 'default' ? 'compact' : 'default'));
+}
+
 export const setHighlightedTabId = (highlightedTabId) => ({
 	type: SET_HIGHLIGHTED_TAB_ID,
 	highlightedTabId,
@@ -108,6 +125,11 @@ export const setDragging = (dragging) => ({
 	dragging,
 });
 
+export const toggleWindowsVisibility = () => (dispatch, getState) => dispatch({
+	type: SET_WINDOWS_VISIBILITY,
+	visible: getState().windowsVisible ? false : true,
+});
+
 export const sortTabs = () => (dispatch, getState) => {
 	const tabs = getVisibleTabs(getState());
 	if (!tabs.length) return;
@@ -125,4 +147,59 @@ export const fetchTabs = () => (dispatch) => {
 	chrome.tabs.query({ currentWindow: true }, (tabs) => {
 		dispatch(fetchTabsSuccess(tabs));
 	});
+};
+
+export const keyPressed = (key) => (dispatch, getState) => {
+	const {
+		tabs,
+		highlightedTabId,
+		mode,
+		query,
+		bottomSheetOpen,
+	} = createStructuredSelector({
+		tabs: getVisibleTabs,
+		highlightedTabId: getHighlightedTabId,
+		mode: getMode,
+		query: getQuery,
+		bottomSheetOpen: getIsDragging,
+	})(getState());
+	if (bottomSheetOpen || IGNORE_EVENTS.includes(key)) return;
+
+	switch (key) {
+		case 'ArrowUp': {
+			// e.preventDefault();
+			let id = tabs[tabs.length - 1].id;
+
+			if (highlightedTabId !== undefined) {
+				const currentIndex = tabs.findIndex(tab => tab.id === highlightedTabId);
+				id = (currentIndex - 1) < 0 ? tabs[tabs.length - 1].id : tabs[currentIndex - 1].id;
+			}
+
+			dispatch(setHighlightedTabId(id));
+			break;
+		}
+		case 'ArrowDown': {
+			// e.preventDefault();
+			let id = tabs[0].id;
+
+			if (highlightedTabId !== undefined) {
+				const currentIndex = tabs.findIndex(tab => tab.id === highlightedTabId);
+				id = (currentIndex + 1) > (tabs.length - 1) ? tabs[0].id : tabs[currentIndex + 1].id;
+			}
+
+			dispatch(setHighlightedTabId(id));
+			break;
+		}
+		case 'Enter': {
+			if (highlightedTabId) goToTab(highlightedTabId);
+			break;
+		}
+		case 'Backspace': {
+			if (mode === 'search' && query.length === 0) dispatch(setMode('default'));
+			break;
+		}
+		default: {
+			dispatch(setMode('search'));
+		}
+	}	
 };

@@ -19,15 +19,6 @@
 	}
 }
 
-@keyframes slide-up {
-	0% {
-		transform: translateY(100%);
-	}
-	100% {
-		transform: none;
-	}
-}
-
 .BottomSheet-wrapper {
 	position: fixed;
 	bottom: 0;
@@ -39,7 +30,7 @@
 	display: flex;
 	align-items: stretch;
 	flex-direction: column;
-	transform: translateY(100%);
+	transform: translateY(calc(100% + 3px));
 	transition: transform 0.15s ease;
 
 	&:after {
@@ -75,8 +66,7 @@
 		display: block;
 		position: absolute;
 		top: 100%;
-		// background-image: linear-gradient(to bottom, rgba(black, 0.2), transparent);
-		background-image: rgba($BLACK, 0.1);
+		background: rgba($BLACK, 0.1);
 		width: 100%;
 		left: 0;
 		z-index: 100;

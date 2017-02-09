@@ -9,7 +9,7 @@
 	}
 }
 
-.TabsListItem {
+.TabsItem {
 	list-style: none;
 	cursor: pointer;
 	position: relative;
@@ -28,30 +28,40 @@
 	}
 
 	&.is-dragging {
+		transition: width 0.15s ease, height 0.15s ease;
 		cursor: -webkit-grabbing;
 		user-select: none;
+		z-index: 1000000000000000!important;
+		width: 50px!important;
+		height: 50px!important;
+		margin: 0 auto;
+		overflow: hidden;
+		border-radius: 50%;
+		display: block;
 	}
 
-	&:after {
-		content: "";
-		height: 1px;
-		position: absolute;
-		bottom: 0;
-		width: 100%;
-		background-color: rgba($BLACK, 0.05);
-		left: ($PADDING_NORMAL * 2) + map-get($TAB_LIST_ITEM_FAVICON_SIZE, default);
+	&:not(:last-child) {
+		&:after {
+			content: "";
+			height: 1px;
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			background-color: rgba($BLACK, 0.05);
+			left: ($PADDING_NORMAL * 2) + map-get($TAB_LIST_ITEM_FAVICON_SIZE, default);
 
-		[data-view="compact"] & {
-			left: ($PADDING_NORMAL * 2) + map-get($TAB_LIST_ITEM_FAVICON_SIZE, compact);
+			[data-view="compact"] & {
+				left: ($PADDING_NORMAL * 2) + map-get($TAB_LIST_ITEM_FAVICON_SIZE, compact);
+			}
 		}
 	}
 
 	&:hover:not([data-selected="true"]), &[data-highlighted="true"] {
-		background-color: #eee;
+		background-color: $LIGHTEST_GREY_2;
 	}
 }
 
-.TabsListItem-fake {
+.TabsItem-fake {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -60,7 +70,7 @@
 	opacity: 1;
 }
 
-.TabsListItem-inner {
+.TabsItem-inner {
 	display: flex;
 	flex-direction: row;
 	justify-content: stretch;
@@ -75,7 +85,7 @@
 	}
 }
 
-.TabsListItem-status {
+.TabsItem-status {
 	flex-shrink: 0;
 	@include size(map-get($TAB_LIST_ITEM_FAVICON_SIZE, 'default'));
 	background-size: cover;
@@ -101,7 +111,7 @@
 	}
 }
 
-.TabsListItem-icon {
+.TabsItem-icon {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -112,16 +122,16 @@
 	transform: scale(0);
 	transition: transform $TAB_LIST_ICON_TRANSITION_SPEED linear;
 
-	.icon {
+	.Icon {
 		@include size(100%);
 	}
 
-	.TabsListItem-status:hover &, .TabsListItem[data-selected="true"] & {
+	.TabsItem-status:hover &, .TabsItem[data-selected="true"] & {
 		display: none;
 	}
 }
 
-.TabsListItem-select {
+.TabsItem-select {
 	top: 50%;
 	left: 50%;
 	width: 26px;
@@ -138,15 +148,15 @@
 		right: -#{$PADDING_NORMAL - 2};
 	}
 
-	.TabsListItem-status:hover &, .TabsListItem[data-selected="true"] & {
+	.TabsItem-status:hover &, .TabsItem[data-selected="true"] & {
 		display: block;
 	}
 
-	.icon {
+	.Icon {
 		&:nth-child(1) {
 			display: block;
 
-			.TabsListItem[data-selected="true"] & {
+			.TabsItem[data-selected="true"] & {
 				display: none;
 			}
 		}
@@ -154,7 +164,7 @@
 		&:nth-child(2) {
 			display: none;
 
-			.TabsListItem[data-selected="true"] & {
+			.TabsItem[data-selected="true"] & {
 				display: block;
 			}
 		}
@@ -165,8 +175,8 @@
 	}
 }
 
-.TabsListItem-favicon {
-	.TabsListItem[data-status="complete"] & {
+.TabsItem-favicon {
+	.TabsItem[data-status="complete"] & {
 		transform: scale(1);
 			transition: transform $TAB_LIST_ICON_TRANSITION_SPEED linear $TAB_LIST_ICON_TRANSITION_SPEED;
 	}
@@ -176,20 +186,20 @@
 	}
 }
 
-.TabsListItem-loading {
-	.TabsListItem[data-status="loading"] & {
+.TabsItem-loading {
+	.TabsItem[data-status="loading"] & {
 		transform: scale(1);
 		transition: transform $TAB_LIST_ICON_TRANSITION_SPEED linear $TAB_LIST_ICON_TRANSITION_SPEED;
 	}
 
-	.icon {
-		.TabsListItem[data-status="loading"] & {
+	.Icon {
+		.TabsItem[data-status="loading"] & {
 			animation: spin 0.5s linear infinite;
 		}
 	}
 }
 
-.TabsListItem-details {
+.TabsItem-details {
 	white-space: nowrap;
     overflow: hidden;
     width: 100%;
@@ -199,7 +209,7 @@
 		flex-direction: row;
     }
 }
-.TabsListItem-title {
+.TabsItem-title {
 	font-size: 13px;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -209,31 +219,31 @@
 		margin-right: 5px;
 	}
 
-	[data-view="compact"] .TabsListItem:hover & {
+	[data-view="compact"] .TabsItem:hover & {
 		display: none;
 	}
 }
 
-.TabsListItem-url {
+.TabsItem-url {
 	font-size: 13px;
 	color: #666666;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
-.TabsListItem-options {
+.TabsItem-options {
 	flex-shrink: 0;
 	display: flex;
 	flex-direction: row;
 	padding-left: $PADDING_NORMAL;
 
-	.TabsListItem:hover & {
-		> button {
+	.TabsItem:hover & {
+		> .IconButton {
 			display: block;
 		}
 	}
 
-	> button {
+	.IconButton {
 		display: none;
 		position: relative;
 
@@ -249,7 +259,7 @@
 		&[data-selected="true"] {
 			display: block;
 
-			.TabsListItem:not(:hover) & {
+			.TabsItem:not(:hover) & {
 				margin-right: 0;
 			}
 
@@ -262,7 +272,7 @@
 			}
 		}
 
-		.icon {
+		.Icon {
 			@include size(18px);
 		}
 

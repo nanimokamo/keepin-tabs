@@ -12,6 +12,7 @@ import {
 	DESELECT_TAB,
 	DESELECT_ALL_TABS,
 	SET_BOOKMARKS_VISIBILITY,
+	SET_WINDOWS_VISIBILITY,
 } from './constants.js';
 
 const tabs = (state = [], action) => {
@@ -74,6 +75,11 @@ const isDragging = (state = false, action) => {
 	return action.dragging;
 };
 
+const windowsVisible = (state = false, action) => {
+	if (action.type !== SET_WINDOWS_VISIBILITY) return state;
+	return action.visible;
+};
+
 const createReducer = () => {
 	return combineReducers({
 		tabs,
@@ -84,6 +90,7 @@ const createReducer = () => {
 		selectedTabIds,
 		showBookmarks,
 		isDragging,
+		windowsVisible,
 	});
 };
 

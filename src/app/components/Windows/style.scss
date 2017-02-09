@@ -5,7 +5,7 @@
 	bottom: 0;
 	width: $WINDOWS_WIDTH;
 	overflow: scroll;
-	z-index: 10;
+	z-index: 1;
 	background-color: $WHITE;
 	border-right: 1px solid $LIGHTEST_GREY;
 	display: flex;
@@ -31,10 +31,15 @@
 	justify-content: center;
 	font-weight: 600;
 	margin-bottom: $PADDING_NORMAL;
+	transition: transform 0.15s ease;
 
 	&:before {
 		content: '';
 		padding-top: 100%;
 		display: block;
+	}
+
+	&.is-dragged-over {
+		transform: scale(1.2);
 	}
 }

@@ -1,0 +1,30 @@
+.TabsItems {
+	background-color: $CHROME_YELLOW;
+	position: relative;
+
+	&:after, &:before {
+		content: "";
+		position: absolute;
+		border-style: solid;
+		border-color: rgba($BLACK, 0.05);
+		width: 100%;
+		left: 0;
+		z-index: 100;
+		height: 2px;
+		border-width: 0;
+	}
+	&:before {
+		border-bottom-width: 1px;
+		bottom: 100%;
+		background-image: linear-gradient(to top, rgba(black, 0.025), transparent);
+
+		&:last-child {
+			display: none;
+		}
+	}
+	&:after {
+		border-top-width: 1px;
+		top: 100%;
+		background-image: linear-gradient(to bottom, rgba(black, 0.025), transparent);
+	}
+}
