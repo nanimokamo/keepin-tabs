@@ -2,18 +2,27 @@ import React from 'react';
 
 import IconButton from '../IconButton';
 
-const HeaderSelect = ({ cancelSelect, numSelectedTabs, showBookmarks, sortTabs, closeTabs }) => {
+const HeaderSelect = ({ cancelSelect, numSelectedTabs, showBookmarks, sortTabs, closeTabs, showWindows }) => {
 	return (
-		<section className="Header--select">
-			<IconButton
-				className="main-action"
-				icon="back"
-				onClick={cancelSelect}
-				name="Back"
-			/>
-			<h1>{numSelectedTabs} selected</h1>
+		<section className="Header-section Header--select">
+			<div className="Header-mainAction">
+				<IconButton
+					icon="back"
+					onClick={cancelSelect}
+					name="Back"
+				/>
+			</div>
+			
+			<div className="Header-title">
+				<h1>{numSelectedTabs} selected</h1>
+			</div>
 
 			<div className="Header-actions">
+				<IconButton
+					onClick={showWindows}
+					icon="move-to-window"
+					title="Move to window"
+				/>
 				<IconButton
 					onClick={showBookmarks}
 					icon="bookmark"
@@ -32,6 +41,15 @@ const HeaderSelect = ({ cancelSelect, numSelectedTabs, showBookmarks, sortTabs, 
 			</div>
 		</section>
 	);
+};
+
+HeaderSelect.propTypes = {
+	cancelSelect: React.PropTypes.func,
+	numSelectedTabs: React.PropTypes.number,
+	showBookmarks: React.PropTypes.func,
+	showWindows: React.PropTypes.func,
+	sortTabs: React.PropTypes.func,
+	closeTabs: React.PropTypes.func,
 };
 
 export default HeaderSelect;

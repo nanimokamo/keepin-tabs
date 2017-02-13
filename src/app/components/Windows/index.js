@@ -2,22 +2,29 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import WindowsItem from '../WindowsItem';
+import Dialog from '../Dialog';
+import List from '../List';
+import ListItem from '../List/ListItem';
 
-import { getWindows, goToWindow } from '../../utils.js';
+import * as Chrome from '../../chrome.js';
+import { toggleWindowsVisibility, moveSelectedTabsToWindow } from '../../actions.js';
+import { getShowWindows } from '../../selectors.js';
 
 class Windows extends React.Component {
+	static propTypes = {
+		hideWindows: React.PropTypes.func,
+		open: React.PropTypes.bool,
+		moveSelectedTabsToWindow: React.PropTypes.func,
+	}
+
 	state = {
-		draggedOverId: null,
 		windows: [],
-	};
+	}
 
 	constructor(props) {
 		super(props);
-		this.goToWindow = this.goToWindow.bind(this);
-		this.addToWindow = this.addToWindow.bind(this);
-		this.handleDragEnter = this.handleDragEnter.bind(this);
-		this.handleDragLeave = this.handleDragLeave.bind(this);
+		this.moveToWindow = this.moveToWindow.bind(this);
+		this.moveToNewWindow = this.moveToNewWindow.bind(this);
 		this.renderWindowsItem = this.renderWindowsItem.bind(this);
 		this.renderNewWindowsItem = this.renderNewWindowsItem.bind(this);
 	}
@@ -26,75 +33,75 @@ class Windows extends React.Component {
 		this.getWindows();
 	}
 
-	handleDragEnter(id) {
-		console.log('drag enter');
-		this.setState({ draggedOverId: id });
-	}
-
-	handleDragLeave() {
-		console.log('drag leave');
-		this.setState({ draggedOverId: null });
-	}
-
 	async getWindows() {
-		const windows = await getWindows();
+		const windows = await Chrome.getWindows();
 		this.setState({ windows });
 	}
 
-	goToWindow(id) {
-		goToWindow(id);
+	moveToNewWindow() {
+		this.props.moveSelectedTabsToWindow();
 	}
 
-	addToWindow(e, id) {
+	moveToWindow({ id }) {
+		this.props.moveSelectedTabsToWindow(id);
 	}
 
 	renderWindowsItem(props, i) {
 		return (
-			<WindowsItem
-				{...props}
+			<ListItem
 				key={props.id}
-				name={`${i}`}
-				draggedOver={this.state.draggedOverId === props.id}
-				onDragEnter={this.handleDragEnter}
-				onDragLeave={this.handleDragLeave}
-			/>
+				onClick={this.moveToWindow}
+				onClickData={{ id: props.id }}
+				disabled={props.focused}
+				aside={`(${props.tabs.length})`}
+			>
+				{`Window ${i + 1}`}
+			</ListItem>
 		);
 	}
 
 	renderNewWindowsItem() {
 		return (
-			<WindowsItem
-				id="new"
-				name="+"
-				draggedOver={this.state.draggedOverId === 'new'}
-				onDragEnter={this.handleDragEnter}
-				onDragLeave={this.handleDragLeave}
-			/>
+			<List>
+				<ListItem onClick={this.moveToNewWindow} icon="add">
+					New window
+				</ListItem>
+			</List>
 		);
 	}
 
 	render() {
 		const { windows } = this.state;
+		const { hideWindows, open } = this.props;
 
 		return (
-			<div className="Windows">
+			<Dialog
+				open={open}
+				title="Move tabs to window..."
+				onClickCover={hideWindows}
+				footnote={this.renderNewWindowsItem()}
+			>
 				{windows && windows.length ?
-					windows.map(this.renderWindowsItem)
+					<List>
+						{windows.map(this.renderWindowsItem)}
+					</List>
 				: null}
-
-				{this.renderNewWindowsItem()}
-			</div>
+			</Dialog>
 		);
 	}
 }
 
-Windows.propTypes = {
-};
-
 const mapDispatchToProps = (dispatch) => ({
+	hideWindows() {
+		dispatch(toggleWindowsVisibility());
+	},
+	moveSelectedTabsToWindow(id) {
+		dispatch(moveSelectedTabsToWindow(id));
+	},
 });
 
 const mapStateToProps = createStructuredSelector({
+	open: getShowWindows,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Windows);

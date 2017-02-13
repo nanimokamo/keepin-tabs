@@ -7,7 +7,7 @@ const util = require('gulp-util');
 
 const ROOT = '../../';
 
-const SCSS_SRC_FILE = PATH.resolve(__dirname, ROOT, 'src/app/app.scss');
+const SCSS_SRC_FILE = PATH.resolve(__dirname, ROOT, 'src/app/index.scss');
 const SCSS_SRC_FILES = [
 	SCSS_SRC_FILE,
 	PATH.resolve(__dirname, ROOT, 'src/app/components/') + '/**/*.scss',

@@ -7,15 +7,13 @@ export const getHighlightedTabId = (state) => state.highlightedTabId;
 export const getListView = (state) => state.listView;
 export const getSelectedTabIds = (state) => state.selectedTabIds;
 export const getIsDragging = (state) => state.isDragging;
-export const getWindowsVisible = (state) => state.windowsVisible;
-
 export const getMode = (state) => state.selectedTabIds.length ? 'select' : state.mode;
-
 export const getShowBookmarks = (state) => state.showBookmarks;
+export const getShowWindows = (state) => state.showWindows;
 
-export const getWindowsVisibility = createSelector(
-	[getIsDragging, getWindowsVisible],
-	(isDragging, windowsVisible) => isDragging || windowsVisible,
+export const getIsTabPinned = (id) => createSelector(
+	[getTabs],
+	(tabs) => tabs.some(tab => tab.id === id && tab.pinned),
 );
 
 export const getNumSelectedTabs = createSelector(

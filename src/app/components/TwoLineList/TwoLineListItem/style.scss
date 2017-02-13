@@ -1,0 +1,156 @@
+.TwoLineListItem {
+	position: relative;
+	cursor: pointer;
+	height: map-get($TWO_LINE_LIST_ITEM_HEIGHT, 'default');
+	padding: 0 $PADDING_NORMAL;
+	overflow: hidden;
+	background-color: $WHITE;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	transition: background-color $TRANSITION_SPEED ease, height $TRANSITION_SPEED ease;
+
+	&:not(:last-child):after {
+		content: '';
+		height: 1px;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		background-color: rgba($BLACK, 0.05);
+		left: 0;
+	}
+
+	&:hover:not([data-selected="true"]), &[data-highlighted="true"] {
+		background-color: $LIGHTEST_GREY_2;
+	}
+
+	&[data-selected="true"] {
+		background-color: lighten($TERTIARY, 45%);
+	}
+
+	.TwoLineList[data-view="compact"] & {
+		height: map-get($TWO_LINE_LIST_ITEM_HEIGHT, 'compact');
+	}
+}
+
+.TwoLineListItem-content {
+	white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+
+	.TwoLineList[data-view="compact"] & {
+		display: flex;
+		flex-direction: row;
+
+	}    
+}
+
+.TwoLineListItem-contentLine1 {
+	font-size: 13px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	.TwoLineList[data-view="compact"] & {
+		flex-shrink: 0;
+		margin-right: 5px;
+	}
+
+	.TwoLineList[data-view="compact"] .TwoLineListItem:hover & {
+		display: none;
+	}
+}
+
+.TwoLineListItem-contentLine2 {
+	font-size: 13px;
+	color: $MEDIUM_GREY;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.TwoLineListItem-actions {
+	flex-shrink: 0;
+	display: flex;
+	flex-direction: row;
+	padding-left: $PADDING_NORMAL;
+}
+
+.TwoLineListItem-action {
+	display: none;
+	position: relative;
+	color: $MEDIUM_GREY;
+
+	&:hover {
+		color: $DARK_GREY;
+	}
+
+	&:not(:last-child) {
+		margin-right: $PADDING_NORMAL / 2;
+	}
+
+	&:before {
+		content: "";
+		top: -4px;
+		left: -4px;
+		bottom: -4px;
+		right: -4px;
+		position: absolute
+	}
+
+	&[data-selected="true"] {
+		color: $TERTIARY;
+		display: block;
+
+		.TwoLineListItem:not(:hover) & {
+			margin-right: 0;
+		}
+	}
+
+	.Icon {
+		@include size(18px);
+	}
+
+	.TwoLineListItem:hover & {
+		display: block;
+	}
+}
+
+.TwoLineListItem-mainAction {
+	position: relative;
+	height: 100%;
+	width: map-get($TWO_LINE_LIST_ITEM_HEIGHT, 'default');
+	margin-left: -#{$PADDING_NORMAL};
+	flex-shrink: 0;
+
+	.Icon {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		@include size(26px);
+		transform: translate(-50%,-50%);
+		color: $MEDIUM_GREY;
+
+		&[data-name="checkbox"] {
+			display: none;
+
+			.TwoLineListItem:not([data-selected="true"]):hover & {
+				display: block;
+			}
+		}
+
+		&[data-name="checkbox--checked"] {
+			display: none;
+
+			.TwoLineListItem[data-selected="true"] & {
+				display: block;
+			}
+		}
+	}
+}
+
+.TwoLineListItem-mainActionDefault {
+	border-radius: 2px;
+	
+	.TwoLineListItem:hover &, .TwoLineListItem[data-selected="true"] & {
+		display: none;
+	}
+}

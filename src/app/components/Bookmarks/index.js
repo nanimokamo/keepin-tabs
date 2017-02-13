@@ -2,30 +2,38 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import * as Chrome from '../../chrome.js';
 import { setBookmarksVisibility, addSelectedTabsToFolder } from '../../actions.js';
-import { createBookmarksFolder, getBookmarksById } from '../../utils.js';
 import { getShowBookmarks } from '../../selectors.js'
 
 import BottomSheet from '../BottomSheet';
 import Icon from '../Icon';
-import BookmarksItem from '../BookmarksItem';
+import List from '../List';
+import ListItem from '../List/ListItem';
 
 class Bookmarks extends React.Component {
+	static propTypes = {
+		hideBookmarks: React.PropTypes.func,
+		open: React.PropTypes.bool,
+		addSelectedTabsToFolder: React.PropTypes.func,
+	}
+
+	state = {
+		newFolderName: '',
+		parentTitle: undefined,
+		parentId: undefined,
+		currentId: undefined,
+		showCreateNewFolder: true,
+		bookmarks: [],
+	};
+	
 	constructor(props) {
 		super(props);
-		this.state = {
-			newFolderName: '',
-			parentTitle: undefined,
-			parentId: undefined,
-			currentId: undefined,
-			showCreateNewFolder: true,
-			bookmarks: [],
-		};
-
 		this.goToFolder = this.goToFolder.bind(this);
 		this.addToFolder = this.addToFolder.bind(this);
-		this.handleInputChange = this.handleInputChange.bind(this);
-		this.handleKeypress = this.handleKeypress.bind(this);
+		this.onInputChange = this.onInputChange.bind(this);
+		this.onKeypress = this.onKeypress.bind(this);
+		this.renderBookmarksItem = this.renderBookmarksItem.bind(this);
 	}
 
 	componentDidMount() {
@@ -33,7 +41,7 @@ class Bookmarks extends React.Component {
 	}
 
 	async getBookmarks(id = '0') {
-		const bookmarks = await getBookmarksById(id);
+		const bookmarks = await Chrome.getBookmarksById(id);
 		this.setState({
 			showCreateNewFolder: id !== '0',
 			parentTitle: bookmarks[0].title,
@@ -43,33 +51,36 @@ class Bookmarks extends React.Component {
 		});
 	}
 
-	async handleKeypress(e) {
+	async onKeypress(e) {
 		e.persist();
 		e.stopPropagation();
 
 		if (e.key === 'Enter') {
 			e.preventDefault();
 			this.setState({ newFolderName: '' });
-			const newFolderId = await createBookmarksFolder(this.state.currentId, e.target.value);
+			const newFolderId = await Chrome.createBookmarksFolder(this.state.currentId, e.target.value);
 			this.getBookmarks(this.state.currentId);
 		}
 	}
 
-	handleInputChange(e) {
+	onInputChange(e) {
 		this.setState({ newFolderName: e.target.value });
 	}
 
-	goToFolder(id) {
+	onClickBack() {
+		this.goToFolder(this.state.parentId);
+	}
+
+	goToFolder({ id }) {
 		this.getBookmarks(id);
 	}
 
-	addToFolder(e, id) {
-		console.log('adding to folder');
+	addToFolder({ id }) {
 		this.props.addSelectedTabsToFolder(id);
 		this.props.hideBookmarks();
 	}
 
-	buildNewFolder() {
+	renderNewFolder() {
 		return (
 			<li className="Bookmarks-item Bookmarks-item--newFolder">
 				<Icon name="new-folder" />
@@ -77,13 +88,31 @@ class Bookmarks extends React.Component {
 					<input
 						className="Bookmarks-itemTitleInput"
 						type="text"
-						onChange={this.handleInputChange}
+						onChange={this.onInputChange}
 						value={this.state.newFolderName}
-						onKeyPress={this.handleKeypress}
+						onKeyPress={this.onKeypress}
 						placeholder="Bookmark name"
 					/>
 				</div>
 			</li>
+		);
+	}
+
+	renderBookmarksItem(props) {
+		return (
+			props.children ?
+				<ListItem
+					key={props.id}
+					icon="folder"
+					onClick={this.addToFolder}
+					onClickData={{ id: props.id }}
+					actionIcon="right-arrow"
+					onClickAction={this.goToFolder}
+					onClickActionData={{ id: props.id }}
+				>
+					{props.title}
+				</ListItem>
+			: null
 		);
 	}
 
@@ -96,34 +125,20 @@ class Bookmarks extends React.Component {
 				open={open}
 				title={parentTitle || 'Add tabs to folder'}
 				showBack={parentId !== undefined}
-				onClickBack={(e) => this.goToFolder(parentId)}
+				onClickBack={this.onClickBack}
 				onClickCover={hideBookmarks}
+				footnote={showCreateNewFolder ? this.renderNewFolder() : null}
 			>
 				<div className="Bookmarks">
-					<ul className="Bookmarks-items">
-						{showCreateNewFolder ?
-							this.buildNewFolder()
-						: null}
+					<List className="Bookmarks-items">
 						{bookmarks && bookmarks.length ?
-							bookmarks.map((bookmark) => {
-								return (
-									bookmark.children ?
-										<BookmarksItem
-											key={bookmark.id}
-											id={bookmark.id}
-											title={bookmark.title}
-											addToFolder={this.addToFolder}
-											goToFolder={this.goToFolder}
-										/>
-									: null
-								);
-							})
+							bookmarks.map(this.renderBookmarksItem)
 						:
 							<li className="Bookmarks-item Bookmarks-item--noFolders">
 								<div className="Bookmarks-itemTitle">No folders.</div>
 							</li>
 						}
-					</ul>
+					</List>
 				</div>
 			</BottomSheet>
 		);
@@ -139,7 +154,7 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 });
 
-const mapStateToProps = (state) => createStructuredSelector({
+const mapStateToProps = createStructuredSelector({
 	open: getShowBookmarks,
 });
 

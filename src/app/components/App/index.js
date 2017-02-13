@@ -7,10 +7,14 @@ import Bookmarks from '../Bookmarks';
 import Tabs from '../Tabs';
 import Windows from '../Windows';
 
-import { getWindowsVisibility } from '../../selectors.js'
 import { keyPressed } from '../../actions.js';
 
 class App extends Component {
+	static propTypes = {
+		keyPressed: React.PropTypes.func,
+		isDragging: React.PropTypes.bool,
+	}
+	
 	constructor(props) {
 		super(props);
 		this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -25,10 +29,8 @@ class App extends Component {
 	}
 
 	render() {
-		const { windowsVisible } = this.props;
-
 		return (
-			<main className={`App ${windowsVisible ? 'sidenav-is-open' : ''}`}>
+			<main className="App">
 				<Header />
 				<Windows />
 				<Bookmarks />
@@ -43,11 +45,6 @@ class App extends Component {
 	}
 }
 
-App.propTypes = {
-	keyPressed: React.PropTypes.func,
-	isDragging: React.PropTypes.bool,
-};
-
 const mapDispatchToProps = (dispatch) => ({
 	keyPressed(key) {
 		dispatch(keyPressed(key));
@@ -55,7 +52,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = createStructuredSelector({
-	windowsVisible: getWindowsVisibility,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

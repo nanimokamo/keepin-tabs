@@ -2,6 +2,16 @@ import React from 'react';
 import Icon from '../Icon';
 
 class BottomSheet extends React.Component {
+	static propTypes = {
+		children: React.PropTypes.node,
+		title: React.PropTypes.string,
+		onClickCover: React.PropTypes.func,
+		open: React.PropTypes.bool,
+		footnote: React.PropTypes.node,
+		onClickBack: React.PropTypes.func,
+		showBack: React.PropTypes.bool,
+	}
+	
 	constructor(props) {
 		super(props)
 		this.state = { isScrolled: false };
@@ -15,7 +25,7 @@ class BottomSheet extends React.Component {
 
 	render() {
 		const { isScrolled } = this.state;
-		const { children, title, onClickCover, onClickBack, showBack, open } = this.props;
+		const { children, title, onClickCover, onClickBack, showBack, open, footnote } = this.props;
 
 		return (
 			<div className={`BottomSheet ${open ? 'is-open' : ''} ${isScrolled ? 'is-scrolled' : ''}`}>
@@ -31,12 +41,15 @@ class BottomSheet extends React.Component {
 							{title}
 						</div>
 					: null}
-					{open ?
-						<div
-							className="BottomSheet-content"
-							onScroll={this.handleScroll}
-						>
-							{children}
+					<div
+						className="BottomSheet-content"
+						onScroll={this.handleScroll}
+					>
+						{children}
+					</div>
+					{footnote ?
+						<div className="BottomSheet-footnote">
+							{footnote}
 						</div>
 					: null}
 				</div>

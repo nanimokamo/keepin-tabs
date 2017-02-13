@@ -13,6 +13,7 @@ import {
 	DESELECT_ALL_TABS,
 	SET_BOOKMARKS_VISIBILITY,
 	SET_WINDOWS_VISIBILITY,
+	TOGGLE_TAB_SELECTED,
 } from './constants.js';
 
 const tabs = (state = [], action) => {
@@ -26,6 +27,15 @@ const tabs = (state = [], action) => {
 
 const selectedTabIds = (state = [], action) => {
 	switch (action.type) {
+		case TOGGLE_TAB_SELECTED:
+			if (state.includes(action.tabId)) {
+				return state.filter(id => id !== action.tabId);
+			} else {
+				return [
+					...state,
+					action.tabId,
+				];
+			}
 		case SELECT_TAB:
 			return [
 				...state,
@@ -75,7 +85,7 @@ const isDragging = (state = false, action) => {
 	return action.dragging;
 };
 
-const windowsVisible = (state = false, action) => {
+const showWindows = (state = false, action) => {
 	if (action.type !== SET_WINDOWS_VISIBILITY) return state;
 	return action.visible;
 };
@@ -90,7 +100,7 @@ const createReducer = () => {
 		selectedTabIds,
 		showBookmarks,
 		isDragging,
-		windowsVisible,
+		showWindows,
 	});
 };
 

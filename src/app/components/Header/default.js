@@ -2,15 +2,17 @@ import React from 'react';
 
 import IconButton from '../IconButton';
 
-const HeaderDefault = ({ numTabs, toggleView, listView, setListView, sortTabs, setModeSearch, toggleWindowsVisibility }) => {
+const HeaderDefault = ({ numTabs, toggleView, listView, sortTabs, setModeSearch }) => {
 	return (
-		<section className="Header--default">
-			<h1 onClick={toggleWindowsVisibility}>{numTabs} tabs</h1>
+		<section className="Header-section Header--default">
+			<div className="Header-title">
+				<h1>{numTabs} tabs</h1>
+			</div>
 			<div className="Header-actions">
 				<IconButton
 					onClick={toggleView}
 					title={listView === 'default' ? 'Compact view' : 'Expanded view'}
-					icon={listView === 'default' ? 'compact' : 'default'}
+					icon={`listView--${listView === 'default' ? 'compact' : 'default'}`}
 				/>
 				<IconButton
 					onClick={sortTabs}
@@ -25,6 +27,14 @@ const HeaderDefault = ({ numTabs, toggleView, listView, setListView, sortTabs, s
 			</div>
 		</section>
 	);
+};
+
+HeaderDefault.propTypes = {
+	numTabs: React.PropTypes.number,
+	toggleView: React.PropTypes.func,
+	listView: React.PropTypes.string,
+	sortTabs: React.PropTypes.func,
+	setModeSearch: React.PropTypes.func,
 };
 
 export default HeaderDefault;

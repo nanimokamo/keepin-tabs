@@ -40,9 +40,8 @@ const Header = ({
 	cancelSearch,
 	cancelSelect,
 	numSelectedTabs,
-	setModeDefault,
 	showBookmarks,
-	toggleWindowsVisibility,
+	showWindows,
 }) => {
 	return (
 		<header className="Header" data-mode={mode}>
@@ -52,7 +51,6 @@ const Header = ({
 					toggleView={toggleView}
 					listView={listView}
 					sortTabs={sortTabs}
-					toggleWindowsVisibility={toggleWindowsVisibility}
 					setModeSearch={setModeSearch}
 				/>
 			: null}
@@ -70,12 +68,32 @@ const Header = ({
 					cancelSelect={cancelSelect}
 					numSelectedTabs={numSelectedTabs}
 					showBookmarks={showBookmarks}
+					showWindows={showWindows}
 					sortTabs={sortTabs}
 					closeTabs={closeTabs}
 				/>
 			: null}
 		</header>
 	);
+};
+
+Header.propTypes = {
+	mode: React.PropTypes.string,
+	numTabs: React.PropTypes.number,
+	numSelectedTabs: React.PropTypes.number,
+	toggleView: React.PropTypes.func,
+	listView: React.PropTypes.string,
+	query: React.PropTypes.string,
+	setQuery: React.PropTypes.func,
+	selectAll: React.PropTypes.func,
+	setModeSearch: React.PropTypes.func,
+	clearQuery: React.PropTypes.func,
+	sortTabs: React.PropTypes.func,
+	cancelSearch: React.PropTypes.func,
+	cancelSelect: React.PropTypes.func,
+	setModeDefault: React.PropTypes.func,
+	showBookmarks: React.PropTypes.func,
+	showWindows: React.PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -104,11 +122,11 @@ const mapDispatchToProps = (dispatch) => ({
 	toggleView() {
 		dispatch(toggleListView());
 	},
-	toggleWindowsVisibility() {
-		dispatch(toggleWindowsVisibility());
-	},
 	showBookmarks() {
 		dispatch(setBookmarksVisibility(true));
+	},
+	showWindows() {
+		dispatch(toggleWindowsVisibility());
 	},
 	cancelSelect() {
 		dispatch(deselectAllTabs());

@@ -1,7 +1,8 @@
 import groupBy from 'lodash.groupby';
 import { createStructuredSelector } from 'reselect';
 
-import { sortBy, moveTab, closeTab, goToTab } from './utils.js';
+import { sortBy } from './utils.js';
+import * as Chrome from './chrome.js';
 import {
 	getSelectedTabs,
 	getSelectedTabIds,
@@ -11,6 +12,7 @@ import {
 	getMode,
 	getQuery,
 	getIsDragging,
+	getIsTabPinned,
 } from './selectors.js';
 
 import {
@@ -20,6 +22,7 @@ import {
 	SET_HIGHLIGHTED_TAB_ID,
 	SET_LIST_VIEW_SUCCESS,
 	SELECT_TAB,
+	TOGGLE_TAB_SELECTED,
 	DESELECT_TAB,
 	DESELECT_ALL_TABS,
 	SET_BOOKMARKS_VISIBILITY,
@@ -32,7 +35,7 @@ import {
 
 export const closeTabs = () => (dispatch, getState) => {
 	const selectedTabIds = getSelectedTabIds(getState());
-	if (selectedTabIds.length) selectedTabIds.forEach(closeTab);
+	if (selectedTabIds.length) selectedTabIds.forEach(Chrome.closeTab);
 	return false;
 };
 
@@ -68,8 +71,8 @@ export const deselectAllTabs = () => ({
 	type: DESELECT_ALL_TABS,
 });
 
-export const selectTab = (tabId) => ({
-	type: SELECT_TAB,
+export const toggleTabSelected = (tabId) => ({
+	type: TOGGLE_TAB_SELECTED,
 	tabId,
 });
 
@@ -127,7 +130,7 @@ export const setDragging = (dragging) => ({
 
 export const toggleWindowsVisibility = () => (dispatch, getState) => dispatch({
 	type: SET_WINDOWS_VISIBILITY,
-	visible: getState().windowsVisible ? false : true,
+	visible: getState().showWindows ? false : true,
 });
 
 export const sortTabs = () => (dispatch, getState) => {
@@ -139,9 +142,16 @@ export const sortTabs = () => (dispatch, getState) => {
 	const unpinnedTabs = groupedPinnedTabs[false] || [];
 	const groupedUnpinnedTabs = sortBy(unpinnedTabs, 'url');
 
-	pinnedTabs.concat(groupedUnpinnedTabs).forEach((tab, i) => moveTab(tab.id, i));
+	[...pinnedTabs, ...groupedUnpinnedTabs]
+		.forEach((tab, index) => Chrome.moveTabs([tab.id], index));
+	
 	return false;
 }
+
+export const toggleTabPinned = (id) => (dispatch, getState) => {
+	const pinned = getIsTabPinned(id)(getState());
+	Chrome.pinTab(id, !pinned);
+};
 
 export const fetchTabs = () => (dispatch) => {
 	chrome.tabs.query({ currentWindow: true }, (tabs) => {
@@ -149,49 +159,47 @@ export const fetchTabs = () => (dispatch) => {
 	});
 };
 
+export const moveSelectedTabsToWindow = (windowId = undefined) => (dispatch, getState) => {
+	const tabIds = getSelectedTabIds(getState());
+	if (!windowId) {
+		Chrome.moveTabsToNewWindow(tabIds);
+	} else {
+		Chrome.moveTabs(tabIds, undefined, windowId);
+	}
+};
+
 export const keyPressed = (key) => (dispatch, getState) => {
-	const {
-		tabs,
-		highlightedTabId,
-		mode,
-		query,
-		bottomSheetOpen,
-	} = createStructuredSelector({
+	if (IGNORE_EVENTS.includes(key)) return;
+
+	const { tabs, highlightedTabId, mode, query, bottomSheetOpen } = createStructuredSelector({
 		tabs: getVisibleTabs,
 		highlightedTabId: getHighlightedTabId,
 		mode: getMode,
 		query: getQuery,
 		bottomSheetOpen: getIsDragging,
 	})(getState());
-	if (bottomSheetOpen || IGNORE_EVENTS.includes(key)) return;
+
+	if (bottomSheetOpen) return;
 
 	switch (key) {
-		case 'ArrowUp': {
-			// e.preventDefault();
-			let id = tabs[tabs.length - 1].id;
-
-			if (highlightedTabId !== undefined) {
-				const currentIndex = tabs.findIndex(tab => tab.id === highlightedTabId);
-				id = (currentIndex - 1) < 0 ? tabs[tabs.length - 1].id : tabs[currentIndex - 1].id;
-			}
-
-			dispatch(setHighlightedTabId(id));
-			break;
-		}
+		case 'ArrowUp':
 		case 'ArrowDown': {
-			// e.preventDefault();
-			let id = tabs[0].id;
+			let id = key === 'ArrowUp' ? tabs[tabs.length - 1].id : tabs[0].id;
 
 			if (highlightedTabId !== undefined) {
 				const currentIndex = tabs.findIndex(tab => tab.id === highlightedTabId);
-				id = (currentIndex + 1) > (tabs.length - 1) ? tabs[0].id : tabs[currentIndex + 1].id;
+				if (key === 'ArrowUp') {
+					id = (currentIndex - 1) < 0 ? tabs[tabs.length - 1].id : tabs[currentIndex - 1].id;
+				} else {
+					id = (currentIndex + 1) > (tabs.length - 1) ? tabs[0].id : tabs[currentIndex + 1].id;
+				}
 			}
 
 			dispatch(setHighlightedTabId(id));
 			break;
 		}
 		case 'Enter': {
-			if (highlightedTabId) goToTab(highlightedTabId);
+			if (highlightedTabId) Chrome.goToTab(highlightedTabId);
 			break;
 		}
 		case 'Backspace': {

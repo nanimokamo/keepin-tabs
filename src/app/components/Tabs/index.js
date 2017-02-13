@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import { createStructuredSelector } from 'reselect';
 
-import TabsItem from '../TabsItem';
+import Icon from '../Icon';
+import TwoLineList from '../TwoLineList';
+import TwoLineListItem from '../TwoLineList/TwoLineListItem';
 import SectionTitle from '../SectionTitle';
 
-import { moveTab } from '../../utils.js';
+import * as Chrome from '../../chrome.js';
 
 import {
 	getHighlightedTabId,
@@ -20,15 +22,34 @@ import {
 } from '../../selectors.js'
 
 import {
-	selectTab,
+	toggleTabSelected,
 	deselectTab,
 	setDragging,
+	toggleTabPinned,
 } from '../../actions.js';
 
-const SortableTabsItem = SortableElement(TabsItem);
-const SortableTabs = SortableContainer(({ children }) => (<div className="TabsItems">{children}</div>));
+const SortableTabsItem = SortableElement(TwoLineListItem);
+const SortableTabs = SortableContainer(({ children, view }) => {
+	return <TwoLineList className="TabsList" view={view}>{children}</TwoLineList>;
+});
+const MissingIcon = <Icon name="missing" />;
 
 class Tabs extends Component {
+	static propTypes = {
+		setDragging: React.PropTypes.func,
+		selectTab: React.PropTypes.func,
+		deselectTab: React.PropTypes.func,
+		pinnedTabs: React.PropTypes.array,
+		unpinnedTabs: React.PropTypes.array,
+		highlightedTabId: React.PropTypes.number,
+		mode: React.PropTypes.string,
+		query: React.PropTypes.string,
+		listView: React.PropTypes.string,
+		selectedTabIds: React.PropTypes.array,
+		isDragging: React.PropTypes.bool,
+		pinTab: React.PropTypes.func,
+	}
+
 	constructor(props) {
 		super(props);
 		this.onSortPinned = this.onSortPinned.bind(this);
@@ -36,14 +57,7 @@ class Tabs extends Component {
 		this.onSortStart = this.onSortStart.bind(this);
 		this.renderPinnedTab = this.renderPinnedTab.bind(this);
 		this.renderUnpinnedTab = this.renderUnpinnedTab.bind(this);
-	}
-
-	componentDidMount() {
-		document.body.dataset.view = this.props.listView;
-	}
-
-	componentWillReceiveProps({ listView }) {
-		if (listView !== this.props.listView) document.body.dataset.view = listView;
+		this.goToTab = this.goToTab.bind(this);
 	}
 
 	onSortStart() {
@@ -58,9 +72,13 @@ class Tabs extends Component {
 		this.sort(this.props.pinnedTabs[oldIndex], newIndex);
 	}
 
-	sort(tab, newIndex) {
-		if (tab) moveTab(tab.id, newIndex);
+	sort(tab, index) {
+		if (tab) Chrome.moveTabs(tab.id, index);
 		this.props.setDragging(false);
+	}
+
+	goToTab(id) {
+		Chrome.goToTab(id);
 	}
 
 	renderUnpinnedTab(tab) {
@@ -72,20 +90,54 @@ class Tabs extends Component {
 	}
 
 	renderTab(props) {
+		const icon = (
+			!props.favIconUrl || props.favIconUrl === 'undefined' || !props.favIconUrl.length
+				? MissingIcon
+				: (
+					<div className="Icon">
+						<img src={props.favIconUrl} />
+					</div>
+				)
+			);
 		return (
 			<SortableTabsItem
 				{...props}
 				key={props.id}
-				highlighted={this.props.highlightedTabId === props.id}
+				line1={props.status === 'loading' ? 'Loading...' : props.title}
+				line2={props.url}
+				icon={icon}
 				selected={this.props.selectedTabIds.includes(props.id)}
-				selectTab={this.props.selectTab}
-				deselectTab={this.props.deselectTab}
+				highlighted={this.props.highlightedTabId === props.id}
+				actions={[
+					{
+						icon: 'pin',
+						onClick: this.props.pinTab,
+					},
+					{
+						icon: 'refresh',
+						onClick: Chrome.refreshTab,
+					},
+					{
+						icon: 'close',
+						onClick: Chrome.closeTab,
+					},
+				]}
+				onClick={this.goToTab}
+				onClickData={props.id}
+				onClickMainAction={this.props.toggleTabSelected}
 			/>
 		);
 	}
 
 	render() {
-		const { pinnedTabs, unpinnedTabs } = this.props;
+		const { pinnedTabs, unpinnedTabs, listView } = this.props;
+		const sortableTabsProps = {
+			distance: 10,
+			onSortStart: this.onSortStart,
+			helperClass: "is-dragging",
+			lockAxis: "y",
+			view: listView,
+		};
 
 		return (
 			<div className="Tabs">
@@ -95,11 +147,9 @@ class Tabs extends Component {
 
 				{pinnedTabs.length ?
 					<SortableTabs
-						distance={10}
-						onSortStart={this.onSortStart}
+						{...sortableTabsProps}
 						onSort={this.onSortPinned}
 						onSortEnd={this.onSortPinned}
-						helperClass="is-dragging"
 					>
 						{pinnedTabs.map(this.renderPinnedTab)}
 					</SortableTabs>
@@ -111,11 +161,9 @@ class Tabs extends Component {
 
 				{unpinnedTabs.length ?
 					<SortableTabs
-						distance={10}
-						onSortStart={this.onSortStart}
+						{...sortableTabsProps}
 						onSort={this.onSortUnpinned}
 						onSortEnd={this.onSortUnpinned}
-						helperClass="is-dragging"
 					>
 						{unpinnedTabs.map(this.renderUnpinnedTab)}
 					</SortableTabs>
@@ -125,29 +173,18 @@ class Tabs extends Component {
 	}
 }
 
-Tabs.propTypes = {
-	setDragging: React.PropTypes.func,
-	selectTab: React.PropTypes.func,
-	deselectTab: React.PropTypes.func,
-	pinnedTabs: React.PropTypes.array,
-	unpinnedTabs: React.PropTypes.array,
-	highlightedTabId: React.PropTypes.number,
-	mode: React.PropTypes.string,
-	query: React.PropTypes.string,
-	listView: React.PropTypes.string,
-	selectedTabIds: React.PropTypes.array,
-	isDragging: React.PropTypes.bool,
-};
-
 const mapDispatchToProps = (dispatch) => ({
 	setDragging(dragging) {
 		dispatch(setDragging(dragging));
 	},
-	selectTab(id) {
-		dispatch(selectTab(id));
+	toggleTabSelected(id) {
+		dispatch(toggleTabSelected(id));
 	},
 	deselectTab(id) {
 		dispatch(deselectTab(id));
+	},
+	pinTab(id) {
+		dispatch(toggleTabPinned(id));
 	},
 });
 

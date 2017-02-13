@@ -4,13 +4,15 @@ import IconButton from '../IconButton';
 
 const HeaderSearch = ({ query, setQuery, selectAll, clearQuery, cancelSearch }) => {
 	return (
-		<section className="Header--search">
-			<IconButton
-				className="main-action"
-				onClick={cancelSearch}
-				title="Back"
-				icon="back"
-			/>
+		<section className="Header-section Header--search">
+			<div className="Header-mainAction">
+				<IconButton
+					onClick={cancelSearch}
+					title="Back"
+					icon="back"
+				/>
+			</div>
+
 			<input
 				autoComplete="off"
 				className="TextInput"
@@ -36,6 +38,14 @@ const HeaderSearch = ({ query, setQuery, selectAll, clearQuery, cancelSearch }) 
 			</div>
 		</section>
 	);
+};
+
+HeaderSearch.propTypes = {
+	query: React.PropTypes.string,
+	setQuery: React.PropTypes.func,
+	selectAll: React.PropTypes.func,
+	clearQuery: React.PropTypes.func,
+	cancelSearch: React.PropTypes.func,
 };
 
 export default HeaderSearch;

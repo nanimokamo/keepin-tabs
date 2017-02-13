@@ -20,36 +20,25 @@ body {
 	-webkit-font-smoothing: antialiased;
 }
 
-.TextInput {
-	border: 0;
-	background-color: transparent;
-	padding: 0;
-	line-height: normal;
-	width: 100%;
-	display: inline-block;
-	font-size: 18px;
-	font-family: inherit;
-	color: currentColor;
-
-	&::-webkit-input-placeholder {
-		font: inherit;
-		color: currentColor;
-		opacity: 0.7;
-	}
-}
-
 @import 'components/App/style.scss';
 @import 'components/Header/style.scss';
+
 @import 'components/Icon/style.scss';
 @import 'components/IconButton/style.scss';
-@import 'components/SectionTitle/style.scss';
-@import 'components/BottomSheet/style.scss';
 
-@import 'components/Tabs/style.scss';
-@import 'components/TabsItem/style.scss';
+@import 'components/Input/style.scss';
+
+@import 'components/SectionTitle/style.scss';
+
+@import 'components/BottomSheet/style.scss';
+@import 'components/Dialog/style.scss';
+
+@import 'components/List/style.scss';
+@import 'components/List/ListItem/style.scss';
+@import 'components/TwoLineList/style.scss';
+@import 'components/TwoLineList/TwoLineListItem/style.scss';
 
 @import 'components/Windows/style.scss';
-@import 'components/WindowsItem/style.scss';
-
 @import 'components/Bookmarks/style.scss';
-@import 'components/BookmarksItem/style.scss';
+@import 'components/Tabs/style.scss';
+

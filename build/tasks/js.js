@@ -10,7 +10,7 @@ const sourcemaps = require('gulp-sourcemaps');
 
 const ROOT = '../../';
 
-const JS_SRC_FILE = PATH.resolve(__dirname, ROOT, 'src/app/app.js');
+const JS_SRC_FILE = PATH.resolve(__dirname, ROOT, 'src/app/index.js');
 const JS_SRC_FILES = [
 	JS_SRC_FILE,
 	PATH.resolve(__dirname, ROOT, 'src/app/') + '/*.js',
@@ -30,7 +30,7 @@ gulp.task('build:js', function() {
 				NODE_ENV: 'production'
 			})
 			.bundle()
-			.pipe(source('app.js'))
+			.pipe(source('index.js'))
 			.pipe(buffer())
 			.pipe(uglify())
 			.pipe(gulp.dest(JS_PRODUCTION_BUILD_FOLDER));
@@ -38,7 +38,7 @@ gulp.task('build:js', function() {
 		const bundle = () => {
 			b.transform('babelify')
 				.bundle()
-				.pipe(source('app.js'))
+				.pipe(source('index.js'))
 				.pipe(buffer())
 				.pipe(sourcemaps.init({loadMaps: true}))
 				.pipe(sourcemaps.write('./'))

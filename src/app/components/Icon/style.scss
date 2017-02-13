@@ -5,23 +5,23 @@
 	height: 2em;
     width: 2em;
 
-	// &[data-name="pin"] {
-	// 	svg {
-	// 		@include size(100%);
-	// 	}
-	// }
-
-	// &[data-name="search"] {
-	// 	svg {
-	// 		@include size(95%);
-	// 	}
-	// }
+	&--aligned {
+	    &[data-name="add"] {
+	    	margin: -0.25em;
+	    }
+	}
 
 	svg {
-		display: inline-block;
+		display: block;
 		fill: currentColor;
 	    width: 100%;
 	    height: 100%;
 		transition: fill $TRANSITION_SPEED ease;
+	}
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
 	}
 }
