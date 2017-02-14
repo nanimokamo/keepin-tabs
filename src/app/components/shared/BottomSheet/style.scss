@@ -57,7 +57,8 @@
 	font-size: 12px;
 	padding: $PADDING_NORMAL;
 	flex-shrink: 0;
-	color: $MEDIUM_GREY;
+	// color: $MEDIUM_GREY;
+	color: $BLACK;
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
@@ -88,6 +89,7 @@
 	transform: none;
 	overflow: hidden;
 	transition: width 0.15s ease, transform 0.1s ease, margin-right 0.1s ease;
+	color: $MEDIUM_GREY;
 
 	&.is-hidden {
 		margin-right: 0;
@@ -104,4 +106,9 @@
 	background-color: $WHITE;
 	height: 100%;
 	overflow: scroll;
+}
+
+
+.BottomSheet-footnote {
+	border-top: 1px solid $LIGHTEST_GREY_4;
 }

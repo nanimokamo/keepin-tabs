@@ -22,12 +22,12 @@ class ListItem extends React.Component {
 	}
 
 	onClick() {
-		this.props.onClick(this.props.onClickData);
+		if (this.props.onClick) this.props.onClick(this.props.onClickData);
 	}
 
 	onClickAction(e) {
 		e.stopPropagation();
-		this.props.onClickAction(this.props.onClickActionData);
+		if (this.props.onClickAction) this.props.onClickAction(this.props.onClickActionData);
 	}
 
 	render() {

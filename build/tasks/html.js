@@ -1,6 +1,6 @@
-const gulp = require('gulp');
-const PATH = require('path');
-const util = require('gulp-util');
+import gulp from 'gulp';
+import PATH from 'path';
+import util from 'gulp-util';
 
 const ROOT = '../../';
 

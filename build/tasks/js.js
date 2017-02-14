@@ -1,12 +1,14 @@
-const gulp = require('gulp');
-const PATH = require('path');
-const buffer = require('vinyl-buffer');
-const uglify = require('gulp-uglify');
-const browserify = require('browserify');
-const source = require('vinyl-source-stream');
-const util = require('gulp-util');
-const watchify = require('watchify');
-const sourcemaps = require('gulp-sourcemaps');
+import gulp from 'gulp';
+import PATH from 'path';
+import buffer from 'vinyl-buffer';
+import uglify from 'gulp-uglify';
+import browserify from 'browserify';
+import source from 'vinyl-source-stream';
+import util from 'gulp-util';
+import watchify from 'watchify';
+import sourcemaps from 'gulp-sourcemaps';
+
+// const folders = require('../../package.json');
 
 const ROOT = '../../';
 

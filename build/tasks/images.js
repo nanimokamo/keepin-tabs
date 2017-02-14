@@ -1,6 +1,6 @@
-const gulp = require('gulp');
-const PATH = require('path');
-const imagemin = require('gulp-imagemin');
+import gulp from 'gulp';
+import PATH from 'path';
+import imagemin from 'gulp-imagemin';
 
 const ROOT = '../../';
 

@@ -1,11 +1,19 @@
 {
   "name": "keepin-tabs",
   "description": "Manage your tabs.",
+  "folders": {
+  	"css": {
+  		"entrypoint": "/src/app/index.scss"
+  	},
+  	"js": {
+  		"entrypoint": "/src/app/index.js"
+  	}
+  },
   "scripts": {
     "start": "npm run gulp",
-    "gulp": "./node_modules/.bin/gulp --gulpfile ./build/gulpfile.js --env development",
-    "watch:prod": "./node_modules/.bin/gulp --gulpfile ./build/gulpfile.js --env production",
-    "build": "./node_modules/.bin/gulp build --gulpfile ./build/gulpfile.js --env production"
+    "gulp": "./node_modules/.bin/gulp --gulpfile ./build/gulpfile.babel.js --env development",
+    "watch:prod": "./node_modules/.bin/gulp --gulpfile ./build/gulpfile.babel.js --env production",
+    "build": "./node_modules/.bin/gulp build --gulpfile ./build/gulpfile.babel.js --env production"
   },
   "browserslist": [
     "last 3 Chrome versions"

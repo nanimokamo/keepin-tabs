@@ -1,10 +1,9 @@
-.Bookmarks-items {
-}
-
-.Bookmarks-cancelNewBookmark {
-    color: $MEDIUM_GREY;
-    font-size: 11px;
-    text-transform: uppercase;
-    border-radius: 2px;
-    // padding: 3px 5px;
+.Bookmarks-itemTitleInput {
+	font-size: 13px;
+	width: 100%;
+	
+	border: 0;
+	background-color: transparent;
+	outline: none;
+	font: inherit;
 }

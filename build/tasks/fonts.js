@@ -1,7 +1,7 @@
-const gulp = require('gulp');
-const PATH = require('path');
-const util = require('gulp-util');
-const browserSync = require('browser-sync');
+import gulp from 'gulp';
+import PATH from 'path';
+import util from 'gulp-util';
+// import browserSync from 'browser-sync';
 
 const ROOT = '../../';
 

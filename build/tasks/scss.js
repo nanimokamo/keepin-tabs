@@ -1,9 +1,9 @@
-const gulp = require('gulp');
-const PATH = require('path');
-const sass = require('gulp-sass');
-const autoprefixer = require('gulp-autoprefixer');
-const sourcemaps = require('gulp-sourcemaps');
-const util = require('gulp-util');
+import gulp from 'gulp';
+import PATH from 'path';
+import sass from 'gulp-sass';
+import autoprefixer from 'gulp-autoprefixer';
+import sourcemaps from 'gulp-sourcemaps';
+import util from 'gulp-util';
 
 const ROOT = '../../';
 

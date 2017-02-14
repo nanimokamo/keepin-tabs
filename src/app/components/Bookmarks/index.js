@@ -30,6 +30,7 @@ class Bookmarks extends React.Component {
 	constructor(props) {
 		super(props);
 		this.goToFolder = this.goToFolder.bind(this);
+		this.onClickBack = this.onClickBack.bind(this);
 		this.addToFolder = this.addToFolder.bind(this);
 		this.onInputChange = this.onInputChange.bind(this);
 		this.onKeypress = this.onKeypress.bind(this);
@@ -82,9 +83,8 @@ class Bookmarks extends React.Component {
 
 	renderNewFolder() {
 		return (
-			<li className="Bookmarks-item Bookmarks-item--newFolder">
-				<Icon name="new-folder" />
-				<div className="Bookmarks-itemTitle">
+			<List>
+				<ListItem icon="new-folder">
 					<input
 						className="Bookmarks-itemTitleInput"
 						type="text"
@@ -93,8 +93,8 @@ class Bookmarks extends React.Component {
 						onKeyPress={this.onKeypress}
 						placeholder="Bookmark name"
 					/>
-				</div>
-			</li>
+				</ListItem>
+			</List>
 		);
 	}
 

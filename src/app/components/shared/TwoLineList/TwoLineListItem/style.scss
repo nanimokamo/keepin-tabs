@@ -125,20 +125,15 @@
 	position: relative;
 	height: 100%;
 	width: $PADDING_NORMAL + 24px + $PADDING_NORMAL;
+	padding-left: $PADDING_NORMAL;
 	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
 
 	.Icon {
-		position: absolute;
-		top: 50%;
-		left: $PADDING_NORMAL;
 		@include size(24px);
-		transform: translate(0,-50%);
 		color: $MEDIUM_GREY;
-		// background-color: $MEDIUM_GREY;
-
-		// .TwoLineListItem-mainActionDefault & {
-		// 	@include size(20px);
-		// }
 
 		.TwoLineListItem[data-selected="true"] & {
 			color: $TERTIARY;
@@ -163,7 +158,15 @@
 }
 
 .TwoLineListItem-mainActionDefault {
+	@include size(24px);
 	border-radius: 2px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	.Icon {
+		@include size(20px);
+	}
 	
 	.TwoLineListItem:hover &, .TwoLineListItem[data-selected="true"] & {
 		display: none;

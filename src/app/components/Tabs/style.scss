@@ -2,7 +2,7 @@
 	background-color: #eeff41;//$CHROME_YELLOW;
 	position: relative;
 
-	&:not(:last-child) {
+	&:not(:only-of-type) {
 		&:after, &:before {
 			content: "";
 			position: absolute;
@@ -28,5 +28,9 @@
 			top: 100%;
 			background-image: linear-gradient(to bottom, rgba(black, 0.025), transparent);
 		}
+	}
+
+	&:last-of-type:after {
+		display: none;
 	}
 }
