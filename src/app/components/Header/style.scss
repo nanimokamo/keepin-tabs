@@ -86,7 +86,7 @@
 	margin-right: $PADDING_NORMAL;
 
 	.Icon {
-		@include size(26px);
+		@include size(24px);
 	}
 }
 
@@ -95,7 +95,7 @@
 	flex-direction: row;
 
 	.Icon {
-		@include size(26px);
+		@include size(24px);
 	}
 	
 	button {

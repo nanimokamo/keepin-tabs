@@ -2,13 +2,13 @@ import React from 'react';
 
 const TwoLineList = ({ children, className, view = 'default', ...props }) => {
 	return (
-		<div
+		<ul
 			{...props}
 			className={`TwoLineList ${className ? className : ''}`}
 			data-view={view}
 		>
 			{children}
-		</div>
+		</ul>
 	);
 };
 

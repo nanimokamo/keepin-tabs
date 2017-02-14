@@ -1,0 +1,83 @@
+.ListItem {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	cursor: pointer;
+	// padding: 0 $PADDING_NORMAL;
+	font-size: 14px;
+
+	&:hover {
+		background-color: $LIGHTEST_GREY_2;
+	}
+
+	&[data-disabled="true"] {
+		opacity: 0.5;
+		cursor: default;
+		pointer-events: none;
+	}
+}
+
+.ListItem-icon {
+	width: $PADDING_NORMAL * 2 + 24px;
+	height: 100%;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-shrink: 0;
+
+	.List[data-size="large"] & {
+		width: 24px * 3;
+	}
+
+	.Icon {
+		color: $MEDIUM_GREY;
+		@include size(24px);
+		margin-left: $PADDING_NORMAL;
+
+		.List[data-size="large"] & {
+			margin-left: 24px;
+		}
+	}
+}
+
+.ListItem-content {
+	padding: ($PADDING_NORMAL * 0.75) $PADDING_NORMAL;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	width: 100%;
+	font-size: 13px;
+
+	.List[data-size="large"] & {
+		font-size: 15px;
+		padding: $PADDING_NORMAL 24px;
+	}
+
+	.ListItem-icon ~ &, .List[data-size="large"] .ListItem-icon ~ & {
+		padding-left: 0;
+	}
+}
+
+.ListItem-actions {
+	margin-right: $PADDING_NORMAL;
+
+	.List[data-size="large"] & {
+		margin-right: 24px;
+	}
+
+	.Icon {
+		color: $MEDIUM_GREY;
+		width: 24px;
+		height: 24px;
+
+		&:hover {
+			color: $BLACK;
+		}
+	}
+}
+
+.ListItem-contentAside {
+	color: $MEDIUM_GREY;
+	margin-left: $PADDING_NORMAL / 2;
+}

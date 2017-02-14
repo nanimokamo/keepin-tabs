@@ -6,10 +6,10 @@ import * as Chrome from '../../chrome.js';
 import { setBookmarksVisibility, addSelectedTabsToFolder } from '../../actions.js';
 import { getShowBookmarks } from '../../selectors.js'
 
-import BottomSheet from '../BottomSheet';
-import Icon from '../Icon';
-import List from '../List';
-import ListItem from '../List/ListItem';
+import BottomSheet from '../shared/BottomSheet';
+import Icon from '../shared/Icon';
+import List from '../shared/List';
+import ListItem from '../shared/List/ListItem';
 
 class Bookmarks extends React.Component {
 	static propTypes = {

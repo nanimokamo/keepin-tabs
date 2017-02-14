@@ -1,6 +1,6 @@
 import React from 'react';
 
-import IconButton from '../IconButton';
+import IconButton from '../shared/IconButton';
 
 const HeaderSearch = ({ query, setQuery, selectAll, clearQuery, cancelSearch }) => {
 	return (

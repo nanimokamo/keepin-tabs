@@ -48,13 +48,13 @@
 
 .Dialog-title {
 	position: relative;
-	font-size: 18px;
-	padding: $PADDING_NORMAL;
+	font-size: 19px;
+	padding: 24px 24px 20px 24px;
 	flex-shrink: 0;
 	color: $BLACK;
 	display: flex;
 	align-items: center;
-	font-weight: 600;
+	// font-weight: 600;
 	line-height: 1;
 	justify-content: flex-start;
 

@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import { createStructuredSelector } from 'reselect';
 
-import Icon from '../Icon';
-import TwoLineList from '../TwoLineList';
-import TwoLineListItem from '../TwoLineList/TwoLineListItem';
-import SectionTitle from '../SectionTitle';
+import Icon from '../shared/Icon';
+import TwoLineList from '../shared/TwoLineList';
+import TwoLineListItem from '../shared/TwoLineList/TwoLineListItem';
+import SectionTitle from '../shared/SectionTitle';
 
 import * as Chrome from '../../chrome.js';
 

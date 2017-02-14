@@ -56,7 +56,7 @@ class TwoLineListItem extends React.Component {
 							{icon}
 						</div>
 					: null}
-					<Icon name={selected ? 'checkbox--checked' : 'checkbox'} />
+					<Icon name={selected ? 'checkbox--checked' : 'checkbox'} align />
 				</div>
 				<div className="TwoLineListItem-content">
 					<div className="TwoLineListItem-contentLine1">{line1}</div>

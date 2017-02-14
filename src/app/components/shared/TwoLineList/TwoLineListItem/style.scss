@@ -2,7 +2,7 @@
 	position: relative;
 	cursor: pointer;
 	height: map-get($TWO_LINE_LIST_ITEM_HEIGHT, 'default');
-	padding: 0 $PADDING_NORMAL;
+	padding: 0;
 	overflow: hidden;
 	background-color: $WHITE;
 	display: flex;
@@ -16,7 +16,7 @@
 		position: absolute;
 		bottom: 0;
 		width: 100%;
-		background-color: rgba($BLACK, 0.05);
+		background-color: rgba($BLACK, 0.1);
 		left: 0;
 	}
 
@@ -25,7 +25,7 @@
 	}
 
 	&[data-selected="true"] {
-		background-color: lighten($TERTIARY, 45%);
+		background-color: lighten($TERTIARY, 47.5%);
 	}
 
 	.TwoLineList[data-view="compact"] & {
@@ -34,9 +34,14 @@
 }
 
 .TwoLineListItem-content {
+	padding: 0 $PADDING_NORMAL;
 	white-space: nowrap;
     width: 100%;
     overflow: hidden;
+
+    .TwoLineListItem-mainAction ~ & {
+    	padding-left: 0;
+    }
 
 	.TwoLineList[data-view="compact"] & {
 		display: flex;
@@ -49,10 +54,12 @@
 	font-size: 13px;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	margin-bottom: 2px;
 
 	.TwoLineList[data-view="compact"] & {
 		flex-shrink: 0;
 		margin-right: 5px;
+		margin-bottom: 0;
 	}
 
 	.TwoLineList[data-view="compact"] .TwoLineListItem:hover & {
@@ -71,7 +78,7 @@
 	flex-shrink: 0;
 	display: flex;
 	flex-direction: row;
-	padding-left: $PADDING_NORMAL;
+	padding-right: $PADDING_NORMAL;
 }
 
 .TwoLineListItem-action {
@@ -106,7 +113,7 @@
 	}
 
 	.Icon {
-		@include size(18px);
+		@include size(24px);
 	}
 
 	.TwoLineListItem:hover & {
@@ -117,17 +124,25 @@
 .TwoLineListItem-mainAction {
 	position: relative;
 	height: 100%;
-	width: map-get($TWO_LINE_LIST_ITEM_HEIGHT, 'default');
-	margin-left: -#{$PADDING_NORMAL};
+	width: $PADDING_NORMAL + 24px + $PADDING_NORMAL;
 	flex-shrink: 0;
 
 	.Icon {
 		position: absolute;
 		top: 50%;
-		left: 50%;
-		@include size(26px);
-		transform: translate(-50%,-50%);
+		left: $PADDING_NORMAL;
+		@include size(24px);
+		transform: translate(0,-50%);
 		color: $MEDIUM_GREY;
+		// background-color: $MEDIUM_GREY;
+
+		// .TwoLineListItem-mainActionDefault & {
+		// 	@include size(20px);
+		// }
+
+		.TwoLineListItem[data-selected="true"] & {
+			color: $TERTIARY;
+		}
 
 		&[data-name="checkbox"] {
 			display: none;

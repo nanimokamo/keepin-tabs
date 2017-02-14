@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import Dialog from '../Dialog';
-import List from '../List';
-import ListItem from '../List/ListItem';
+import Dialog from '../shared/Dialog';
+import List from '../shared/List';
+import ListItem from '../shared/List/ListItem';
 
 import * as Chrome from '../../chrome.js';
 import { toggleWindowsVisibility, moveSelectedTabsToWindow } from '../../actions.js';
@@ -53,7 +53,7 @@ class Windows extends React.Component {
 				onClick={this.moveToWindow}
 				onClickData={{ id: props.id }}
 				disabled={props.focused}
-				aside={`(${props.tabs.length})`}
+				aside={`${props.tabs.length}`}
 			>
 				{`Window ${i + 1}`}
 			</ListItem>
@@ -62,7 +62,7 @@ class Windows extends React.Component {
 
 	renderNewWindowsItem() {
 		return (
-			<List>
+			<List size="large">
 				<ListItem onClick={this.moveToNewWindow} icon="add">
 					New window
 				</ListItem>
@@ -77,12 +77,12 @@ class Windows extends React.Component {
 		return (
 			<Dialog
 				open={open}
-				title="Move tabs to window..."
+				title="Move selected to..."
 				onClickCover={hideWindows}
 				footnote={this.renderNewWindowsItem()}
 			>
 				{windows && windows.length ?
-					<List>
+					<List size="large">
 						{windows.map(this.renderWindowsItem)}
 					</List>
 				: null}

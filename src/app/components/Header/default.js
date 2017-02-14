@@ -1,6 +1,6 @@
 import React from 'react';
 
-import IconButton from '../IconButton';
+import IconButton from '../shared/IconButton';
 
 const HeaderDefault = ({ numTabs, toggleView, listView, sortTabs, setModeSearch }) => {
 	return (
