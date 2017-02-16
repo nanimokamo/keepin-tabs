@@ -2,18 +2,20 @@
   "name": "keepin-tabs",
   "description": "Manage your tabs.",
   "folders": {
-  	"css": {
-  		"entrypoint": "/src/app/index.scss"
-  	},
-  	"js": {
-  		"entrypoint": "/src/app/index.js"
-  	}
+    "css": {
+      "entrypoint": "/src/app/index.scss"
+    },
+    "js": {
+      "entrypoint": "/src/app/index.js"
+    }
   },
   "scripts": {
     "start": "npm run gulp",
     "gulp": "./node_modules/.bin/gulp --gulpfile ./build/gulpfile.babel.js --env development",
     "watch:prod": "./node_modules/.bin/gulp --gulpfile ./build/gulpfile.babel.js --env production",
-    "build": "./node_modules/.bin/gulp build --gulpfile ./build/gulpfile.babel.js --env production"
+    "build": "./node_modules/.bin/gulp build --gulpfile ./build/gulpfile.babel.js --env production",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "browserslist": [
     "last 3 Chrome versions"
@@ -64,7 +66,8 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.9.0",
-    "yargs": "^3.15.0"
+    "yargs": "^3.15.0",
+    "@kadira/storybook": "^2.21.0"
   },
   "dependencies": {
     "babel-plugin-transform-async-to-generator": "^6.22.0",
