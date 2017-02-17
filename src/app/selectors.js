@@ -28,7 +28,7 @@ export const getSelectedTabs = createSelector(
 
 export const getSortedTabs = createSelector(
 	getTabs,
-	(tabs) => tabs.length ? sortBy(tabs, 'index') : tabs,
+	(tabs) => tabs.length ? tabs::sortBy('index') : tabs,
 );
 
 export const getVisibleTabs = createSelector(

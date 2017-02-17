@@ -140,7 +140,7 @@ export const sortTabs = () => (dispatch, getState) => {
 	const groupedPinnedTabs = groupBy(tabs, 'pinned');
 	const pinnedTabs = groupedPinnedTabs[true] || [];
 	const unpinnedTabs = groupedPinnedTabs[false] || [];
-	const groupedUnpinnedTabs = sortBy(unpinnedTabs, 'url');
+	const groupedUnpinnedTabs = unpinnedTabs::sortBy('url');
 
 	[...pinnedTabs, ...groupedUnpinnedTabs]
 		.forEach((tab, index) => Chrome.moveTabs([tab.id], index));

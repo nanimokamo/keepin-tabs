@@ -1,5 +1,7 @@
-export const throttle = (callback, limit) => {
-    let wait = false;
+// @flow
+
+export const throttle = (callback: Function, limit: number): Function => {
+    let wait: boolean = false;
     return () => {
         if (!wait) {
             callback.call();
@@ -11,8 +13,8 @@ export const throttle = (callback, limit) => {
     }
 };
 
-export const sortBy = (array, key) => {
-    return array.sort((a, b) => {
+export function sortBy(key: string): [] {
+    return this.sort((a, b) => {
         if (a[key] > b[key]) {
             return 1;
         } else if (a[key] < b[key]) {
@@ -21,4 +23,4 @@ export const sortBy = (array, key) => {
             return 0;
         }
     });
-};
+}

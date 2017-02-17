@@ -7,6 +7,7 @@ import source from 'vinyl-source-stream';
 import util from 'gulp-util';
 import watchify from 'watchify';
 import sourcemaps from 'gulp-sourcemaps';
+// import flow from 'tsify';
 
 // const folders = require('../../package.json');
 
@@ -52,7 +53,7 @@ gulp.task('build:js', function() {
 			debug: true,
 			cache: {},
 			packageCache: {},
-			// plugin: [watchify],
+			// plugin: [tsify, /*watchify*/],
 		});
 
 		// b.on('update', bundle);
