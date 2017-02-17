@@ -23,4 +23,5 @@
 	height: 100%;
 	will-change: scroll-position;
 	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
 }

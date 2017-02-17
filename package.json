@@ -14,13 +14,16 @@
     "flow": "./node_modules/.bin/flow",
     "gulp": "./node_modules/.bin/gulp --gulpfile ./build/gulpfile.babel.js --env development",
     "watch:prod": "./node_modules/.bin/gulp --gulpfile ./build/gulpfile.babel.js --env production",
-    "build": "./node_modules/.bin/gulp build --gulpfile ./build/gulpfile.babel.js --env production"
+    "build": "./node_modules/.bin/gulp build --gulpfile ./build/gulpfile.babel.js --env production",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "browserslist": [
     "last 3 Chrome versions"
   ],
   "version": "0.0.1",
   "devDependencies": {
+    "@kadira/storybook": "^2.21.0",
     "autoprefixer": "^6.7.2",
     "babel": "6.5.2",
     "babel-eslint": "^7.1.1",
@@ -80,5 +83,12 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
     "reselect": "^2.5.4"
-  }
+  },
+  "main": "src/app/index.js",
+  "repository": {
+    "url": "git@github.com:chrslwrnc/keepin-tabs.git",
+    "type": "git"
+  },
+  "author": "chrslwrnc <cjlawrence89@gmail.com>",
+  "license": "MIT"
 }

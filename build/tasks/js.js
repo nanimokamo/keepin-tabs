@@ -5,15 +5,14 @@ import uglify from 'gulp-uglify';
 import browserify from 'browserify';
 import source from 'vinyl-source-stream';
 import util from 'gulp-util';
-import watchify from 'watchify';
+// import watchify from 'watchify';
 import sourcemaps from 'gulp-sourcemaps';
 // import flow from 'tsify';
-
-// const folders = require('../../package.json');
+import pkg from '../../package.json';
 
 const ROOT = '../../';
 
-const JS_SRC_FILE = PATH.resolve(__dirname, ROOT, 'src/app/index.js');
+const JS_SRC_FILE = PATH.resolve(__dirname, ROOT, pkg.folders.js.entrypoint);
 const JS_SRC_FILES = [
 	JS_SRC_FILE,
 	PATH.resolve(__dirname, ROOT, 'src/app/') + '/*.js',
