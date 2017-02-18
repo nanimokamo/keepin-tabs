@@ -16,11 +16,15 @@
 		position: absolute;
 		bottom: 0;
 		width: 100%;
-		background-color: rgba($BLACK, 0.1);
+		background-color: rgba($BLACK, 0.075);
 		left: 0;
 	}
 
-	&:hover:not([data-selected="true"]), &[data-highlighted="true"] {
+	&[data-highlighted="true"] {
+		background-color: lighten($TERTIARY, 47.5%);
+	}
+
+	&:hover:not([data-selected="true"]):not([data-highlighted="true"]) {
 		background-color: $LIGHTEST_GREY_2;
 	}
 
@@ -103,7 +107,7 @@
 		position: absolute
 	}
 
-	&[data-selected="true"] {
+	&[data-active="true"] {
 		color: $TERTIARY;
 		display: block;
 
@@ -130,6 +134,14 @@
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
+
+	&:hover .Icon {
+		color: $BLACK;
+
+		.TwoLineListItem[data-selected="true"] & {
+			opacity: 0.75;
+		}
+	}
 
 	.Icon {
 		@include size(24px);

@@ -12,7 +12,6 @@ import { keyPressed } from '../../actions.js';
 class App extends Component {
 	static propTypes = {
 		keyPressed: React.PropTypes.func,
-		isDragging: React.PropTypes.bool,
 	}
 	
 	constructor(props) {
@@ -25,7 +24,7 @@ class App extends Component {
 	}
 
 	handleKeyDown(e) {
-		this.props.keyPressed(e.code);	
+		this.props.keyPressed(e);	
 	}
 
 	render() {
@@ -45,11 +44,9 @@ class App extends Component {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => ({
-	keyPressed(key) {
-		dispatch(keyPressed(key));
-	},
-});
+const mapDispatchToProps = {
+	keyPressed,
+};
 
 const mapStateToProps = createStructuredSelector({
 });

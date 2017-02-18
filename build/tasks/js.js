@@ -13,6 +13,7 @@ import pkg from '../../package.json';
 const ROOT = '../../';
 
 const JS_SRC_FILE = PATH.resolve(__dirname, ROOT, pkg.folders.js.entrypoint);
+
 const JS_SRC_FILES = [
 	JS_SRC_FILE,
 	PATH.resolve(__dirname, ROOT, 'src/app/') + '/*.js',

@@ -91,14 +91,10 @@ class Windows extends React.Component {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => ({
-	hideWindows() {
-		dispatch(toggleWindowsVisibility());
-	},
-	moveSelectedTabsToWindow(id) {
-		dispatch(moveSelectedTabsToWindow(id));
-	},
-});
+const mapDispatchToProps = {
+	moveSelectedTabsToWindow,
+	hideWindows: toggleWindowsVisibility,
+};
 
 const mapStateToProps = createStructuredSelector({
 	open: getShowWindows,

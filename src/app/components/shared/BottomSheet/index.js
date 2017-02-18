@@ -12,9 +12,12 @@ class BottomSheet extends React.Component {
 		showBack: React.PropTypes.bool,
 	}
 	
+	state = {
+		isScrolled: false
+	};
+	
 	constructor(props) {
 		super(props)
-		this.state = { isScrolled: false };
 		this.handleScroll = this.handleScroll.bind(this);
 	}
 

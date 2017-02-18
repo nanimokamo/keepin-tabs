@@ -8,13 +8,11 @@
 		&[data-name="add"] {
 			margin: -0.25em;
 		}
+	}
 
-		&[data-name="checkbox"], &[data-name="checkbox--checked"] {
-			// margin: -0.25em;
-
-			// svg {
-			// 	@include size(125%);
-			// }
+	&[data-name="pin"] {
+		svg {
+			@include size(85%);
 		}
 	}
 

@@ -21,7 +21,6 @@ import {
 	SET_MODE,
 	SET_HIGHLIGHTED_TAB_ID,
 	SET_LIST_VIEW_SUCCESS,
-	SELECT_TAB,
 	TOGGLE_TAB_SELECTED,
 	DESELECT_TAB,
 	DESELECT_ALL_TABS,
@@ -168,8 +167,9 @@ export const moveSelectedTabsToWindow = (windowId = undefined) => (dispatch, get
 	}
 };
 
-export const keyPressed = (key) => (dispatch, getState) => {
-	if (IGNORE_EVENTS.includes(key)) return;
+export const keyPressed = (e) => (dispatch, getState) => {
+	const { code } = e;
+	if (IGNORE_EVENTS.includes(code)) return;
 
 	const { tabs, highlightedTabId, mode, query, bottomSheetOpen } = createStructuredSelector({
 		tabs: getVisibleTabs,
@@ -181,14 +181,15 @@ export const keyPressed = (key) => (dispatch, getState) => {
 
 	if (bottomSheetOpen) return;
 
-	switch (key) {
+	switch (code) {
 		case 'ArrowUp':
 		case 'ArrowDown': {
-			let id = key === 'ArrowUp' ? tabs[tabs.length - 1].id : tabs[0].id;
+			e.preventDefault();
+			let id = code === 'ArrowUp' ? tabs[tabs.length - 1].id : tabs[0].id;
 
 			if (highlightedTabId !== undefined) {
 				const currentIndex = tabs.findIndex(tab => tab.id === highlightedTabId);
-				if (key === 'ArrowUp') {
+				if (code === 'ArrowUp') {
 					id = (currentIndex - 1) < 0 ? tabs[tabs.length - 1].id : tabs[currentIndex - 1].id;
 				} else {
 					id = (currentIndex + 1) > (tabs.length - 1) ? tabs[0].id : tabs[currentIndex + 1].id;
@@ -199,6 +200,7 @@ export const keyPressed = (key) => (dispatch, getState) => {
 			break;
 		}
 		case 'Enter': {
+			e.preventDefault();
 			if (highlightedTabId) Chrome.goToTab(highlightedTabId);
 			break;
 		}

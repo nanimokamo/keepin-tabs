@@ -5,7 +5,7 @@ import IconButton from '../../IconButton';
 
 class TwoLineListItem extends React.Component {
 	static propTypes = {
-		icon: React.PropTypes.oneOf(['node', 'object']),
+		// icon: React.PropTypes.oneOf(['node', 'object']),
 		line1: React.PropTypes.string,
 		line2: React.PropTypes.string,
 		actions: React.PropTypes.array,
@@ -23,7 +23,11 @@ class TwoLineListItem extends React.Component {
 		this.onClickMainAction = this.onClickMainAction.bind(this);
 	}
 
-	onClick(e) {
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.highlighted && !this.props.highlighted) this.el.scrollIntoViewIfNeeded(false);
+	}
+
+	onClick() {
 		if (this.props.onClick) this.props.onClick(this.props.onClickData);
 	}
 
@@ -41,6 +45,7 @@ class TwoLineListItem extends React.Component {
 				onClickData={this.props.onClickData}
 				title={props.title}
 				icon={props.icon}
+				data-active={props.active}
 			/>
 		);
 	}
@@ -49,7 +54,13 @@ class TwoLineListItem extends React.Component {
 		const { icon, line1, line2, actions, selected, highlighted } = this.props;
 
 		return (
-			<li className="TwoLineListItem" onClick={this.onClick} data-selected={selected} data-highlighted={highlighted}>
+			<li
+				className="TwoLineListItem"
+				onClick={this.onClick}
+				data-selected={selected}
+				data-highlighted={highlighted}
+				ref={(el) => this.el = el}
+			>
 				<div className="TwoLineListItem-mainAction" onClick={this.onClickMainAction}>
 					{icon ?
 						<div className="TwoLineListItem-mainActionDefault">
