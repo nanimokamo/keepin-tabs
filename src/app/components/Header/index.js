@@ -42,6 +42,7 @@ const Header = ({
 	numSelectedTabs,
 	showBookmarks,
 	showWindows,
+	closeTabs,
 }) => {
 	return (
 		<header className="Header" data-mode={mode}>
@@ -99,6 +100,9 @@ Header.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
 	setQuery(e) {
 		dispatch(setQuery(e.target.value));
+	},
+	closeTabs() {
+		dispatch(closeTabs());
 	},
 	sortTabs() {
 		dispatch(sortTabs());

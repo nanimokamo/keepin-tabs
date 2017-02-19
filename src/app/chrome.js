@@ -19,7 +19,7 @@ export const moveTabs = (ids: number[], index = -1, windowId = undefined) => {
     chrome.tabs.move(ids, { index, windowId });
 };
 
-export const createBookmarksFolder = (parentId: number, title: string) => new Promise((resolve) => {
+export const createBookmarksFolder = (parentId, title) => new Promise((resolve) => {
     chrome.bookmarks.create({ parentId, title }, (bookmark) => resolve(bookmark.id));
 });
 

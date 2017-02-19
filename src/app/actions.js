@@ -11,7 +11,7 @@ import {
 	getHighlightedTabId,
 	getMode,
 	getQuery,
-	getIsDragging,
+	getShowBookmarks,
 	getIsTabPinned,
 } from './selectors.js';
 
@@ -34,6 +34,7 @@ import {
 
 export const closeTabs = () => (dispatch, getState) => {
 	const selectedTabIds = getSelectedTabIds(getState());
+	console.log(selectedTabIds);
 	if (selectedTabIds.length) selectedTabIds.forEach(Chrome.closeTab);
 	return false;
 };
@@ -176,7 +177,7 @@ export const keyPressed = (e) => (dispatch, getState) => {
 		highlightedTabId: getHighlightedTabId,
 		mode: getMode,
 		query: getQuery,
-		bottomSheetOpen: getIsDragging,
+		bottomSheetOpen: getShowBookmarks,
 	})(getState());
 
 	if (bottomSheetOpen) return;

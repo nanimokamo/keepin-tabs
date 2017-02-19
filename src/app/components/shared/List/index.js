@@ -2,16 +2,19 @@ import React from 'react';
 
 const List = ({ children, className, size, ...props }) => {
 	return (
-		<div
+		<ul
 			{...props}
 			className={`List ${className ? className : ''}`}
 			data-size={size || 'normal'}
-		>{children}</div>
+		>
+			{children}
+		</ul>
 	);
 };
 
 List.propTypes = {
 	// children: React.PropTypes.func,
+	size: React.PropTypes.string,
 	className: React.PropTypes.string,
 };
 

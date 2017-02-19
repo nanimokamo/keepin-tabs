@@ -7,7 +7,6 @@ import { setBookmarksVisibility, addSelectedTabsToFolder } from '../../actions.j
 import { getShowBookmarks } from '../../selectors.js'
 
 import BottomSheet from '../shared/BottomSheet';
-import Icon from '../shared/Icon';
 import List from '../shared/List';
 import ListItem from '../shared/List/ListItem';
 
@@ -134,9 +133,9 @@ class Bookmarks extends React.Component {
 						{bookmarks && bookmarks.length ?
 							bookmarks.map(this.renderBookmarksItem)
 						:
-							<li className="Bookmarks-item Bookmarks-item--noFolders">
-								<div className="Bookmarks-itemTitle">No folders.</div>
-							</li>
+							<ListItem disabled>
+								No folders
+							</ListItem>
 						}
 					</List>
 				</div>
