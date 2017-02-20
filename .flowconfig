@@ -5,6 +5,7 @@
 .*src
 
 [libs]
+node_modules/flow-interfaces-chrome/interfaces/
 
 [options]
 emoji=true

@@ -19,14 +19,14 @@ import {
 	getIsDragging,
 	getPinnedVisibleTabs,
 	getUnpinnedVisibleTabs,
-} from '../../selectors.js'
+} from '../../store/selectors.js'
 
 import {
 	toggleTabSelected,
 	deselectTab,
 	setDragging,
 	toggleTabPinned,
-} from '../../actions.js';
+} from '../../store/actions.js';
 
 const SortableTabsItem = SortableElement(TwoLineListItem);
 const SortableTabs = SortableContainer(({ children, view }) => {

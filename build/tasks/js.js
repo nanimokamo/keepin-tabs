@@ -5,9 +5,7 @@ import uglify from 'gulp-uglify';
 import browserify from 'browserify';
 import source from 'vinyl-source-stream';
 import util from 'gulp-util';
-// import watchify from 'watchify';
 import sourcemaps from 'gulp-sourcemaps';
-// import flow from 'tsify';
 import pkg from '../../package.json';
 
 const ROOT = '../../';
@@ -41,6 +39,10 @@ gulp.task('build:js', function() {
 		const bundle = () => {
 			b.transform('babelify')
 				.bundle()
+				// .on('error', function(err){
+				// 	console.log(err.message);
+				// 	// this.emit('end');
+				// })
 				.pipe(source('index.js'))
 				.pipe(buffer())
 				.pipe(sourcemaps.init({loadMaps: true}))

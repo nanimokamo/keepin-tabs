@@ -14,7 +14,7 @@ import {
 	SET_BOOKMARKS_VISIBILITY,
 	SET_WINDOWS_VISIBILITY,
 	TOGGLE_TAB_SELECTED,
-} from './constants.js';
+} from '../constants.js';
 
 const tabs = (state = [], action) => {
 	switch (action.type) {

@@ -1,8 +1,8 @@
 import groupBy from 'lodash.groupby';
 import { createStructuredSelector } from 'reselect';
 
-import { sortBy } from './utils.js';
-import * as Chrome from './chrome.js';
+import { sortBy } from '../utils.js';
+import * as Chrome from '../chrome.js';
 import {
 	getSelectedTabs,
 	getSelectedTabIds,
@@ -30,11 +30,10 @@ import {
 	SET_DRAGGING,
 	IGNORE_EVENTS,
 	SET_WINDOWS_VISIBILITY,
-} from './constants.js';
+} from '../constants.js';
 
 export const closeTabs = () => (dispatch, getState) => {
 	const selectedTabIds = getSelectedTabIds(getState());
-	console.log(selectedTabIds);
 	if (selectedTabIds.length) selectedTabIds.forEach(Chrome.closeTab);
 	return false;
 };

@@ -2,9 +2,11 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+
 import App from './components/App';
-import configureStore from './store.js';
-import { fetchTabs, setListViewSuccess, deselectTab } from './actions.js';
+
+import configureStore from './store';
+import { fetchTabs, setListViewSuccess, deselectTab } from './store/actions.js';
 
 const store = configureStore();
 

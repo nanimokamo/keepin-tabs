@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import * as Chrome from '../../chrome.js';
-import { setBookmarksVisibility, addSelectedTabsToFolder } from '../../actions.js';
-import { getShowBookmarks } from '../../selectors.js'
+
+import { setBookmarksVisibility, addSelectedTabsToFolder } from '../../store/actions.js';
+import { getShowBookmarks } from '../../store/selectors.js'
 
 import BottomSheet from '../shared/BottomSheet';
 import List from '../shared/List';

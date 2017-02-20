@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { sortBy } from './utils.js';
+import { sortBy } from '../utils.js';
 
 export const getTabs = (state) => state.tabs;
 export const getQuery = (state) => state.query.toLowerCase();

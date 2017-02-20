@@ -7,8 +7,9 @@ import List from '../shared/List';
 import ListItem from '../shared/List/ListItem';
 
 import * as Chrome from '../../chrome.js';
-import { toggleWindowsVisibility, moveSelectedTabsToWindow } from '../../actions.js';
-import { getShowWindows } from '../../selectors.js';
+
+import { toggleWindowsVisibility, moveSelectedTabsToWindow } from '../../store/actions.js';
+import { getShowWindows } from '../../store/selectors.js';
 
 class Windows extends React.Component {
 	static propTypes = {

@@ -7,7 +7,7 @@ import Bookmarks from '../Bookmarks';
 import Tabs from '../Tabs';
 import Windows from '../Windows';
 
-import { keyPressed } from '../../actions.js';
+import { keyPressed } from '../../store/actions.js';
 
 class App extends Component {
 	static propTypes = {

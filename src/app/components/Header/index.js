@@ -8,7 +8,7 @@ import {
 	getQuery,
 	getListView,
 	getNumSelectedTabs
-} from '../../selectors.js'
+} from '../../store/selectors.js'
 
 import {
 	setQuery,
@@ -20,7 +20,7 @@ import {
 	closeTabs,
 	setBookmarksVisibility,
 	toggleWindowsVisibility,
-} from '../../actions.js'
+} from '../../store/actions.js'
 
 import HeaderDefault from './default.js';
 import HeaderSearch from './search.js';
