@@ -12,13 +12,15 @@ import {
 
 import {
   setQuery,
-  setMode,
+  setModeSearch,
+  setModeDefault,
   sortTabs,
   toggleListView,
   selectAllVisibleTabs,
   deselectAllTabs,
   closeTabs,
-  setBookmarksVisibility,
+  clearQuery,
+  toggleBookmarksVisibility,
   toggleWindowsVisibility,
 } from '../../store/actions.js'
 
@@ -40,8 +42,8 @@ const Header = ({
   cancelSearch,
   cancelSelect,
   numSelectedTabs,
-  showBookmarks,
-  showWindows,
+  toggleWindowsVisibility,
+  toggleBookmarksVisibility,
   closeTabs,
 }) => {
   return (
@@ -68,8 +70,8 @@ const Header = ({
         <HeaderSelect
           cancelSelect={cancelSelect}
           numSelectedTabs={numSelectedTabs}
-          showBookmarks={showBookmarks}
-          showWindows={showWindows}
+          showBookmarks={toggleBookmarksVisibility}
+          showWindows={toggleWindowsVisibility}
           sortTabs={sortTabs}
           closeTabs={closeTabs}
         />
@@ -93,50 +95,24 @@ Header.propTypes = {
   cancelSearch: React.PropTypes.func,
   cancelSelect: React.PropTypes.func,
   setModeDefault: React.PropTypes.func,
-  showBookmarks: React.PropTypes.func,
-  showWindows: React.PropTypes.func,
+  toggleWindowsVisibility: React.PropTypes.func,
+  toggleBookmarksVisibility: React.PropTypes.func,
   closeTabs: React.PropTypes.func,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  setQuery(e) {
-    dispatch(setQuery(e.target.value));
-  },
-  closeTabs() {
-    dispatch(closeTabs());
-  },
-  sortTabs() {
-    dispatch(sortTabs());
-  },
-  setModeSearch() {
-    dispatch(setMode('search'));
-  },
-  setModeDefault() {
-    dispatch(setMode('default'));
-  },
-  selectAll() {
-    dispatch(selectAllVisibleTabs());
-  },
-  clearQuery() {
-    dispatch(setQuery(''));
-  },
-  cancelSearch() {
-    dispatch(setMode('default'));
-    dispatch(setQuery(''));
-  },
-  toggleView() {
-    dispatch(toggleListView());
-  },
-  showBookmarks() {
-    dispatch(setBookmarksVisibility(true));
-  },
-  showWindows() {
-    dispatch(toggleWindowsVisibility());
-  },
-  cancelSelect() {
-    dispatch(deselectAllTabs());
-  },
-});
+const mapDispatchToProps = {
+  setQuery,
+  setModeDefault,
+  setModeSearch,
+  toggleWindowsVisibility,
+  toggleBookmarksVisibility,
+  clearQuery,
+  cancelSelect: deselectAllTabs,
+  closeTabs,
+  sortTabs,
+  selectAll: selectAllVisibleTabs,
+  toggleView: toggleListView,
+};
 
 const mapStateToProps = createStructuredSelector({
   numTabs: getNumTabs,

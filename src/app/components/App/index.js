@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 
 import Header from '../Header';
 import Bookmarks from '../Bookmarks';
@@ -48,7 +47,6 @@ const mapDispatchToProps = {
   keyPressed,
 };
 
-const mapStateToProps = createStructuredSelector({
-});
+const mapStateToProps = null;
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

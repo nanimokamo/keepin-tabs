@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 
 import * as Chrome from '../../chrome.js';
 
-import { setBookmarksVisibility, addSelectedTabsToFolder } from '../../store/actions.js';
++import { toggleBookmarksVisibility, addSelectedTabsToFolder } from '../../store/actions.js';
 import { getShowBookmarks } from '../../store/selectors.js'
 
 import BottomSheet from '../shared/BottomSheet';
@@ -145,14 +145,10 @@ class Bookmarks extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  hideBookmarks() {
-    dispatch(setBookmarksVisibility(false));
-  },
-  addSelectedTabsToFolder(id) {
-    dispatch(addSelectedTabsToFolder(id));
-  },
-});
+const mapDispatchToProps = {
+  toggleBookmarksVisibility,
+  addSelectedTabsToFolder,
+};
 
 const mapStateToProps = createStructuredSelector({
   open: getShowBookmarks,

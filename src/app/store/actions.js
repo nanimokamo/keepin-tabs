@@ -24,7 +24,6 @@ import {
   TOGGLE_TAB_SELECTED,
   DESELECT_TAB,
   DESELECT_ALL_TABS,
-  SET_BOOKMARKS_VISIBILITY,
   NEW_FOLDER_CREATED,
   SELECT_TABS,
   SET_DRAGGING,
@@ -61,11 +60,6 @@ export const createNewFolder = (parentId, title) => {
   };
 };
 
-export const setBookmarksVisibility = (visible) => ({
-  type: SET_BOOKMARKS_VISIBILITY,
-  visible,
-});
-
 export const deselectAllTabs = () => ({
   type: DESELECT_ALL_TABS,
 });
@@ -87,9 +81,18 @@ export const deselectTab = (tabId) => ({
   tabId,
 });
 
-export const setQuery = (query = '') => ({
+export const setQuery = (query = '') => (dispatch) => {
+  const queryString = typeof query === 'string' ? query: query.target.value;
+
+  dispatch({
+    type: SET_QUERY,
+    query: queryString,
+  });
+};
+
+export const clearQuery = () => ({
   type: SET_QUERY,
-  query,
+  query: '',
 });
 
 export const setListViewSuccess = (listView) => ({
@@ -117,6 +120,22 @@ export const setMode = (mode = 'default') => ({
   mode,
 });
 
+export const setModeSearch = () => ({
+  type: SET_MODE,
+  mode: 'search',
+});
+
+export const setModeDefault = () => (dispatch) => {
+  dispatch({
+    type: SET_QUERY,
+    mode: '',
+  });
+  dispatch({
+    type: SET_MODE,
+    mode: 'default',
+  });
+};
+
 export const fetchTabsSuccess = (tabs) => ({
   type: FETCH_TABS_SUCCESS,
   tabs: tabs.map(tab => {
@@ -139,10 +158,7 @@ export const setDragging = (dragging) => ({
   dragging,
 });
 
-export const toggleWindowsVisibility = () => (dispatch, getState) => dispatch({
-  type: SET_WINDOWS_VISIBILITY,
-  visible: getState().showWindows ? false : true,
-});
+
 
 export const sortTabs = () => (dispatch, getState) => {
   const tabs = getVisibleTabs(getState());
@@ -225,3 +241,15 @@ export const keyPressed = (e) => (dispatch, getState) => {
     }
   } 
 };
+
+// VISIBILITY
+
+export const toggleWindowsVisibility = () => (dispatch, getState) => dispatch({
+  type: SET_WINDOWS_VISIBILITY,
+  visible: getState().showWindows ? false : true,
+});
+
+export const toggleBookmarksVisibility = () => (dispatch, getState) => dispatch({
+  type: SET_WINDOWS_VISIBILITY,
+  visible: getState().showBookmarks ? false : true,
+});
