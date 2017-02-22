@@ -10,42 +10,42 @@ import Windows from '../Windows';
 import { keyPressed } from '../../store/actions.js';
 
 class App extends Component {
-	static propTypes = {
-		keyPressed: React.PropTypes.func,
-	}
-	
-	constructor(props) {
-		super(props);
-		this.handleKeyDown = this.handleKeyDown.bind(this);
-	}
+  static propTypes = {
+    keyPressed: React.PropTypes.func,
+  }
+  
+  constructor(props) {
+    super(props);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+  }
 
-	componentDidMount() {
-		window.addEventListener('keydown', this.handleKeyDown);
-	}
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyDown);
+  }
 
-	handleKeyDown(e) {
-		this.props.keyPressed(e);	
-	}
+  handleKeyDown(e) {
+    this.props.keyPressed(e); 
+  }
 
-	render() {
-		return (
-			<main className="App">
-				<Header />
-				<Windows />
-				<Bookmarks />
+  render() {
+    return (
+      <main className="App">
+        <Header />
+        <Windows />
+        <Bookmarks />
 
-				<div className="AppContent">
-					<div className="AppContent-inner">
-						<Tabs />
-					</div>
-				</div>
-			</main>
-		);
-	}
+        <div className="AppContent">
+          <div className="AppContent-inner">
+            <Tabs />
+          </div>
+        </div>
+      </main>
+    );
+  }
 }
 
 const mapDispatchToProps = {
-	keyPressed,
+  keyPressed,
 };
 
 const mapStateToProps = createStructuredSelector({

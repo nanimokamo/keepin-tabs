@@ -2,113 +2,113 @@
 }
 
 .BottomSheet-cover {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	opacity: 0;
-	background-color: rgba($BLACK, 0.25);
-	pointer-events: none;
-	z-index: 100;
-	cursor: alias;
-	transition: opacity 0.15s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  background-color: rgba($BLACK, 0.25);
+  pointer-events: none;
+  z-index: 100;
+  cursor: alias;
+  transition: opacity 0.15s ease;
 
-	.BottomSheet.is-open & {
-		pointer-events: auto;
-		opacity: 1;
-	}
+  .BottomSheet.is-open & {
+    pointer-events: auto;
+    opacity: 1;
+  }
 }
 
 .BottomSheet-wrapper {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	height: 50%;
-	background-color: $WHITE;
-	z-index: 100;
-	display: flex;
-	align-items: stretch;
-	flex-direction: column;
-	transform: translateY(calc(100% + 3px));
-	transition: transform 0.15s ease;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background-color: $WHITE;
+  z-index: 100;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  transform: translateY(calc(100% + 3px));
+  transition: transform 0.15s ease;
 
-	&:after {
-		content: "";
-		display: block;
-		position: absolute;
-		bottom: 100%;
-		background-image: linear-gradient(to top, rgba(black, 0.05), transparent);
-		border-bottom: 1px solid rgba($BLACK, 0.1);
-		width: 100%;
-		left: 0;
-		z-index: 100;
-		height: 3px;
-	}
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 100%;
+    background-image: linear-gradient(to top, rgba(black, 0.05), transparent);
+    border-bottom: 1px solid rgba($BLACK, 0.1);
+    width: 100%;
+    left: 0;
+    z-index: 100;
+    height: 3px;
+  }
 
-	.BottomSheet.is-open & {
-		transform: none;
-	}
+  .BottomSheet.is-open & {
+    transform: none;
+  }
 }
 
 .BottomSheet-title {
-	position: relative;
-	font-size: 12px;
-	padding: $PADDING_NORMAL;
-	flex-shrink: 0;
-	// color: $MEDIUM_GREY;
-	color: $BLACK;
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
+  position: relative;
+  font-size: 12px;
+  padding: $PADDING_NORMAL;
+  flex-shrink: 0;
+  // color: $MEDIUM_GREY;
+  color: $BLACK;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 
-	&:after {
-		content: "";
-		display: block;
-		position: absolute;
-		top: 100%;
-		background: rgba($BLACK, 0.1);
-		width: 100%;
-		left: 0;
-		z-index: 100;
-		height: 1px;
-		pointer-events: none;
-		opacity: 0;
-		transition: opacity 0.15s ease;
-		
-		.BottomSheet.is-scrolled & {
-			opacity: 1;
-		}
-	}
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 100%;
+    background: rgba($BLACK, 0.1);
+    width: 100%;
+    left: 0;
+    z-index: 100;
+    height: 1px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    
+    .BottomSheet.is-scrolled & {
+      opacity: 1;
+    }
+  }
 }
 
 .BottomSheet-nav {
-	cursor: pointer;
-	margin-right: $PADDING_NORMAL;
-	transform: none;
-	overflow: hidden;
-	transition: width 0.15s ease, transform 0.1s ease, margin-right 0.1s ease;
-	color: $MEDIUM_GREY;
+  cursor: pointer;
+  margin-right: $PADDING_NORMAL;
+  transform: none;
+  overflow: hidden;
+  transition: width 0.15s ease, transform 0.1s ease, margin-right 0.1s ease;
+  color: $MEDIUM_GREY;
 
-	&.is-hidden {
-		margin-right: 0;
-		transform: scale(0);
-		width: 0;
-	}
+  &.is-hidden {
+    margin-right: 0;
+    transform: scale(0);
+    width: 0;
+  }
 
-	&:hover {
-		color: $BLACK;
-	}
+  &:hover {
+    color: $BLACK;
+  }
 }
 
 .BottomSheet-content {
-	background-color: $WHITE;
-	height: 100%;
-	overflow: scroll;
+  background-color: $WHITE;
+  height: 100%;
+  overflow: scroll;
 }
 
 
 .BottomSheet-footnote {
-	border-top: 1px solid $LIGHTEST_GREY_4;
+  border-top: 1px solid $LIGHTEST_GREY_4;
 }

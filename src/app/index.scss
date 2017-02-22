@@ -4,20 +4,20 @@
 @import 'assets/styles/_mixins.scss';
 
 html, body {
-	height: 100%;
+  height: 100%;
 }
 
 * {
-	user-select: none;
+  user-select: none;
 }
 
 body {
-	background-color: $WHITE;
-	color: $BLACK;
-	font-family: "Roboto";
-	font-size: 100%;
-	overflow: auto;
-	-webkit-font-smoothing: antialiased;
+  background-color: $WHITE;
+  color: $BLACK;
+  font-family: "Roboto";
+  font-size: 100%;
+  overflow: auto;
+  -webkit-font-smoothing: antialiased;
 }
 
 @import 'components/App/style.scss';

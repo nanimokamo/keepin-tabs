@@ -41,7 +41,7 @@ export const getWindows = () => new Promise((resolve) => {
 
 export const moveTabsToNewWindow = (tabIds: number[]) => new Promise((resolve) => {
     chrome.windows.create(({ id }) => {
-		moveTabs(tabIds, undefined, id);
-		resolve();
+    moveTabs(tabIds, undefined, id);
+    resolve();
     });
 });

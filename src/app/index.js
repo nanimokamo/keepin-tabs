@@ -11,10 +11,10 @@ import { fetchTabs, setListViewSuccess, deselectTab } from './store/actions.js';
 const store = configureStore();
 
 render(
-	<Provider store={store}>
-		<App />
-	</Provider>,
-	document.getElementById('app')
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('app')
 );
 
 store.dispatch(fetchTabs());
@@ -22,10 +22,10 @@ chrome.tabs.onCreated.addListener(() => store.dispatch(fetchTabs()));
 chrome.tabs.onUpdated.addListener(() => store.dispatch(fetchTabs()));
 chrome.tabs.onMoved.addListener(() => store.dispatch(fetchTabs()));
 chrome.tabs.onRemoved.addListener((tabId) => {
-	store.dispatch(deselectTab(tabId));
-	store.dispatch(fetchTabs());
+  store.dispatch(deselectTab(tabId));
+  store.dispatch(fetchTabs());
 });
 
 chrome.storage.sync.get('listView', ({ listView }) => {
-	if (typeof listView === 'string') store.dispatch(setListViewSuccess(listView));
+  if (typeof listView === 'string') store.dispatch(setListViewSuccess(listView));
 });

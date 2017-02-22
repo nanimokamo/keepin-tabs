@@ -1,30 +1,30 @@
 .Icon {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
     @include size(2em);
 
-	&--aligned {
-		&[data-name="add"] {
-			margin: -0.25em;
-		}
-	}
+  &--aligned {
+    &[data-name="add"] {
+      margin: -0.25em;
+    }
+  }
 
-	&[data-name="pin"] {
-		svg {
-			@include size(85%);
-		}
-	}
+  &[data-name="pin"] {
+    svg {
+      @include size(90%);
+    }
+  }
 
-	svg {
-		display: block;
-		fill: currentColor;
-		@include size(100%);
-		transition: fill $TRANSITION_SPEED ease;
-	}
+  svg {
+    display: block;
+    fill: currentColor;
+    @include size(100%);
+    transition: fill $TRANSITION_SPEED ease;
+  }
 
-	img {
-		@include size(100%);
-		object-fit: contain;
-	}
+  img {
+    @include size(100%);
+    object-fit: contain;
+  }
 }

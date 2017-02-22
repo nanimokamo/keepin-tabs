@@ -14,16 +14,16 @@ export const DESELECT_ALL_TABS = 'keepin-tabs/DESELECT_ALL_TABS';
 export const SET_BOOKMARKS_VISIBILITY = 'keepin-tabs/SET_BOOKMARKS_VISIBILITY';
 export const NEW_FOLDER_CREATED = 'keepin-tabs/NEW_FOLDER_CREATED';
 export const IGNORE_EVENTS = [
-	'ArrowLeft',
-	'ArrowRight',
-	'ShiftRight',
-	'ShiftLeft',
-	'AltLeft',
-	'OSLeft',
-	'OSRight',
-	'CapsLock',
-	'ControlRight',
-	'ControlLeft',
-	'MetaLeft',
-	'MetaRight',
+  'ArrowLeft',
+  'ArrowRight',
+  'ShiftRight',
+  'ShiftLeft',
+  'AltLeft',
+  'OSLeft',
+  'OSRight',
+  'CapsLock',
+  'ControlRight',
+  'ControlLeft',
+  'MetaLeft',
+  'MetaRight',
 ];

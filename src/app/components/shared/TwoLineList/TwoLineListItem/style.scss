@@ -1,186 +1,186 @@
 .TwoLineListItem {
-	position: relative;
-	cursor: pointer;
-	height: map-get($TWO_LINE_LIST_ITEM_HEIGHT, 'default');
-	padding: 0;
-	overflow: hidden;
-	background-color: $WHITE;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	transition: background-color $TRANSITION_SPEED ease, height $TRANSITION_SPEED ease;
+  position: relative;
+  cursor: pointer;
+  height: map-get($TWO_LINE_LIST_ITEM_HEIGHT, 'default');
+  padding: 0;
+  overflow: hidden;
+  background-color: $WHITE;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: background-color $TRANSITION_SPEED ease, height $TRANSITION_SPEED ease;
 
-	&:not(:last-child):after {
-		content: '';
-		height: 1px;
-		position: absolute;
-		bottom: 0;
-		width: 100%;
-		background-color: rgba($BLACK, 0.075);
-		left: 0;
-	}
+  &:not(:last-child):after {
+    content: '';
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba($BLACK, 0.075);
+    left: 0;
+  }
 
-	&[data-highlighted="true"] {
-		background-color: lighten($TERTIARY, 47.5%);
-	}
+  &[data-highlighted="true"] {
+    background-color: lighten($TERTIARY, 47.5%);
+  }
 
-	&:hover:not([data-selected="true"]):not([data-highlighted="true"]) {
-		background-color: $LIGHTEST_GREY_2;
-	}
+  &:hover:not([data-selected="true"]):not([data-highlighted="true"]) {
+    background-color: $LIGHTEST_GREY_2;
+  }
 
-	&[data-selected="true"] {
-		background-color: lighten($TERTIARY, 47.5%);
-	}
+  &[data-selected="true"] {
+    background-color: lighten($TERTIARY, 47.5%);
+  }
 
-	.TwoLineList[data-view="compact"] & {
-		height: map-get($TWO_LINE_LIST_ITEM_HEIGHT, 'compact');
-	}
+  .TwoLineList[data-view="compact"] & {
+    height: map-get($TWO_LINE_LIST_ITEM_HEIGHT, 'compact');
+  }
 }
 
 .TwoLineListItem-content {
-	padding: 0 $PADDING_NORMAL;
-	white-space: nowrap;
+  padding: 0 $PADDING_NORMAL;
+  white-space: nowrap;
     width: 100%;
     overflow: hidden;
 
     .TwoLineListItem-mainAction ~ & {
-    	padding-left: 0;
+      padding-left: 0;
     }
 
-	.TwoLineList[data-view="compact"] & {
-		display: flex;
-		flex-direction: row;
+  .TwoLineList[data-view="compact"] & {
+    display: flex;
+    flex-direction: row;
 
-	}    
+  }    
 }
 
 .TwoLineListItem-contentLine1 {
-	font-size: 13px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	margin-bottom: 2px;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
 
-	.TwoLineList[data-view="compact"] & {
-		flex-shrink: 0;
-		margin-right: 5px;
-		margin-bottom: 0;
-	}
+  .TwoLineList[data-view="compact"] & {
+    flex-shrink: 0;
+    margin-right: 5px;
+    margin-bottom: 0;
+  }
 
-	.TwoLineList[data-view="compact"] .TwoLineListItem:hover & {
-		display: none;
-	}
+  .TwoLineList[data-view="compact"] .TwoLineListItem:hover & {
+    display: none;
+  }
 }
 
 .TwoLineListItem-contentLine2 {
-	font-size: 13px;
-	color: $MEDIUM_GREY;
-	overflow: hidden;
-	text-overflow: ellipsis;
+  font-size: 13px;
+  color: $MEDIUM_GREY;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .TwoLineListItem-actions {
-	flex-shrink: 0;
-	display: flex;
-	flex-direction: row;
-	padding-right: $PADDING_NORMAL;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  padding-right: $PADDING_NORMAL;
 }
 
 .TwoLineListItem-action {
-	display: none;
-	position: relative;
-	color: $MEDIUM_GREY;
+  display: none;
+  position: relative;
+  color: $MEDIUM_GREY;
 
-	&:hover {
-		color: $DARK_GREY;
-	}
+  &:hover {
+    color: $DARK_GREY;
+  }
 
-	&:not(:last-child) {
-		margin-right: $PADDING_NORMAL / 2;
-	}
+  &:not(:last-child) {
+    margin-right: $PADDING_NORMAL / 2;
+  }
 
-	&:before {
-		content: "";
-		top: -4px;
-		left: -4px;
-		bottom: -4px;
-		right: -4px;
-		position: absolute
-	}
+  &:before {
+    content: "";
+    top: -4px;
+    left: -4px;
+    bottom: -4px;
+    right: -4px;
+    position: absolute
+  }
 
-	&[data-active="true"] {
-		color: $TERTIARY;
-		display: block;
+  &[data-active="true"] {
+    color: $TERTIARY;
+    display: block;
 
-		.TwoLineListItem:not(:hover) & {
-			margin-right: 0;
-		}
-	}
+    .TwoLineListItem:not(:hover) & {
+      margin-right: 0;
+    }
+  }
 
-	.Icon {
-		@include size(24px);
-	}
+  .Icon {
+    @include size(22px);
+  }
 
-	.TwoLineListItem:hover & {
-		display: block;
-	}
+  .TwoLineListItem:hover & {
+    display: block;
+  }
 }
 
 .TwoLineListItem-mainAction {
-	position: relative;
-	height: 100%;
-	width: $PADDING_NORMAL + 24px + $PADDING_NORMAL;
-	padding-left: $PADDING_NORMAL;
-	flex-shrink: 0;
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
+  position: relative;
+  height: 100%;
+  width: $PADDING_NORMAL + 24px + $PADDING_NORMAL;
+  padding-left: $PADDING_NORMAL;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 
-	&:hover .Icon {
-		color: $BLACK;
+  &:hover .Icon {
+    color: $BLACK;
 
-		.TwoLineListItem[data-selected="true"] & {
-			opacity: 0.75;
-		}
-	}
+    .TwoLineListItem[data-selected="true"] & {
+      opacity: 0.75;
+    }
+  }
 
-	.Icon {
-		@include size(24px);
-		color: $MEDIUM_GREY;
+  .Icon {
+    @include size(24px);
+    color: $MEDIUM_GREY;
 
-		.TwoLineListItem[data-selected="true"] & {
-			color: $TERTIARY;
-		}
+    .TwoLineListItem[data-selected="true"] & {
+      color: $TERTIARY;
+    }
 
-		&[data-name="checkbox"] {
-			display: none;
+    &[data-name="checkbox"] {
+      display: none;
 
-			.TwoLineListItem:not([data-selected="true"]):hover & {
-				display: block;
-			}
-		}
+      .TwoLineListItem:not([data-selected="true"]):hover & {
+        display: block;
+      }
+    }
 
-		&[data-name="checkbox--checked"] {
-			display: none;
+    &[data-name="checkbox--checked"] {
+      display: none;
 
-			.TwoLineListItem[data-selected="true"] & {
-				display: block;
-			}
-		}
-	}
+      .TwoLineListItem[data-selected="true"] & {
+        display: block;
+      }
+    }
+  }
 }
 
 .TwoLineListItem-mainActionDefault {
-	@include size(24px);
-	border-radius: 2px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  @include size(24px);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-	.Icon {
-		@include size(20px);
-	}
-	
-	.TwoLineListItem:hover &, .TwoLineListItem[data-selected="true"] & {
-		display: none;
-	}
+  .Icon {
+    @include size(20px);
+  }
+  
+  .TwoLineListItem:hover &, .TwoLineListItem[data-selected="true"] & {
+    display: none;
+  }
 }

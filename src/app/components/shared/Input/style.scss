@@ -1,17 +1,17 @@
 .TextInput {
-	border: 0;
-	background-color: transparent;
-	padding: 0;
-	line-height: normal;
-	width: 100%;
-	display: inline-block;
-	font-size: 18px;
-	font-family: inherit;
-	color: currentColor;
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+  line-height: normal;
+  width: 100%;
+  display: inline-block;
+  font-size: 18px;
+  font-family: inherit;
+  color: currentColor;
 
-	&::-webkit-input-placeholder {
-		font: inherit;
-		color: currentColor;
-		opacity: 0.7;
-	}
+  &::-webkit-input-placeholder {
+    font: inherit;
+    color: currentColor;
+    opacity: 0.7;
+  }
 }
