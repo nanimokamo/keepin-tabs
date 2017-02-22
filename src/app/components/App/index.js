@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 
 import Header from '../Header';
 import Bookmarks from '../Bookmarks';
 import Tabs from '../Tabs';
 import Windows from '../Windows';
+import NotificationManager from '../NotificationManager';
 
 import { keyPressed } from '../../store/actions.js';
 
@@ -33,6 +33,7 @@ class App extends Component {
         <Header />
         <Windows />
         <Bookmarks />
+        <NotificationManager />
 
         <div className="AppContent">
           <div className="AppContent-inner">
@@ -48,7 +49,6 @@ const mapDispatchToProps = {
   keyPressed,
 };
 
-const mapStateToProps = createStructuredSelector({
-});
+const mapStateToProps = null;
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

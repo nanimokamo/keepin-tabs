@@ -14,12 +14,25 @@ import {
   SET_BOOKMARKS_VISIBILITY,
   SET_WINDOWS_VISIBILITY,
   TOGGLE_TAB_SELECTED,
+  ADD_NOTIFICATION,
+  REMOVE_NOTIFICATION,
 } from '../constants.js';
 
 const tabs = (state = [], action) => {
   switch (action.type) {
     case FETCH_TABS_SUCCESS:
       return action.tabs;
+    default:
+      return state;
+  }
+};
+
+const notifications = (state = [], action) => {
+  switch (action.type) {
+    case ADD_NOTIFICATION:
+      return [...state, action.notification];
+    case REMOVE_NOTIFICATION:
+      return state.filter(n => n.id !== action.id);
     default:
       return state;
   }
@@ -101,6 +114,7 @@ const createReducer = () => {
     showBookmarks,
     isDragging,
     showWindows,
+    notifications,
   });
 };
 

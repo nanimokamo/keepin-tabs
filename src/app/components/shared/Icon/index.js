@@ -2,13 +2,15 @@ import React from 'react';
 import ICONS from './icons.js';
 
 const Icon = ({ name, align, ...props }) => {
-  <i
-    {...props}
-    className={`Icon ${props.className || ''} ${align ? 'Icon--aligned' : ''}`}
-    data-name={name}
-  >
-    {ICONS[name]}
-  </i>
+  return (
+    <i
+      {...props}
+      className={`Icon ${props.className || ''} ${align ? 'Icon--aligned' : ''}`}
+      data-name={name}
+    >
+      {ICONS[name]}
+    </i>
+  );
 };
 
 Icon.propTypes = {

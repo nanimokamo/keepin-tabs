@@ -15,7 +15,7 @@
     "flow": "./node_modules/.bin/flow",
     "gulp": "./node_modules/.bin/gulp --gulpfile ./build/gulpfile.babel.js --env development",
     "watch:prod": "./node_modules/.bin/gulp --gulpfile ./build/gulpfile.babel.js --env production",
-    "build": "./node_modules/.bin/gulp build --gulpfile ./build/gulpfile.babel.js --env production",
+    "build": "yarn run test && ./node_modules/.bin/gulp build --gulpfile ./build/gulpfile.babel.js --env production",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
