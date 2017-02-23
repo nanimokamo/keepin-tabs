@@ -33,7 +33,7 @@ import {
   toggleTabPinned,
 } from '../../store/actions.js';
 
-import { otherProps } from '../../utils.js';
+import { excludeProps } from '../../utils.js';
 
 const SortableTwoLineList = Sortable(TwoLineList);
 const SortableTabsItem = SortableItem(TwoLineListItem);
@@ -101,7 +101,8 @@ class Tabs extends Component {
       );
     return (
       <SortableTabsItem
-        {...otherProps(['index', 'pinned', 'active', 'url', 'favIconUrl', 'status'], props)}
+        {...excludeProps(['index', 'pinned', 'active', 'url', 'favIconUrl', 'status'], props)}
+        isDraggedOverProps={{ draggedOver: true }}
         className={props.active ? 'TabsList-item is-active' : ''}
         index={index}
         key={props.id}

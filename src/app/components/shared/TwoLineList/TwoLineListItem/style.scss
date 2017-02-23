@@ -32,6 +32,10 @@
     background-color: lighten($TERTIARY, 47.5%);
   }
 
+  &[data-dragged-over="true"] {
+    background-color: red;
+  }
+
   .TwoLineList[data-view="compact"] & {
     height: map-get($TWO_LINE_LIST_ITEM_HEIGHT, 'compact');
   }

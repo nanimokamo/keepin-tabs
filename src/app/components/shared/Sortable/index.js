@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { otherProps } from '../../../utils.js';
+import { excludeProps } from '../../../utils.js';
 
 const Sortable = (Component) => class Sortable extends React.Component {
 	static propTypes = {
@@ -12,10 +12,12 @@ const Sortable = (Component) => class Sortable extends React.Component {
 		onDragStart: React.PropTypes.func,
 		onDragEnd: React.PropTypes.func,
 		onDragOver: React.PropTypes.func,
+		draggingIndexes: React.PropTypes.array,
 	}
 
 	state = {
 		draggingIndex: undefined,
+		draggingIndexes: [],
 		draggedToIndex: undefined,
 	}
 
@@ -24,6 +26,7 @@ const Sortable = (Component) => class Sortable extends React.Component {
 			onDragStart: this.onDragStart,
 			onDragEnd: this.onDragEnd,
 			onDragOver: this.onDragOver,
+			draggingIndexes: this.state.draggingIndexes,
 		};
 	}
 
@@ -35,21 +38,28 @@ const Sortable = (Component) => class Sortable extends React.Component {
 	}
 
 	onDragStart(draggingIndex) {
-		this.setState({ draggingIndex });
+		this.setState({
+			draggingIndex,
+			draggingIndexes: this.getDraggingIndexes(draggingIndex),
+		});
 	}
 
-	onDragEnd() {
-		let draggedIndexes = [this.state.draggingIndex];
+	getDraggingIndexes(draggingIndex) {
+		let draggingIndexes = [draggingIndex];
 		
-		if (this.props.groupIndexes.includes(this.state.draggingIndex)) {
-			draggedIndexes = [
-				...draggedIndexes,
-				...this.props.groupIndexes.filter(index => index !== this.state.draggingIndex)
+		if (this.props.groupIndexes.includes(draggingIndex)) {
+			draggingIndexes = [
+				...draggingIndexes,
+				...this.props.groupIndexes.filter(index => index !== draggingIndex)
 			];
 		}
 
+		return draggingIndexes;
+	}
+
+	onDragEnd() {
 		this.props.onSortEnd({
-			draggedIndexes,
+			draggedIndexes: this.getDraggingIndexes(this.state.draggingIndex),
 			newIndex: this.state.draggedToIndex,
 		});
 
@@ -66,7 +76,7 @@ const Sortable = (Component) => class Sortable extends React.Component {
 	render() {
 		return (
 			<Component
-				{...otherProps(Object.keys(this.constructor.propTypes), this.props)}
+				{...excludeProps(Object.keys(this.constructor.propTypes), this.props)}
 			/>
 		);
 	}

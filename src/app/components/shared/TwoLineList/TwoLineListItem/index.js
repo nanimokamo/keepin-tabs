@@ -3,11 +3,12 @@ import React from 'react';
 import Icon from '../../Icon';
 import IconButton from '../../IconButton';
 
-import { otherProps } from '../../../../utils.js';
+import { excludeProps } from '../../../../utils.js';
 
 class TwoLineListItem extends React.Component {
   static propTypes = {
     icon: React.PropTypes.element,
+    className: React.PropTypes.string,
     line1: React.PropTypes.string,
     line2: React.PropTypes.string,
     actions: React.PropTypes.array,
@@ -15,6 +16,7 @@ class TwoLineListItem extends React.Component {
     onClickMainAction: React.PropTypes.func,
     selected: React.PropTypes.bool,
     highlighted: React.PropTypes.bool,
+    draggedOver: React.PropTypes.bool,
     onClickData: React.PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.bool,
@@ -58,15 +60,16 @@ class TwoLineListItem extends React.Component {
   }
 
   render() {
-    const { icon, line1, line2, actions, selected, highlighted, className } = this.props;
+    const { icon, line1, line2, actions, selected, highlighted, className, draggedOver } = this.props;
 
     return (
       <li
-        {...otherProps(Object.keys(this.constructor.propTypes), this.props)}
+        {...excludeProps(Object.keys(this.constructor.propTypes), this.props)}
         className={`TwoLineListItem ${className || ''}`}
         onClick={this.onClick}
         data-selected={selected}
         data-highlighted={highlighted}
+        data-dragged-over={draggedOver}
         ref={(el) => this.el = el}
       >
         <div className="TwoLineListItem-mainAction" onClick={this.onClickMainAction}>

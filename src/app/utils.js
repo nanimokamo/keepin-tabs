@@ -1,6 +1,6 @@
 // @flow
 
-export const otherProps = (excludeKeys: Array<string>, props: Object) => {
+export const excludeProps = (excludeKeys: Array<string>, props: Object) => {
   return Object.keys(props).reduce((state, propName) => {
     return excludeKeys.includes(propName)
       ? state

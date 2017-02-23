@@ -13,7 +13,10 @@ const List = ({ children, className, size, ...props }) => {
 };
 
 List.propTypes = {
-  children: React.PropTypes.element,
+  children: React.PropTypes.oneOfType([
+    React.PropTypes.array,
+    React.PropTypes.element,
+  ]),
   size: React.PropTypes.string,
   className: React.PropTypes.string,
 };

@@ -13,7 +13,7 @@ const TwoLineList = ({ children, className, view = 'default', ...props }) => {
 };
 
 TwoLineList.propTypes = {
-  children: React.PropTypes.element,
+  children: React.PropTypes.array,
   className: React.PropTypes.string,
   view: React.PropTypes.string,
 };
