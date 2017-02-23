@@ -13,10 +13,12 @@ import {
   getQuery,
   getShowBookmarks,
   getIsTabPinned,
+  getNumWindows,
 } from './selectors.js';
 
 import {
   FETCH_TABS_SUCCESS,
+  SET_WINDOWS,
   SET_QUERY,
   SET_MODE,
   SET_HIGHLIGHTED_TAB_ID,
@@ -136,6 +138,15 @@ export const setModeDefault = () => (dispatch) => {
   });
 };
 
+export const fetchWindows = () => (dispatch) => {
+  Chrome.getWindows().then(windows => {
+    dispatch({
+      type: SET_WINDOWS,
+      windows,
+    });
+  });
+}
+
 export const fetchTabsSuccess = (tabs) => ({
   type: FETCH_TABS_SUCCESS,
   tabs: tabs.map(tab => {
@@ -157,7 +168,6 @@ export const setDragging = (dragging) => ({
   type: SET_DRAGGING,
   dragging,
 });
-
 
 
 export const sortTabs = () => (dispatch, getState) => {
@@ -253,3 +263,12 @@ export const toggleBookmarksVisibility = () => (dispatch, getState) => dispatch(
   type: SET_WINDOWS_VISIBILITY,
   visible: getState().showBookmarks ? false : true,
 });
+
+export const openWindowsIfMultiple = () => (dispatch, getState) => {
+  const numWindows = getNumWindows(getState());
+  if (numWindows > 1) {
+    dispatch(toggleBookmarksVisibility());
+  } else {
+    dispatch(moveSelectedTabsToWindow());
+  }
+};

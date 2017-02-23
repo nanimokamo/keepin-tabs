@@ -14,6 +14,7 @@ import {
   SET_BOOKMARKS_VISIBILITY,
   SET_WINDOWS_VISIBILITY,
   TOGGLE_TAB_SELECTED,
+  SET_WINDOWS,
 } from '../constants.js';
 
 const tabs = (state = [], action) => {
@@ -23,6 +24,11 @@ const tabs = (state = [], action) => {
     default:
       return state;
   }
+};
+
+const windows = (state = [], action) => {
+  if (action.type !== SET_WINDOWS) return state;
+  return action.windows;
 };
 
 const selectedTabIds = (state = [], action) => {
@@ -101,6 +107,7 @@ const createReducer = () => {
     showBookmarks,
     isDragging,
     showWindows,
+    windows,
   });
 };
 

@@ -10,6 +10,7 @@
   align-items: center;
   background-color: $TERTIARY;
   color: $WHITE;
+  cursor: default;
   transition: background-color $TRANSITION_SPEED ease;
 
   &:after {

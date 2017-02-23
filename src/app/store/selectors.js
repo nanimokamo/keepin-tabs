@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import { sortBy } from '../utils.js';
 
 export const getTabs = (state) => state.tabs;
+export const getWindows = (state) => state.windows;
 export const getQuery = (state) => state.query.toLowerCase();
 export const getHighlightedTabId = (state) => state.highlightedTabId;
 export const getListView = (state) => state.listView;
@@ -10,6 +11,11 @@ export const getIsDragging = (state) => state.isDragging;
 export const getMode = (state) => state.selectedTabIds.length ? 'select' : state.mode;
 export const getShowBookmarks = (state) => state.showBookmarks;
 export const getShowWindows = (state) => state.showWindows;
+
+export const getNumWindows = createSelector(
+  [getWindows],
+  (windows) => windows.length,
+);
 
 export const getIsTabPinned = (id) => createSelector(
   [getTabs],

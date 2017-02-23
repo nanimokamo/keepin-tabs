@@ -20,7 +20,7 @@ const HeaderSelect = ({ cancelSelect, numSelectedTabs, showBookmarks, sortTabs, 
       <div className="Header-actions">
         <IconButton
           onClick={showWindows}
-          icon="move-to-window"
+          icon="window"
           title="Move to window"
         />
         <IconButton

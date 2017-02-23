@@ -3,8 +3,7 @@
   align-items: center;
   justify-content: flex-start;
   cursor: pointer;
-  // padding: 0 $PADDING_NORMAL;
-  font-size: 14px;
+  font-size: 13px;
 
   &:hover {
     background-color: $LIGHTEST_GREY_2;
@@ -50,8 +49,7 @@
   font-size: 13px;
 
   .List[data-size="large"] & {
-    font-size: 15px;
-    padding: $PADDING_NORMAL 24px;
+    padding: ($PADDING_NORMAL * 0.75) 24px;
   }
 
   .ListItem-icon ~ &, .List[data-size="large"] .ListItem-icon ~ & {

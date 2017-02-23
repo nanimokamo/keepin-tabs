@@ -6,20 +6,15 @@ import Dialog from '../shared/Dialog';
 import List from '../shared/List';
 import ListItem from '../shared/List/ListItem';
 
-import * as Chrome from '../../chrome.js';
-
 import { toggleWindowsVisibility, moveSelectedTabsToWindow } from '../../store/actions.js';
-import { getShowWindows } from '../../store/selectors.js';
+import { getShowWindows, getWindows } from '../../store/selectors.js';
 
 class Windows extends React.Component {
   static propTypes = {
+    windows: React.PropTypes.array,
     hideWindows: React.PropTypes.func,
     open: React.PropTypes.bool,
     moveSelectedTabsToWindow: React.PropTypes.func,
-  }
-
-  state = {
-    windows: [],
   }
 
   constructor(props) {
@@ -28,15 +23,6 @@ class Windows extends React.Component {
     this.moveToNewWindow = this.moveToNewWindow.bind(this);
     this.renderWindowsItem = this.renderWindowsItem.bind(this);
     this.renderNewWindowsItem = this.renderNewWindowsItem.bind(this);
-  }
-
-  componentDidMount() {
-    this.getWindows();
-  }
-
-  async getWindows() {
-    const windows = await Chrome.getWindows();
-    this.setState({ windows });
   }
 
   moveToNewWindow() {
@@ -72,8 +58,7 @@ class Windows extends React.Component {
   }
 
   render() {
-    const { windows } = this.state;
-    const { hideWindows, open } = this.props;
+    const { windows, hideWindows, open } = this.props;
 
     return (
       <Dialog
@@ -98,6 +83,7 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  windows: getWindows,
   open: getShowWindows,
 });
 

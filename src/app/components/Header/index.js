@@ -21,7 +21,7 @@ import {
   closeTabs,
   clearQuery,
   toggleBookmarksVisibility,
-  toggleWindowsVisibility,
+  openWindowsIfMultiple,
 } from '../../store/actions.js'
 
 import HeaderDefault from './default.js';
@@ -42,7 +42,7 @@ const Header = ({
   cancelSearch,
   cancelSelect,
   numSelectedTabs,
-  toggleWindowsVisibility,
+  openWindowsIfMultiple,
   toggleBookmarksVisibility,
   closeTabs,
 }) => {
@@ -71,7 +71,7 @@ const Header = ({
           cancelSelect={cancelSelect}
           numSelectedTabs={numSelectedTabs}
           showBookmarks={toggleBookmarksVisibility}
-          showWindows={toggleWindowsVisibility}
+          showWindows={openWindowsIfMultiple}
           sortTabs={sortTabs}
           closeTabs={closeTabs}
         />
@@ -95,7 +95,7 @@ Header.propTypes = {
   cancelSearch: React.PropTypes.func,
   cancelSelect: React.PropTypes.func,
   setModeDefault: React.PropTypes.func,
-  toggleWindowsVisibility: React.PropTypes.func,
+  openWindowsIfMultiple: React.PropTypes.func,
   toggleBookmarksVisibility: React.PropTypes.func,
   closeTabs: React.PropTypes.func,
 };
@@ -104,7 +104,7 @@ const mapDispatchToProps = {
   setQuery,
   setModeDefault,
   setModeSearch,
-  toggleWindowsVisibility,
+  openWindowsIfMultiple,
   toggleBookmarksVisibility,
   clearQuery,
   cancelSelect: deselectAllTabs,

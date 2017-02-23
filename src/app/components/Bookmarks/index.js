@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 
 import * as Chrome from '../../chrome.js';
 
-+import { toggleBookmarksVisibility, addSelectedTabsToFolder } from '../../store/actions.js';
+import { toggleBookmarksVisibility, addSelectedTabsToFolder } from '../../store/actions.js';
 import { getShowBookmarks } from '../../store/selectors.js'
 
 import BottomSheet from '../shared/BottomSheet';
