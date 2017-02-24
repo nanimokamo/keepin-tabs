@@ -32,8 +32,12 @@
     background-color: lighten($TERTIARY, 47.5%);
   }
 
+  // TODO: Change these styles
   &[data-dragged-over="true"] {
     background-color: red;
+  }
+  &[data-dragging="true"] {
+    opacity: 0.5;
   }
 
   .TwoLineList[data-view="compact"] & {

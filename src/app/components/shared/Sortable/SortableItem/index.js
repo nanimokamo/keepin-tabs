@@ -6,14 +6,18 @@ const SortableItem = (Component) => class SortableItem extends React.Component {
 	static propTypes = {
 		index: React.PropTypes.number,
 		collection: React.PropTypes.string,
+
 		isDraggedOverProps: React.PropTypes.object,
+		isBeingDraggedProps: React.PropTypes.object,
 	}
 
 	static defaultProps = {
 		isDraggedOverProps: {},
+		isBeingDraggedProps: {},
 	}
 
 	static contextTypes = {
+		isActive: React.PropTypes.bool,
 		onDragStart: React.PropTypes.func,
 		onDragEnd: React.PropTypes.func,
 		onDragOver: React.PropTypes.func,
@@ -22,6 +26,7 @@ const SortableItem = (Component) => class SortableItem extends React.Component {
 
 	state = {
 		isDraggedOver: false,
+		isBeingDragged: false,
 	}
 
 	constructor(props) {
@@ -30,6 +35,12 @@ const SortableItem = (Component) => class SortableItem extends React.Component {
 		this.onDragEnd = this.onDragEnd.bind(this);
 		this.onDragOver = this.onDragOver.bind(this);
 		this.onDragLeave = this.onDragLeave.bind(this);
+	}
+
+	componentWillReceiveProps(nextProps, nextContext) {
+		if (nextContext.draggingIndexes !== this.context.draggingIndexes) {
+			this.setState({ isBeingDragged: nextContext.draggingIndexes.includes(this.props.index) });
+		}
 	}
 
 	onDragStart(e) {
@@ -43,7 +54,7 @@ const SortableItem = (Component) => class SortableItem extends React.Component {
 	}
 
 	onDragOver() {
-		if (this.state.isDraggedOver) return;
+		if (this.state.isDraggedOver || !this.context.isActive || this.state.isBeingDragged) return;
 		this.setState({ isDraggedOver: true });
 		this.context.onDragOver(this.props.index);
 	}
@@ -54,6 +65,7 @@ const SortableItem = (Component) => class SortableItem extends React.Component {
 
 	render() {
 		const isDraggedOverProps = this.state.isDraggedOver ? this.props.isDraggedOverProps : {};
+		const isBeingDraggedProps = this.state.isBeingDragged ? this.props.isBeingDraggedProps : {};
 
 		return (
 			<Component
@@ -64,6 +76,7 @@ const SortableItem = (Component) => class SortableItem extends React.Component {
 				onDragLeave={this.onDragLeave}
 				draggable
 				{...isDraggedOverProps}
+				{...isBeingDraggedProps}
 			/>
 		);
 	}

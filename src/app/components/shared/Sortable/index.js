@@ -8,17 +8,18 @@ const Sortable = (Component) => class Sortable extends React.Component {
 		groupIndexes: React.PropTypes.array,
 	}
 
+	state = {
+		draggingIndex: undefined,
+		draggingIndexes: [],
+		draggedToIndex: undefined,
+	}
+
 	static childContextTypes = {
 		onDragStart: React.PropTypes.func,
 		onDragEnd: React.PropTypes.func,
 		onDragOver: React.PropTypes.func,
 		draggingIndexes: React.PropTypes.array,
-	}
-
-	state = {
-		draggingIndex: undefined,
-		draggingIndexes: [],
-		draggedToIndex: undefined,
+		isActive: React.PropTypes.bool,
 	}
 
 	getChildContext() {
@@ -27,6 +28,7 @@ const Sortable = (Component) => class Sortable extends React.Component {
 			onDragEnd: this.onDragEnd,
 			onDragOver: this.onDragOver,
 			draggingIndexes: this.state.draggingIndexes,
+			isActive: this.state.draggingIndexes.length > 0,
 		};
 	}
 
@@ -38,6 +40,7 @@ const Sortable = (Component) => class Sortable extends React.Component {
 	}
 
 	onDragStart(draggingIndex) {
+		console.log('indexes being dragged', this.getDraggingIndexes(draggingIndex));
 		this.setState({
 			draggingIndex,
 			draggingIndexes: this.getDraggingIndexes(draggingIndex),
@@ -45,15 +48,17 @@ const Sortable = (Component) => class Sortable extends React.Component {
 	}
 
 	getDraggingIndexes(draggingIndex) {
-		let draggingIndexes = [draggingIndex];
-		
-		if (this.props.groupIndexes.includes(draggingIndex)) {
-			draggingIndexes = [
-				...draggingIndexes,
-				...this.props.groupIndexes.filter(index => index !== draggingIndex)
-			];
+		const draggingIndexes = do {
+			if (this.props.groupIndexes.includes(draggingIndex)) {
+				[
+					draggingIndex,
+					...this.props.groupIndexes.filter(index => index !== draggingIndex)
+				];
+			} else {
+				[draggingIndex];
+			}
 		}
-
+	
 		return draggingIndexes;
 	}
 
@@ -65,6 +70,7 @@ const Sortable = (Component) => class Sortable extends React.Component {
 
 		this.setState({
 			draggingIndex: undefined,
+			draggingIndexes: [],
 			draggedToIndex: undefined,
 		});
 	}

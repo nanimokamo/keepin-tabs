@@ -17,6 +17,7 @@ class TwoLineListItem extends React.Component {
     selected: React.PropTypes.bool,
     highlighted: React.PropTypes.bool,
     draggedOver: React.PropTypes.bool,
+    dragging: React.PropTypes.bool,
     onClickData: React.PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.bool,
@@ -60,7 +61,7 @@ class TwoLineListItem extends React.Component {
   }
 
   render() {
-    const { icon, line1, line2, actions, selected, highlighted, className, draggedOver } = this.props;
+    const { icon, line1, line2, actions, selected, highlighted, className, draggedOver, dragging } = this.props;
 
     return (
       <li
@@ -70,6 +71,7 @@ class TwoLineListItem extends React.Component {
         data-selected={selected}
         data-highlighted={highlighted}
         data-dragged-over={draggedOver}
+        data-dragging={dragging}
         ref={(el) => this.el = el}
       >
         <div className="TwoLineListItem-mainAction" onClick={this.onClickMainAction}>

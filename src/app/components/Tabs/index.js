@@ -103,6 +103,7 @@ class Tabs extends Component {
       <SortableTabsItem
         {...excludeProps(['index', 'pinned', 'active', 'url', 'favIconUrl', 'status'], props)}
         isDraggedOverProps={{ draggedOver: true }}
+        isBeingDraggedProps={{ dragging: true }}
         className={props.active ? 'TabsList-item is-active' : ''}
         index={index}
         key={props.id}
